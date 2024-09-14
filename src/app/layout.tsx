@@ -30,6 +30,7 @@ export default function RootLayout(props: RootProps) {
         className={clsx(
           "antialiased",
           "bg-zinc-50 heropattern-banknote-zinc-100",
+          "flex flex-col min-h-full",
         )}
       >
         <Banner />
