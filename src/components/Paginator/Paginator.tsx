@@ -38,7 +38,6 @@ export function Paginator(props: PaginatorProps) {
                 "box-border",
                 "px-4 py-3 border border-zinc-200 bg-white rounded leading-none shadow-sm",
                 "hover:bg-zinc-100 transition",
-                value === page && "bg-black text-white border-black",
               )}
             >
               {value + 1}

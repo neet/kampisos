@@ -18,14 +18,8 @@ export default async function Home() {
         </p>
       </div>
 
-      <search>
-        <form
-          method="GET"
-          action="/search"
-          className="mt-4 max-w-screen-sm mx-auto"
-        >
-          <Search defaultValue="" />
-        </form>
+      <search className="mt-4 max-w-screen-sm mx-auto">
+        <Search defaultValue="" />
       </search>
     </main>
   );

@@ -3,22 +3,15 @@ import { SearchResponse } from "algoliasearch";
 import clsx from "clsx";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
-import { Entry } from "@/components/Entry";
-import { Paginator } from "@/components/Paginator";
 import { Search } from "@/components/Search/Search";
 import { searchClient } from "@/lib/search";
+import { Entry as EntryType } from "@/models/entry";
 
-type Entry = {
-  objectID: string;
-  book: string;
-  title: string;
-  pronoun: string;
-  author: string;
-  dialect: string;
-  text: string;
-  translation: string;
-};
+import { FooterContent } from "./_FooterContent";
+import { Result, ResultSkeleton } from "./_Result";
+import { SearchStats } from "./_SearchStats";
 
 export const revalidate = 86_400;
 
@@ -49,8 +42,8 @@ export default async function Home(props: HomeProps) {
 
   const page = Number(searchParams.page ?? 0);
 
-  const result: SearchResponse<Entry> =
-    await searchClient.searchSingleIndex<Entry>({
+  const result: Promise<SearchResponse<EntryType>> =
+    searchClient.searchSingleIndex<EntryType>({
       indexName: "entries",
       searchParams: {
         query: q,
@@ -70,36 +63,31 @@ export default async function Home(props: HomeProps) {
       >
         <h2 className="block text-2xl font-bold">「{q}」の検索結果</h2>
 
-        <search className="w-full md:w-2/3">
-          <form method="GET" action="/search" className="max-w-screen-sm">
-            <Search defaultValue={q} />
-          </form>
+        <search className="w-full md:w-2/3 max-w-screen-sm">
+          <Search defaultValue={q} />
         </search>
 
-        <p className="text-zinc-500 flex gap-4">
-          {result.nbHits}件中{result.hits.length}件を表示
-        </p>
+        <Suspense
+          fallback={
+            <div className="w-1/3 h-[1lh] bg-zinc-300 rounded animate-pulse" />
+          }
+        >
+          <SearchStats resultPromise={result} />
+        </Suspense>
       </header>
 
-      <article className="bg-white border-y border-zinc-200">
-        <ul className="divide-y-2 divide-zinc-100 max-w-screen-lg mx-auto p-4">
-          {result.hits.map((hit) => (
-            <li key={hit.objectID} className="py-4">
-              <Entry
-                text={(hit._highlightResult?.text as any).value}
-                translation={(hit._highlightResult?.translation as any).value}
-                book={hit.book}
-                title={hit.title}
-                author={hit.author}
-                dialect={hit.dialect}
-              />
-            </li>
-          ))}
-        </ul>
+      <article className="bg-white border-y border-zinc-200 ">
+        <div className="max-w-screen-lg mx-auto p-4">
+          <Suspense fallback={<ResultSkeleton />}>
+            <Result resultPromise={result} />
+          </Suspense>
+        </div>
       </article>
 
       <footer className="max-w-screen-lg mx-auto p-4">
-        <Paginator page={page} totalPages={result.nbPages} />
+        <Suspense fallback={null}>
+          <FooterContent page={page} resultPromise={result} />
+        </Suspense>
       </footer>
     </main>
   );

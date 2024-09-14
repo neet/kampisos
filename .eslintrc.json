@@ -7,10 +7,7 @@
     "next/core-web-vitals",
     "plugin:storybook/recommended"
   ],
-  "plugins": [
-    "import",
-    "simple-import-sort"
-  ],
+  "plugins": ["import", "simple-import-sort"],
   "env": {
     "browser": true,
     "node": true
@@ -20,10 +17,7 @@
   },
   "overrides": [
     {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
+      "files": ["*.ts", "*.tsx"],
       "extends": [
         "next/typescript",
         "plugin:import/typescript",

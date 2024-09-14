@@ -1,4 +1,7 @@
+"use client";
+
 import clsx from "clsx";
+import { useRouter } from "next/navigation";
 import { FC } from "react";
 
 export type SearchProps = {
@@ -9,8 +12,31 @@ export type SearchProps = {
 export const Search: FC<SearchProps> = (props) => {
   const { className, defaultValue } = props;
 
+  const router = useRouter();
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const q = formData.get("q") as string;
+
+    const searchParams = new URLSearchParams();
+    searchParams.set("q", q);
+
+    const url = new URL(form.action);
+    url.search = searchParams.toString();
+
+    router.push(url.toString());
+  };
+
   return (
-    <div className={className}>
+    <form
+      method="GET"
+      action="/search"
+      className={clsx(className)}
+      onSubmit={handleSubmit}
+    >
       <label htmlFor="input-q" className="sr-only">
         キーワードを入力してください
       </label>
@@ -48,6 +74,6 @@ export const Search: FC<SearchProps> = (props) => {
           検索
         </button>
       </div>
-    </div>
+    </form>
   );
 };
