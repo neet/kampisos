@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-em {
-  color: blue;
-}
-
 /* :root {
   --background: #ffffff;
   --foreground: #171717;
