@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   return (
-    <main className="w-full h-full flex-grow flex items-center justify-center p-4">
+    <main className="flex items-center justify-center p-4">
       <div>
         <div className="text-center">
           <h2 className="text-2xl font-bold leading-tight">
