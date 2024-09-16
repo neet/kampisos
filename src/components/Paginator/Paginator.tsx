@@ -3,6 +3,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+import { BsCaretLeftFill, BsCaretRightFill } from "react-icons/bs";
 
 import { createPages } from "@/utils/pages";
 
@@ -27,25 +28,72 @@ export function Paginator(props: PaginatorProps) {
     return pathname + "?" + params.toString();
   };
 
+  const itemClassName = clsx(
+    "block",
+    "box-border",
+    "h-full",
+    "leading-none",
+    "text-center",
+  );
+
+  const ellipsisClassName = clsx(itemClassName, "p-2", "text-zinc-400");
+
+  const linkClassName = (current: boolean = false) =>
+    clsx(
+      itemClassName,
+      "px-4 py-3 rounded",
+      current
+        ? "bg-zinc-800 border border-zinc-800 text-white"
+        : "border border-zinc-200 bg-white hover:bg-zinc-100 transition",
+    );
+
   return (
-    <nav className="mt-4">
+    <nav className="mt-4" aria-label="ページネーション">
       <ul className="flex gap-1 justify-center">
+        <li>
+          <Link href={createHref(page - 1)} className={linkClassName()}>
+            <BsCaretLeftFill
+              title="前のページへ"
+              className="size-3 text-zinc-400"
+            />
+          </Link>
+        </li>
+
+        {pages.hasMore.head && (
+          <li>
+            <a className={ellipsisClassName}>&#8230;</a>
+          </li>
+        )}
+
         {pages.value.map((value) => (
           <li key={value}>
             <Link
               href={createHref(value)}
-              className={clsx(
-                "box-border",
-                "px-4 py-3 rounded leading-none shadow-sm",
-                value === page
-                  ? "bg-zinc-900 border border-zinc-950 text-white"
-                  : "border border-zinc-200 bg-white hover:bg-zinc-100 transition",
-              )}
+              className={linkClassName(value === page)}
             >
               {value + 1}
+              <span className="sr-only">ページ</span>
+              {value === totalPages - 1 && (
+                <span className="sr-only">（最後のページ）</span>
+              )}
             </Link>
           </li>
         ))}
+
+        {pages.hasMore.tail && (
+          <li>
+            <a className={ellipsisClassName}>&#8230;</a>
+          </li>
+        )}
+
+        <li>
+          <Link href={createHref(page + 1)} className={linkClassName()}>
+            <BsCaretRightFill
+              title="次のページへ"
+              className="size-3 text-zinc-400"
+            />
+          </Link>
+        </li>
       </ul>
     </nav>
   );

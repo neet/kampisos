@@ -14,6 +14,17 @@ export const Result: FC<ResultProps> = (props) => {
 
   const result = use(resultPromise);
 
+  if (result.hits.length <= 0) {
+    return (
+      <div className="py-8 text-center">
+        <h2 className="font-bold text-lg">用例が見つかりませんでした</h2>
+        <p className="mt-2 text-zinc-500 leading-relaxed">
+          別のキーワードや、異なる検索条件で再度お試しください。
+        </p>
+      </div>
+    );
+  }
+
   return (
     <ul className="divide-y-2 divide-zinc-100">
       {result.hits.map((hit) => (
@@ -36,7 +47,7 @@ export const Result: FC<ResultProps> = (props) => {
 export const ResultSkeleton: FC = () => {
   return (
     <ul className="divide-y-2 divide-zinc-100">
-      {[...Array(5)].map((_, index) => (
+      {[...Array(8)].map((_, index) => (
         <li key={index} className="py-4">
           <EntrySkeleton />
         </li>

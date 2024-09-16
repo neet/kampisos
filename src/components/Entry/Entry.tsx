@@ -50,23 +50,18 @@ export const EntrySkeleton: FC = () => {
     <div>
       <div className="flex gap-2 flex-col md:flex-row md:gap-4">
         <div className="flex-1 space-y-1">
-          <div className="w-1/3 h-[1lh] bg-zinc-200 rounded animate-pulse" />
-          <div className="w-2/3 h-[1lh] bg-zinc-200 rounded animate-pulse" />
-          <div className="w-1/2 h-[1lh] bg-zinc-200 rounded animate-pulse" />
+          <div className="w-1/3 h-[1lh] bg-zinc-100 rounded animate-pulse" />
+          <div className="w-1/2 h-[1lh] bg-zinc-100 rounded animate-pulse" />
         </div>
         <div className="flex-1 space-y-1">
-          <div className="w-1/3 h-[1lh] bg-zinc-200 rounded animate-pulse" />
-          <div className="w-2/3 h-[1lh] bg-zinc-200 rounded animate-pulse" />
-          <div className="w-1/2 h-[1lh] bg-zinc-200 rounded animate-pulse" />
+          <div className="w-1/3 h-[1lh] bg-zinc-100 rounded animate-pulse" />
+          <div className="w-2/3 h-[1lh] bg-zinc-100 rounded animate-pulse" />
         </div>
       </div>
 
       <div className="mt-2 flex justify-between items-center">
-        <div className="w-1/3 h-3 bg-zinc-200 rounded animate-pulse" />
-
         <div className="shrink-0 grow flex gap-2 justify-end">
-          <div className="w-1/3 h-3 bg-zinc-200 rounded animate-pulse" />
-          <div className="w-1/3 h-3 bg-zinc-200 rounded animate-pulse" />
+          <div className="w-1/4 h-3 bg-zinc-100 rounded animate-pulse" />
         </div>
       </div>
     </div>
