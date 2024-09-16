@@ -23,6 +23,7 @@ export const Result: FC<ResultProps> = (props) => {
             translation={(hit._highlightResult?.translation as any).value}
             book={hit.book}
             title={hit.title}
+            url={hit.url}
             author={hit.author}
             dialect={hit.dialect}
           />

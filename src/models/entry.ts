@@ -2,6 +2,7 @@ export type Entry = {
   objectID: string;
   book: string;
   title: string;
+  url: string;
   pronoun: string;
   author: string;
   dialect: string;

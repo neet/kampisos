@@ -7,12 +7,13 @@ export type EntryProps = {
   translation: string;
   book: string;
   title: string;
+  url: string;
   author: string | null;
   dialect: string | null;
 };
 
 export const Entry: React.FC<EntryProps> = (props) => {
-  const { text, translation, book, title, author, dialect } = props;
+  const { text, translation, book, title, url, author, dialect } = props;
 
   return (
     <div>
@@ -24,7 +25,14 @@ export const Entry: React.FC<EntryProps> = (props) => {
       <div className="mt-2 flex justify-between items-center">
         <div className="min-w-0 shrink grow-0">
           <p className="text-zinc-500 truncate text-sm w-full block">
-            {book}『{title}』
+            <a
+              href={url}
+              target="_blank"
+              rel="noreferrer"
+              className="underline"
+            >
+              {book}『{title}』
+            </a>
           </p>
         </div>
 

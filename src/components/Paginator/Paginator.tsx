@@ -36,8 +36,10 @@ export function Paginator(props: PaginatorProps) {
               href={createHref(value)}
               className={clsx(
                 "box-border",
-                "px-4 py-3 border border-zinc-200 bg-white rounded leading-none shadow-sm",
-                "hover:bg-zinc-100 transition",
+                "px-4 py-3 rounded leading-none shadow-sm",
+                value === page
+                  ? "bg-zinc-900 border border-zinc-950 text-white"
+                  : "border border-zinc-200 bg-white hover:bg-zinc-100 transition",
               )}
             >
               {value + 1}
