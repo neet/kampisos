@@ -65,7 +65,7 @@ export const EntrySkeleton: FC = () => {
 
       <div className="mt-2 flex justify-between items-center">
         <div className="shrink-0 grow flex gap-2 justify-end">
-          <div className="w-1/4 h-3 bg-zinc-100 dark:bg-zinc-900 rounded animate-pulse" />
+          <div className="w-1/4 text-sm h-[1lh] bg-zinc-100 dark:bg-zinc-900 rounded animate-pulse" />
         </div>
       </div>
     </div>

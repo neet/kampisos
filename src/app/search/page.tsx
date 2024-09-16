@@ -38,7 +38,7 @@ export function generateMetadata(props: HomeProps): Metadata {
   return { title };
 }
 
-export default async function Home(props: HomeProps) {
+export default function Home(props: HomeProps) {
   const { searchParams } = props;
 
   if (!searchParams.q) {
@@ -99,7 +99,7 @@ export default async function Home(props: HomeProps) {
         </Suspense>
       </header>
 
-      <article className="bg-white dark:bg-black border-y border-zinc-200 dark:border-zinc-800">
+      <article className="bg-white dark:bg-black border-y border-zinc-300 dark:border-zinc-700">
         <div className="max-w-screen-lg mx-auto p-4">
           <Suspense fallback={<ResultSkeleton />}>
             <Result resultPromise={result} />

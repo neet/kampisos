@@ -23,6 +23,9 @@ export function Paginator(props: PaginatorProps) {
   const searchParams = useSearchParams();
 
   const createHref = (page: number): string => {
+    if (page < 0) {
+      return "";
+    }
     const params = new URLSearchParams(searchParams);
     params.set("page", String(page));
     return pathname + "?" + params.toString();
@@ -38,7 +41,7 @@ export function Paginator(props: PaginatorProps) {
 
   const ellipsisClassName = clsx(
     itemClassName,
-    "p-2",
+    "py-3 px-1",
     "text-zinc-400 dark:text-zinc-600",
   );
 
@@ -48,8 +51,8 @@ export function Paginator(props: PaginatorProps) {
       "px-4 py-3 rounded shadow-sm",
       current
         ? [
-            "bg-black border border-zinc-800 text-white",
-            "dark:bg-white dark:border-zinc-200 dark:text-zinc-800",
+            "bg-black border border-zinc-700 text-white",
+            "dark:bg-white dark:border-zinc-300 dark:text-zinc-800",
           ]
         : [
             "bg-white border border-zinc-300 bg-white hover:bg-zinc-100",
