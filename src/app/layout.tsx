@@ -29,7 +29,8 @@ export default function RootLayout(props: RootProps) {
       <body
         className={clsx(
           "antialiased",
-          "bg-zinc-50 heropattern-banknote-zinc-100",
+          "text-zinc-950 bg-zinc-50 heropattern-banknote-zinc-100",
+          "dark:text-zinc-50 dark:bg-zinc-900 dark:heropattern-banknote-zinc-950",
           "grid grid-rows-[auto,1fr,auto] grid-cols-[100%] min-h-[100svh]",
         )}
       >

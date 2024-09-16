@@ -7,9 +7,11 @@ export const Banner: FC = () => {
     <header
       className={clsx(
         "sticky top-0",
-        "bg-white/80 backdrop-blur",
-        // "border-b border-zinc-200",
+        "backdrop-blur",
+        "bg-white/80",
+        "dark:bg-black/80",
         "shadow-sm",
+        "dark:shadow-none dark:border-b dark:border-zinc-700",
       )}
     >
       <div className={clsx("box-border", "p-4", "lg:max-w-screen-lg mx-auto")}>

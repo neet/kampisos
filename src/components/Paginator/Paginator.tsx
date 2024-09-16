@@ -36,15 +36,25 @@ export function Paginator(props: PaginatorProps) {
     "text-center",
   );
 
-  const ellipsisClassName = clsx(itemClassName, "p-2", "text-zinc-400");
+  const ellipsisClassName = clsx(
+    itemClassName,
+    "p-2",
+    "text-zinc-400 dark:text-zinc-600",
+  );
 
   const linkClassName = (current: boolean = false) =>
     clsx(
       itemClassName,
-      "px-4 py-3 rounded",
+      "px-4 py-3 rounded shadow-sm",
       current
-        ? "bg-zinc-800 border border-zinc-800 text-white"
-        : "border border-zinc-200 bg-white hover:bg-zinc-100 transition",
+        ? [
+            "bg-black border border-zinc-800 text-white",
+            "dark:bg-white dark:border-zinc-200 dark:text-zinc-800",
+          ]
+        : [
+            "bg-white border border-zinc-300 bg-white hover:bg-zinc-100",
+            "dark:bg-black dark:border-zinc-700 dark:hover:bg-zinc-800",
+          ],
     );
 
   return (
@@ -52,10 +62,7 @@ export function Paginator(props: PaginatorProps) {
       <ul className="flex gap-1 justify-center">
         <li>
           <Link href={createHref(page - 1)} className={linkClassName()}>
-            <BsCaretLeftFill
-              title="前のページへ"
-              className="size-3 text-zinc-400"
-            />
+            <BsCaretLeftFill title="前のページへ" className="size-3" />
           </Link>
         </li>
 
@@ -88,10 +95,7 @@ export function Paginator(props: PaginatorProps) {
 
         <li>
           <Link href={createHref(page + 1)} className={linkClassName()}>
-            <BsCaretRightFill
-              title="次のページへ"
-              className="size-3 text-zinc-400"
-            />
+            <BsCaretRightFill title="次のページへ" className="size-3" />
           </Link>
         </li>
       </ul>

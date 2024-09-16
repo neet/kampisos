@@ -18,7 +18,7 @@ export const Result: FC<ResultProps> = (props) => {
     return (
       <div className="py-8 text-center">
         <h2 className="font-bold text-lg">用例が見つかりませんでした</h2>
-        <p className="mt-2 text-zinc-500 leading-relaxed">
+        <p className="mt-2 text-zinc-600 dark:text-zinc-400 leading-relaxed">
           別のキーワードや、異なる検索条件で再度お試しください。
         </p>
       </div>
@@ -26,7 +26,7 @@ export const Result: FC<ResultProps> = (props) => {
   }
 
   return (
-    <ul className="divide-y-2 divide-zinc-100">
+    <ul className="divide-y-2 divide-zinc-100 dark:divide-zinc-900">
       {result.hits.map((hit) => (
         <li key={hit.objectID} className="py-4">
           <Entry

@@ -69,14 +69,14 @@ export default async function Home(props: HomeProps) {
 
         <Suspense
           fallback={
-            <div className="w-1/4 h-[1lh] bg-zinc-100 rounded animate-pulse" />
+            <div className="w-1/4 h-[1lh] bg-zinc-100 dark:bg-zinc-900 rounded animate-pulse" />
           }
         >
           <SearchStats resultPromise={result} />
         </Suspense>
       </header>
 
-      <article className="bg-white border-y border-zinc-200 ">
+      <article className="bg-white dark:bg-black border-y border-zinc-200 dark:border-zinc-800">
         <div className="max-w-screen-lg mx-auto p-4">
           <Suspense fallback={<ResultSkeleton />}>
             <Result resultPromise={result} />
