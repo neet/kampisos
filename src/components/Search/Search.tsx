@@ -21,10 +21,13 @@ export const Search: FC<SearchProps> = (props) => {
 
       const form = event.currentTarget;
       const formData = new FormData(form);
-      const q = formData.get("q") as string;
-
       const searchParams = new URLSearchParams();
-      searchParams.set("q", q);
+
+      for (const [key, value] of Array.from(formData)) {
+        if (value) {
+          searchParams.append(key, value as string);
+        }
+      }
 
       const url = new URL(form.action);
       url.search = searchParams.toString();

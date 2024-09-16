@@ -18,6 +18,12 @@ export const revalidate = 86_400;
 type HomeProps = {
   searchParams: {
     q?: string;
+
+    dialect?: string;
+    author?: string;
+    book?: string;
+    title?: string;
+
     page?: number;
   };
 };
@@ -34,19 +40,34 @@ export function generateMetadata(props: HomeProps): Metadata {
 
 export default async function Home(props: HomeProps) {
   const { searchParams } = props;
-  const { q } = searchParams;
 
-  if (!q) {
+  if (!searchParams.q) {
     return notFound();
   }
 
   const page = Number(searchParams.page ?? 0);
 
+  const facetFilters: string[] = [];
+
+  if (searchParams.dialect) {
+    facetFilters.push(`dialect:${searchParams.dialect}`);
+  }
+  if (searchParams.author) {
+    facetFilters.push(`author:${searchParams.author}`);
+  }
+  if (searchParams.book) {
+    facetFilters.push(`book:${searchParams.book}`);
+  }
+  if (searchParams.title) {
+    facetFilters.push(`title:${searchParams.title}`);
+  }
+
   const result: Promise<SearchResponse<EntryType>> =
     searchClient.searchSingleIndex<EntryType>({
       indexName: "entries",
       searchParams: {
-        query: q,
+        query: searchParams.q,
+        facetFilters,
         page,
         attributesToHighlight: ["text", "translation"],
       },
@@ -61,10 +82,12 @@ export default async function Home(props: HomeProps) {
           "px-4 md:px-0",
         )}
       >
-        <h2 className="block text-2xl font-bold">「{q}」の検索結果</h2>
+        <h2 className="block text-2xl font-bold">
+          「{searchParams.q}」の検索結果
+        </h2>
 
         <search className="w-full md:w-2/3 max-w-screen-sm">
-          <Search defaultValue={q} />
+          <Search defaultValue={searchParams.q} />
         </search>
 
         <Suspense
