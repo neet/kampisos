@@ -1,7 +1,9 @@
-import clsx from "clsx";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
+import { FiExternalLink } from "react-icons/fi";
 
 import { parse } from "@/utils/parse";
+
+import { Tag } from "../Tag";
 
 export type EntryProps = {
   text: string;
@@ -30,9 +32,10 @@ export const Entry: React.FC<EntryProps> = (props) => {
               href={url}
               target="_blank"
               rel="noreferrer"
-              className="underline"
+              className="hover:underline"
             >
               {book}『{title}』
+              <FiExternalLink className="inline-block size-3 mr-1 align-baseline" />
             </a>
           </p>
         </div>
@@ -68,18 +71,3 @@ export const EntrySkeleton: FC = () => {
     </div>
   );
 };
-
-const Tag: FC<{ children: ReactNode }> = ({ children }) => (
-  <div
-    className={clsx(
-      "px-2.5 py-0.5",
-      "border rounded-full",
-      "text-sm",
-      "text-zinc-600 dark:text-zinc-400",
-      "border-zinc-300 bg-zinc-100",
-      "dark:border-zinc-700 dark:bg-zinc-900",
-    )}
-  >
-    {children}
-  </div>
-);

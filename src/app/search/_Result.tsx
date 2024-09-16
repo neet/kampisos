@@ -46,7 +46,7 @@ export const Result: FC<ResultProps> = (props) => {
 
 export const ResultSkeleton: FC = () => {
   return (
-    <ul className="divide-y-2 divide-zinc-100">
+    <ul className="divide-y-2 divide-zinc-100 dark:divide-zinc-900">
       {[...Array(8)].map((_, index) => (
         <li key={index} className="py-4">
           <EntrySkeleton />
