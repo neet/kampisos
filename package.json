@@ -11,6 +11,11 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@mdx-js/loader": "^3.0.1",
+    "@mdx-js/react": "^3.0.1",
+    "@next/mdx": "^14.2.5",
+    "@tailwindcss/typography": "^0.5.13",
+    "@types/mdx": "^2.0.13",
     "algoliasearch": "^5.4.0",
     "clsx": "^2.1.1",
     "html-react-parser": "5.1.15",

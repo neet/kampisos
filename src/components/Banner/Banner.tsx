@@ -14,12 +14,25 @@ export const Banner: FC = () => {
         "dark:shadow-none dark:border-b dark:border-zinc-700",
       )}
     >
-      <div className={clsx("box-border", "p-4", "lg:max-w-screen-lg mx-auto")}>
-        <Link href="/">
-          <h1 className="text-lg font-bold hover:underline">
-            アイヌ語コーパス横断検索
-          </h1>
-        </Link>
+      <div
+        className={clsx(
+          "flex",
+          "box-border",
+          "p-4",
+          "lg:max-w-screen-lg mx-auto",
+        )}
+      >
+        <div className="flex flex-1">
+          <Link href="/">
+            <h1 className="text-lg font-bold hover:underline">
+              アイヌ語コーパス横断検索
+            </h1>
+          </Link>
+        </div>
+
+        <div className="flex justify-end text-blue-600 dark:text-blue-400 underline">
+          <Link href="/about">このサイトについて</Link>
+        </div>
       </div>
     </header>
   );

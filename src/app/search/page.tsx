@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import { Search } from "@/components/Search/Search";
+import { Search } from "@/components/Search";
 import { searchClient } from "@/lib/search";
 import { Entry as EntryType } from "@/models/entry";
 
@@ -15,7 +15,7 @@ import { SearchStats } from "./_SearchStats";
 
 export const revalidate = 86_400;
 
-type HomeProps = {
+type SearchPageProps = {
   searchParams: {
     q?: string;
 
@@ -28,7 +28,7 @@ type HomeProps = {
   };
 };
 
-export function generateMetadata(props: HomeProps): Metadata {
+export function generateMetadata(props: SearchPageProps): Metadata {
   if (!props.searchParams.q) {
     throw new Error("q is required");
   }
@@ -40,7 +40,7 @@ export function generateMetadata(props: HomeProps): Metadata {
   };
 }
 
-export default function Home(props: HomeProps) {
+export default function SearchPage(props: SearchPageProps) {
   const { searchParams } = props;
 
   if (!searchParams.q) {
