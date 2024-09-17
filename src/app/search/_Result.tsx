@@ -26,7 +26,7 @@ export const Result: FC<ResultProps> = (props) => {
   }
 
   return (
-    <ul className="divide-y-2 divide-zinc-100 dark:divide-zinc-900">
+    <ul className="divide-y-2 divide-zinc-100 dark:divide-zinc-900 -my-4">
       {result.hits.map((hit) => (
         <li key={hit.objectID} className="py-4">
           <Entry
