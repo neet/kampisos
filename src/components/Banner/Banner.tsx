@@ -31,7 +31,7 @@ export const Banner: FC = () => {
         </div>
 
         <div className="flex justify-end text-blue-600 dark:text-blue-400 underline">
-          <Link href="/about">このサイトについて</Link>
+          <Link href="/about">利用方法</Link>
         </div>
       </div>
     </header>

@@ -78,6 +78,7 @@ export const Search: FC<SearchProps> = (props) => {
             "disabled:bg-zinc-600",
             "dark:bg-white dark:text-black",
             "dark:disabled:bg-zinc-200",
+            "forced-colors:border forced-colors:border-[ButtonBorder]",
           )}
           type="submit"
           disabled={isPending}

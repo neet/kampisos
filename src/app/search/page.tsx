@@ -94,7 +94,7 @@ export default function SearchPage(props: SearchPageProps) {
 
         <Suspense
           fallback={
-            <div className="w-1/4 h-[1lh] bg-zinc-100 dark:bg-zinc-900 rounded animate-pulse" />
+            <div className="w-1/4 h-[1lh] bg-zinc-100 dark:bg-zinc-900 forced-colors:bg-[GrayText] rounded animate-pulse" />
           }
         >
           <SearchStats resultPromise={result} />
