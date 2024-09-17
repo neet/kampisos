@@ -33,9 +33,11 @@ export function generateMetadata(props: HomeProps): Metadata {
     throw new Error("q is required");
   }
 
-  const title = `「${props.searchParams.q}」の検索結果`;
-
-  return { title };
+  return {
+    title: `「${props.searchParams.q}」の検索結果`,
+    description:
+      "アイヌ語・日本語のキーワードを入力して複数のコーパスを横断検索できます",
+  };
 }
 
 export default function Home(props: HomeProps) {

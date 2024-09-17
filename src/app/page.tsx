@@ -4,6 +4,8 @@ import { Search } from "@/components/Search";
 
 export const metadata: Metadata = {
   title: "アイヌ語コーパス横断検索",
+  description:
+    "アイヌ語・日本語のキーワードを入力して複数のコーパスを横断検索できます",
 };
 
 export default async function Home() {
@@ -15,7 +17,7 @@ export default async function Home() {
             アイヌ語コーパス横断検索
           </h2>
           <p className="leading-relaxed mt-1">
-            アイヌ語・日本語のキーワードを入力してコーパスを全文検索できます
+            アイヌ語・日本語のキーワードを入力して複数のコーパスを横断検索できます
           </p>
         </div>
 
