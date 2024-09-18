@@ -68,7 +68,7 @@ export default function SearchPage(props: SearchPageProps) {
     searchClient.searchSingleIndex<EntryType>({
       indexName: "entries",
       searchParams: {
-        query: searchParams.q,
+        query: searchParams.q.trim(),
         facetFilters,
         page,
         attributesToHighlight: ["text", "translation"],

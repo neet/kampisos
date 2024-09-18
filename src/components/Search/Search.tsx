@@ -65,6 +65,7 @@ export const Search: FC<SearchProps> = (props) => {
             "rounded-lg rounded-r-none",
           )}
           defaultValue={defaultValue}
+          required
           autoCapitalize="off"
           autoCorrect="off"
           autoComplete="off"
