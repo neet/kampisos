@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { useRouter } from "next/navigation";
+import { useTransitionRouter } from "next-view-transitions";
 import { FC, useTransition } from "react";
 
 export type SearchProps = {
@@ -12,7 +12,7 @@ export type SearchProps = {
 export const Search: FC<SearchProps> = (props) => {
   const { className, defaultValue } = props;
 
-  const router = useRouter();
+  const router = useTransitionRouter();
   const [isPending, startTransition] = useTransition();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -42,6 +42,9 @@ export const Search: FC<SearchProps> = (props) => {
       action="/search"
       className={clsx(className)}
       onSubmit={handleSubmit}
+      style={{
+        viewTransitionName: "search-form",
+      }}
     >
       <label htmlFor="input-q" className="sr-only">
         キーワードを入力してください

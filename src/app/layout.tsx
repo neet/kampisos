@@ -2,6 +2,7 @@ import "./globals.css";
 
 import clsx from "clsx";
 import type { Metadata } from "next";
+import { ViewTransitions } from "next-view-transitions";
 
 import { Banner } from "@/components/Banner";
 import { ContentInfo } from "@/components/ContentInfo";
@@ -25,19 +26,21 @@ export default function RootLayout(props: RootProps) {
   const { children } = props;
 
   return (
-    <html lang="ja">
-      <body
-        className={clsx(
-          "antialiased",
-          "text-zinc-950 bg-zinc-50 heropattern-banknote-zinc-100",
-          "dark:text-zinc-50 dark:bg-zinc-900 dark:heropattern-banknote-zinc-950",
-          "grid grid-rows-[auto,1fr,auto] grid-cols-[100%] min-h-[100svh]",
-        )}
-      >
-        <Banner />
-        {children}
-        <ContentInfo />
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang="ja">
+        <body
+          className={clsx(
+            "antialiased",
+            "text-zinc-950 bg-zinc-50 heropattern-banknote-zinc-100",
+            "dark:text-zinc-50 dark:bg-zinc-900 dark:heropattern-banknote-zinc-950",
+            "grid grid-rows-[auto,1fr,auto] grid-cols-[100%] min-h-[100svh]",
+          )}
+        >
+          <Banner />
+          {children}
+          <ContentInfo />
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }
