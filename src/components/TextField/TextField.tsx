@@ -19,10 +19,13 @@ export const TextField = (props: TextFieldProps) => {
     <Component
       className={clsx(
         "block w-full",
-        "border border-zinc-300",
+        "border",
+        "bg-white border-zinc-300",
+        "dark:bg-black dark:border-zinc-700",
         "rounded",
         "p-2",
         "read-only:bg-zinc-100 read-only:text-zinc-400",
+        "dark:read-only:bg-zinc-900 dark:read-only:text-zinc-600",
         className,
       )}
       {...rest}
