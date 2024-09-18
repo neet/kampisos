@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { FiExternalLink, FiMapPin, FiUser } from "react-icons/fi";
 
+import { ReviseAction } from "@/app/search/actions";
 import { parse } from "@/utils/parse";
 
 import { Tag } from "../Tag";
@@ -16,6 +17,7 @@ export type EntryProps = {
   url: string;
   author: string | null;
   dialect: string | null;
+  reviseAction: ReviseAction;
 };
 
 export const Entry: React.FC<EntryProps> = (props) => {
@@ -29,6 +31,7 @@ export const Entry: React.FC<EntryProps> = (props) => {
     url,
     author,
     dialect,
+    reviseAction,
   } = props;
 
   return (
@@ -74,8 +77,9 @@ export const Entry: React.FC<EntryProps> = (props) => {
             book={book}
             title={title}
             url={url}
-            author={author}
-            dialect={dialect}
+            author={author ?? undefined}
+            dialect={dialect ?? undefined}
+            action={reviseAction}
           />
         </div>
       </div>

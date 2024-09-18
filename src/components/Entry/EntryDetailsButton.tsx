@@ -1,10 +1,15 @@
 "use client";
 
 import clsx from "clsx";
-import { FC, useCallback, useRef } from "react";
-import { FiExternalLink, FiMoreHorizontal } from "react-icons/fi";
+import { FC, useEffect, useRef, useState } from "react";
+import { useFormState } from "react-dom";
+import { FiMoreHorizontal } from "react-icons/fi";
+
+import { ReviseAction } from "@/app/search/actions";
 
 import { Dialog } from "../Dialog";
+import { EntryDetailsEditor } from "./EntryDetailsEditor";
+import { EntryDetailsViewer } from "./EntryDetailsViewer";
 
 export type EntryDetailsButtonProps = {
   text: string;
@@ -12,25 +17,47 @@ export type EntryDetailsButtonProps = {
   book: string;
   title: string;
   url: string;
-  author: string | null;
-  dialect: string | null;
+  author?: string;
+  dialect?: string;
+  action: ReviseAction;
 };
 
 export const EntryDetailsButton: FC<EntryDetailsButtonProps> = (props) => {
-  const { text, translation, book, title, url, author, dialect } = props;
-  const ref = useRef<HTMLDialogElement>(null);
+  const { text, translation, book, title, url, author, dialect, action } =
+    props;
 
-  const handleClick = useCallback(() => {
+  const [formState, formAction] = useFormState(action, {
+    type: "unsent",
+  });
+
+  const ref = useRef<HTMLDialogElement>(null);
+  const [editing, setEditing] = useState(false);
+
+  useEffect(() => {
+    if (formState.type === "ok") {
+      setEditing(false);
+    }
+  }, [formState.type]);
+
+  const handleClick = () => {
     if (ref.current) {
       ref.current.showModal();
     }
-  }, []);
+  };
 
-  const handleClose = useCallback(() => {
+  const handleEdit = () => {
+    setEditing(true);
+  };
+
+  const handleDiscard = () => {
+    setEditing(false);
+  };
+
+  const handleClose = () => {
     if (ref.current) {
       ref.current.close();
     }
-  }, []);
+  };
 
   return (
     <>
@@ -48,53 +75,35 @@ export const EntryDetailsButton: FC<EntryDetailsButtonProps> = (props) => {
       <Dialog ref={ref}>
         <h2 className="text-lg font-bold">詳細情報</h2>
 
-        <dl className="mt-4 grid grid-cols-[65px,auto] gap-x-4 gap-y-2">
-          <dt className="text-zinc-600 dark:text-zinc-400">テキスト</dt>
-          <dd>{text}</dd>
+        {!editing && (
+          <EntryDetailsViewer
+            text={text}
+            translation={translation}
+            book={book}
+            title={title}
+            url={url}
+            author={author}
+            dialect={dialect}
+            formState={formState}
+            onEdit={handleEdit}
+            onClose={handleClose}
+          />
+        )}
 
-          <dt className="text-zinc-600 dark:text-zinc-400">翻訳</dt>
-          <dd>{translation}</dd>
-
-          <dt className="text-zinc-600 dark:text-zinc-400">書籍名</dt>
-          <dd>{book}</dd>
-
-          <dt className="text-zinc-600 dark:text-zinc-400">タイトル</dt>
-          <dd>{title}</dd>
-
-          <dt className="text-zinc-600 dark:text-zinc-400">URL</dt>
-          <dd className="truncate">
-            <a
-              href={url}
-              target="_blank"
-              rel="noreferrer"
-              className="text-blue-600 dark:text-blue-400 underline"
-            >
-              {url}
-              <FiExternalLink className="inline align-top" />
-            </a>
-          </dd>
-
-          <dt className="text-zinc-600 dark:text-zinc-400">著者</dt>
-          <dd>{author ?? "情報なし"}</dd>
-
-          <dt className="text-zinc-600 dark:text-zinc-400">方言</dt>
-          <dd>{dialect ?? "情報なし"}</dd>
-        </dl>
-
-        <div className="mt-4 flex justify-end gap-2">
-          <button
-            className={clsx(
-              "px-3 py-2",
-              "rounded-lg",
-              "bg-black text-white",
-              "dark:bg-white dark:text-black",
-              "forced-colors:border forced-colors:border-[ButtonBorder]",
-            )}
-            onClick={handleClose}
-          >
-            閉じる
-          </button>
-        </div>
+        {editing && (
+          <EntryDetailsEditor
+            text={text}
+            translation={translation}
+            book={book}
+            title={title}
+            url={url}
+            author={author}
+            dialect={dialect}
+            formAction={formAction}
+            formState={formState}
+            onDiscard={handleDiscard}
+          />
+        )}
       </Dialog>
     </>
   );
