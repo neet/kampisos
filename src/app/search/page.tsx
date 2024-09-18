@@ -64,11 +64,16 @@ export default function SearchPage(props: SearchPageProps) {
     facetFilters.push(`title:${searchParams.title}`);
   }
 
+  const query = searchParams.q.trim();
+  if (!query) {
+    return notFound();
+  }
+
   const result: Promise<SearchResponse<EntryType>> =
     searchClient.searchSingleIndex<EntryType>({
       indexName: "entries",
       searchParams: {
-        query: searchParams.q.trim(),
+        query,
         facetFilters,
         page,
         attributesToHighlight: ["text", "translation"],
