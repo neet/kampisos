@@ -5,15 +5,12 @@ import { FC, use } from "react";
 import { Entry, EntrySkeleton } from "@/components/Entry";
 import { Entry as EntryType } from "@/models/entry";
 
-import { ReviseAction } from "./actions";
-
 export type ResultProps = {
   resultPromise: Promise<SearchResponse<EntryType>>;
-  reviseAction: ReviseAction;
 };
 
 export const Result: FC<ResultProps> = (props) => {
-  const { resultPromise, reviseAction } = props;
+  const { resultPromise } = props;
 
   const result = use(resultPromise);
 
@@ -42,7 +39,6 @@ export const Result: FC<ResultProps> = (props) => {
             url={hit.url}
             author={hit.author}
             dialect={hit.dialect}
-            reviseAction={reviseAction}
           />
         </li>
       ))}

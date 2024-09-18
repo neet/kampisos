@@ -12,7 +12,6 @@ import { Entry as EntryType } from "@/models/entry";
 import { FooterContent } from "./_FooterContent";
 import { Result, ResultSkeleton } from "./_Result";
 import { SearchStats } from "./_SearchStats";
-import { revise } from "./actions";
 
 export const revalidate = 86_400;
 
@@ -105,7 +104,7 @@ export default function SearchPage(props: SearchPageProps) {
       <article className="bg-white dark:bg-black border-y border-zinc-300 dark:border-zinc-700">
         <div className="max-w-screen-lg mx-auto p-4">
           <Suspense fallback={<ResultSkeleton />}>
-            <Result resultPromise={result} reviseAction={revise} />
+            <Result resultPromise={result} />
           </Suspense>
         </div>
       </article>
