@@ -3,22 +3,21 @@ import { FC, ReactNode } from "react";
 
 export type TagProps = {
   children: ReactNode;
+  icon?: ReactNode;
 };
 
 export const Tag: FC<TagProps> = (props) => {
-  const { children } = props;
+  const { icon, children } = props;
 
   return (
     <div
       className={clsx(
-        "px-2.5 py-0.5",
-        "border rounded-full",
+        "flex items-center gap-1",
         "text-sm",
         "text-zinc-600 dark:text-zinc-400",
-        "border-zinc-300 bg-zinc-100",
-        "dark:border-zinc-700 dark:bg-zinc-900",
       )}
     >
+      {icon && <div>{icon}</div>}
       {children}
     </div>
   );

@@ -26,12 +26,14 @@ export const Result: FC<ResultProps> = (props) => {
   }
 
   return (
-    <ul className="divide-y-2 divide-zinc-100 dark:divide-zinc-900 -my-4">
+    <ul className="divide-y-2 divide-zinc-100 dark:divide-zinc-900 -my-4 md:my-0">
       {result.hits.map((hit) => (
         <li key={hit.objectID} className="py-4">
           <Entry
-            text={(hit._highlightResult?.text as any).value}
-            translation={(hit._highlightResult?.translation as any).value}
+            text={hit.text}
+            textHTML={(hit._highlightResult?.text as any).value}
+            translation={hit.translation}
+            translationHTML={(hit._highlightResult?.translation as any).value}
             book={hit.book}
             title={hit.title}
             url={hit.url}

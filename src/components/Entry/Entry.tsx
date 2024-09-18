@@ -1,13 +1,16 @@
 import { FC } from "react";
-import { FiExternalLink } from "react-icons/fi";
+import { FiExternalLink, FiMapPin, FiUser } from "react-icons/fi";
 
 import { parse } from "@/utils/parse";
 
 import { Tag } from "../Tag";
+import { EntryDetailsButton } from "./EntryDetailsButton";
 
 export type EntryProps = {
   text: string;
+  textHTML: string;
   translation: string;
+  translationHTML: string;
   book: string;
   title: string;
   url: string;
@@ -16,16 +19,26 @@ export type EntryProps = {
 };
 
 export const Entry: React.FC<EntryProps> = (props) => {
-  const { text, translation, book, title, url, author, dialect } = props;
+  const {
+    text,
+    translation,
+    textHTML,
+    translationHTML,
+    book,
+    title,
+    url,
+    author,
+    dialect,
+  } = props;
 
   return (
     <div>
       <div className="flex gap-2 flex-col md:flex-row md:gap-4">
         <div className="flex-1" lang="ain">
-          {parse(text)}
+          {parse(textHTML)}
         </div>
         <div className="flex-1" lang="ja">
-          {parse(translation)}
+          {parse(translationHTML)}
         </div>
       </div>
 
@@ -48,19 +61,22 @@ export const Entry: React.FC<EntryProps> = (props) => {
           </p>
         </div>
 
-        <div className={"shrink-0 grow flex gap-2 justify-end"}>
-          {author && (
-            <Tag>
-              <span className="sr-only">著者：</span>
-              {author}
-            </Tag>
-          )}
+        <div className={"shrink-0 grow flex gap-4 justify-end"}>
+          {author && <Tag icon={<FiUser aria-label="著者" />}>{author}</Tag>}
+
           {dialect && (
-            <Tag>
-              <span className="sr-only">方言：</span>
-              {dialect}
-            </Tag>
+            <Tag icon={<FiMapPin aria-label="方言" />}>{dialect}</Tag>
           )}
+
+          <EntryDetailsButton
+            text={text}
+            translation={translation}
+            book={book}
+            title={title}
+            url={url}
+            author={author}
+            dialect={dialect}
+          />
         </div>
       </div>
     </div>
