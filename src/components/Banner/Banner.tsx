@@ -12,6 +12,7 @@ export const Banner: FC = () => {
         "dark:bg-black/80",
         "shadow-sm",
         "dark:shadow-none dark:border-b dark:border-zinc-700",
+        "z-50",
       )}
     >
       <div
