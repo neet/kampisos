@@ -35,7 +35,11 @@ export const EntryDetailsButton: FC<EntryDetailsButtonProps> = (props) => {
   return (
     <>
       <button
-        className="text-zinc-500 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-900 transition"
+        className={clsx(
+          "rounded-full",
+          "text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-900",
+          "transition",
+        )}
         onClick={handleClick}
       >
         <FiMoreHorizontal aria-label="詳細" />
@@ -84,6 +88,7 @@ export const EntryDetailsButton: FC<EntryDetailsButtonProps> = (props) => {
               "rounded-lg",
               "bg-black text-white",
               "dark:bg-white dark:text-black",
+              "forced-colors:border forced-colors:border-[ButtonBorder]",
             )}
             onClick={handleClose}
           >
