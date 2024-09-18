@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { useTransitionRouter } from "next-view-transitions";
+import { useRouter } from "next/navigation";
 import { FC, useTransition } from "react";
 
 export type SearchProps = {
@@ -12,7 +12,7 @@ export type SearchProps = {
 export const Search: FC<SearchProps> = (props) => {
   const { className, defaultValue } = props;
 
-  const router = useTransitionRouter();
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
