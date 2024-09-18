@@ -15,6 +15,13 @@ export const metadata: Metadata = {
     index: false,
     follow: false,
   },
+  openGraph: {
+    type: "website",
+    locale: "ja_JP",
+    url: "https://kampisos.aynu.io",
+    title: "アイヌ語コーパス横断検索",
+    images: "/cover.png",
+  },
 };
 
 type RootProps = {
