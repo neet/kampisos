@@ -1,5 +1,6 @@
 import "./globals.css";
 
+import { GoogleAnalytics } from "@next/third-parties/google";
 import clsx from "clsx";
 import type { Metadata } from "next";
 
@@ -41,6 +42,7 @@ export default function RootLayout(props: RootProps) {
         {children}
         <ContentInfo />
       </body>
+      <GoogleAnalytics gaId="G-RK31448XYB" />
     </html>
   );
 }
