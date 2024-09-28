@@ -26,7 +26,7 @@ export const Banner: FC = () => {
         <div className="flex flex-1">
           <Link href="/">
             <h1 className="text-lg font-bold hover:underline">
-              アイヌ語コーパス横断検索
+              アイヌ語コーパス検索
             </h1>
           </Link>
         </div>

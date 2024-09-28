@@ -3,9 +3,9 @@ import { Metadata } from "next";
 import { Search } from "@/components/Search";
 
 export const metadata: Metadata = {
-  title: "アイヌ語コーパス横断検索",
+  title: "アイヌ語コーパス検索",
   description:
-    "アイヌ語・日本語のキーワードを入力して複数のコーパスを横断検索できます",
+    "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます",
 };
 
 export default async function Home() {
@@ -14,10 +14,10 @@ export default async function Home() {
       <div>
         <div className="text-center">
           <h2 className="text-2xl font-bold leading-tight">
-            アイヌ語コーパス横断検索
+            アイヌ語コーパス検索
           </h2>
           <p className="leading-relaxed mt-1">
-            アイヌ語・日本語のキーワードを入力して複数のコーパスを横断検索できます
+            アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます
           </p>
         </div>
 

@@ -8,7 +8,7 @@ export function generateMetadata(): Metadata {
   return {
     title: "このサイトについて",
     description:
-      "アイヌ語・日本語のキーワードを入力して複数のコーパスを横断検索できます",
+      "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます",
   };
 }
 

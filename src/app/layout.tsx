@@ -9,8 +9,8 @@ import { ContentInfo } from "@/components/ContentInfo";
 
 export const metadata: Metadata = {
   title: {
-    default: "アイヌ語コーパス横断検索",
-    template: "%s | アイヌ語コーパス横断検索",
+    default: "アイヌ語コーパス検索",
+    template: "%s | アイヌ語コーパス検索",
   },
   robots: {
     index: true,
