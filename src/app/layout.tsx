@@ -13,8 +13,8 @@ export const metadata: Metadata = {
     template: "%s | アイヌ語コーパス横断検索",
   },
   robots: {
-    index: false,
-    follow: false,
+    index: true,
+    follow: true,
   },
   openGraph: {
     images: "/cover.png",
