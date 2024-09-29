@@ -34,12 +34,8 @@ export const Entry: React.FC<EntryProps> = (props) => {
   return (
     <div>
       <div className="flex gap-2 flex-col md:flex-row md:gap-4">
-        <div className="flex-1" lang="ain">
-          {parse(textHTML)}
-        </div>
-        <div className="flex-1" lang="ja">
-          {parse(translationHTML)}
-        </div>
+        <div className="flex-1">{parse(textHTML)}</div>
+        <div className="flex-1">{parse(translationHTML)}</div>
       </div>
 
       <div className="mt-2 flex justify-between items-center">

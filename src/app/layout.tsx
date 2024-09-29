@@ -3,9 +3,16 @@ import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import clsx from "clsx";
 import type { Metadata } from "next";
+import { Roboto } from "next/font/google";
 
 import { Banner } from "@/components/Banner";
 import { ContentInfo } from "@/components/ContentInfo";
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  variable: "--font-roboto",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -29,7 +36,7 @@ export default function RootLayout(props: RootProps) {
   const { children } = props;
 
   return (
-    <html lang="ja">
+    <html lang="ja" className={roboto.variable}>
       <body
         className={clsx(
           "antialiased",

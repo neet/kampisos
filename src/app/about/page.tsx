@@ -28,7 +28,7 @@ export default async function AboutPage() {
       </header>
 
       <article className="bg-white dark:bg-black border-y border-zinc-300 dark:border-zinc-700">
-        <div className="max-w-screen-sm mx-auto p-4 prose prose-zinc dark:prose-invert prose-a:text-blue-600 dark:prose-a:text-blue-400">
+        <div className="max-w-screen-sm mx-auto p-4 prose prose-zinc dark:prose-invert prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:font-normal">
           <Content />
         </div>
       </article>
