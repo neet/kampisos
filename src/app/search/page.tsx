@@ -101,6 +101,7 @@ export default function SearchPage(props: SearchPageProps) {
           fallback={
             <div className="w-1/4 h-[1lh] bg-zinc-100 dark:bg-zinc-900 forced-colors:bg-[GrayText] rounded animate-pulse" />
           }
+          key={searchParams.q}
         >
           <SearchStats resultPromise={result} />
         </Suspense>
@@ -108,14 +109,14 @@ export default function SearchPage(props: SearchPageProps) {
 
       <article className="bg-white dark:bg-black border-y border-zinc-300 dark:border-zinc-700">
         <div className="max-w-screen-lg mx-auto p-4">
-          <Suspense fallback={<ResultSkeleton />}>
+          <Suspense fallback={<ResultSkeleton />} key={searchParams.q}>
             <Result resultPromise={result} />
           </Suspense>
         </div>
       </article>
 
       <footer className="max-w-screen-lg mx-auto p-4">
-        <Suspense fallback={null}>
+        <Suspense fallback={null} key={searchParams.q}>
           <FooterContent page={page} resultPromise={result} />
         </Suspense>
       </footer>
