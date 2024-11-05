@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { FiHelpCircle } from "react-icons/fi";
 
 import { Search } from "@/components/Search";
 import { searchClient } from "@/lib/search";
@@ -97,14 +98,26 @@ export default function SearchPage(props: SearchPageProps) {
           <Search defaultValue={searchParams.q} />
         </search>
 
-        <Suspense
-          fallback={
-            <div className="w-1/4 h-[1lh] bg-zinc-100 dark:bg-zinc-900 forced-colors:bg-[GrayText] rounded animate-pulse" />
-          }
-          key={searchParams.q}
-        >
-          <SearchStats resultPromise={result} />
-        </Suspense>
+        <div className="flex items-center gap-4">
+          <Suspense
+            fallback={
+              <div className="w-1/4 h-[1lh] bg-zinc-100 dark:bg-zinc-900 forced-colors:bg-[GrayText] rounded animate-pulse" />
+            }
+            key={searchParams.q}
+          >
+            <SearchStats resultPromise={result} />
+            <a
+              href="https://www.algolia.com/doc/api-reference/api-parameters/advancedSyntax/"
+              hrefLang="en"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline text-blue-600 dark:text-blue-400"
+            >
+              <FiHelpCircle className="inline-block mr-1" />
+              クエリ構文について
+            </a>
+          </Suspense>
+        </div>
       </header>
 
       <article className="bg-white dark:bg-black border-y border-zinc-300 dark:border-zinc-700">
