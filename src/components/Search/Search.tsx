@@ -40,7 +40,7 @@ export const Search: FC<SearchProps> = (props) => {
     <form
       method="GET"
       action="/search"
-      className={clsx(className)}
+      className={clsx("mx-auto max-w-[525px]", className)}
       onSubmit={handleSubmit}
       style={{
         viewTransitionName: "search-form",

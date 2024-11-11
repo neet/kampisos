@@ -17,6 +17,7 @@ const config: Config = {
           "ui-sans-serif",
           "system-ui",
         ],
+        mono: ["var(--font-roboto-mono)", "ui-monospace", "system-ui"],
       },
     },
   },

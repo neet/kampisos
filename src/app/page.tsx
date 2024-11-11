@@ -1,6 +1,9 @@
 import { Metadata } from "next";
 
+import { Changelogs } from "@/components/Changelogs";
 import { Search } from "@/components/Search";
+import { client } from "@/lib/microcms";
+import { Changelog } from "@/models/changelog";
 
 export const metadata: Metadata = {
   title: "アイヌ語コーパス検索",
@@ -9,6 +12,14 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
+  const changelogs = await client.getList<Changelog>({
+    endpoint: "changelogs",
+    queries: {
+      orders: "-publishedAt",
+      limit: 5,
+    },
+  });
+
   return (
     <main className="flex items-center justify-center p-4">
       <div>
@@ -23,6 +34,7 @@ export default async function Home() {
 
         <search className="mt-4 max-w-screen-sm mx-auto">
           <Search defaultValue="" />
+          <Changelogs className="mt-6" changelogs={changelogs.contents} />
         </search>
       </div>
     </main>
