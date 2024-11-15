@@ -24,6 +24,7 @@ type SearchPageProps = {
     author?: string;
     book?: string;
     title?: string;
+    pronoun?: string;
 
     page?: number;
   };
@@ -50,19 +51,21 @@ export default function SearchPage(props: SearchPageProps) {
 
   const page = Number(searchParams.page ?? 0);
 
-  const facetFilters: string[] = [];
-
+  const filters: string[] = [];
   if (searchParams.dialect) {
-    facetFilters.push(`dialect:${searchParams.dialect}`);
+    filters.push(`dialect:${searchParams.dialect}`);
   }
   if (searchParams.author) {
-    facetFilters.push(`author:${searchParams.author}`);
+    filters.push(`author:${searchParams.author}`);
   }
   if (searchParams.book) {
-    facetFilters.push(`book:${searchParams.book}`);
+    filters.push(`book:${searchParams.book}`);
   }
   if (searchParams.title) {
-    facetFilters.push(`title:${searchParams.title}`);
+    filters.push(`title:${searchParams.title}`);
+  }
+  if (searchParams.pronoun) {
+    filters.push(`pronoun:${searchParams.pronoun}`);
   }
 
   const query = searchParams.q.trim();
@@ -70,22 +73,28 @@ export default function SearchPage(props: SearchPageProps) {
     return notFound();
   }
 
-  const result: Promise<SearchResponse<EntryType>> =
-    searchClient.searchSingleIndex<EntryType>({
-      indexName: "entries",
-      searchParams: {
-        query,
-        facetFilters,
-        page,
-        attributesToHighlight: ["text", "translation"],
-      },
-    });
+  const result: Promise<SearchResponse<EntryType>> = searchClient
+    .search<EntryType>({
+      requests: [
+        {
+          query,
+          indexName: "entries",
+          filters: filters.join(" AND "),
+          page,
+          facets: ["dialect", "author", "book", "pronoun"],
+          maxValuesPerFacet: 10,
+          attributesToHighlight: ["text", "translation"],
+          // responseFields: ["hits", "nbHits", "facets", "facets_stats"],
+        },
+      ],
+    })
+    .then((response) => response.results[0] as SearchResponse<EntryType>);
 
   return (
     <main>
       <header
         className={clsx(
-          "max-w-screen-lg mx-auto my-12",
+          "max-w-screen-xl mx-auto my-12",
           "flex flex-col items-center gap-3",
           "px-4 md:px-0",
         )}
@@ -95,7 +104,7 @@ export default function SearchPage(props: SearchPageProps) {
         </h2>
 
         <search className="w-full md:w-2/3 max-w-screen-sm">
-          <Search defaultValue={searchParams.q} />
+          <Search id="search" defaultValue={searchParams.q} />
         </search>
 
         <div className="flex items-center gap-4">
@@ -121,14 +130,14 @@ export default function SearchPage(props: SearchPageProps) {
       </header>
 
       <article className="bg-white dark:bg-black border-y border-zinc-300 dark:border-zinc-700">
-        <div className="max-w-screen-lg mx-auto p-4">
+        <div className="max-w-screen-xl mx-auto p-4">
           <Suspense fallback={<ResultSkeleton />} key={searchParams.q}>
-            <Result resultPromise={result} />
+            <Result form="search" resultPromise={result} />
           </Suspense>
         </div>
       </article>
 
-      <footer className="max-w-screen-lg mx-auto p-4">
+      <footer className="max-w-screen-xl mx-auto p-4">
         <Suspense fallback={null} key={searchParams.q}>
           <FooterContent page={page} resultPromise={result} />
         </Suspense>

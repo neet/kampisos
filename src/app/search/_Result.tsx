@@ -3,14 +3,16 @@ import { SearchResponse } from "algoliasearch";
 import { FC, use } from "react";
 
 import { Entry, EntrySkeleton } from "@/components/Entry";
+import { Filter } from "@/components/Filter";
 import { Entry as EntryType } from "@/models/entry";
 
 export type ResultProps = {
+  form: string;
   resultPromise: Promise<SearchResponse<EntryType>>;
 };
 
 export const Result: FC<ResultProps> = (props) => {
-  const { resultPromise } = props;
+  const { form, resultPromise } = props;
 
   const result = use(resultPromise);
 
@@ -26,23 +28,33 @@ export const Result: FC<ResultProps> = (props) => {
   }
 
   return (
-    <ul className="divide-y-2 divide-zinc-100 dark:divide-zinc-900 -my-4 md:my-0">
-      {result.hits.map((hit) => (
-        <li key={hit.objectID} className="py-4">
-          <Entry
-            text={hit.text}
-            textHTML={(hit._highlightResult?.text as any).value}
-            translation={hit.translation}
-            translationHTML={(hit._highlightResult?.translation as any).value}
-            book={hit.book}
-            title={hit.title}
-            url={hit.url}
-            author={hit.author}
-            dialect={hit.dialect}
-          />
-        </li>
-      ))}
-    </ul>
+    <div className="grid gap-8 grid-cols-5">
+      {result.facets && (
+        <Filter form={form} facets={result.facets} facetFilters={{}} />
+      )}
+
+      <div className="col-span-4">
+        <ul className="divide-y-2 divide-zinc-100 dark:divide-zinc-900 -my-4 md:my-0">
+          {result.hits.map((hit) => (
+            <li key={hit.objectID} className="py-4">
+              <Entry
+                text={hit.text}
+                textHTML={(hit._highlightResult?.text as any).value}
+                translation={hit.translation}
+                translationHTML={
+                  (hit._highlightResult?.translation as any).value
+                }
+                book={hit.book}
+                title={hit.title}
+                url={hit.url}
+                author={hit.author}
+                dialect={hit.dialect}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 };
 

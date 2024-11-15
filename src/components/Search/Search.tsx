@@ -5,12 +5,13 @@ import { useRouter } from "next/navigation";
 import { FC, useTransition } from "react";
 
 export type SearchProps = {
+  id?: string;
   className?: string;
   defaultValue?: string;
 };
 
 export const Search: FC<SearchProps> = (props) => {
-  const { className, defaultValue } = props;
+  const { id, className, defaultValue } = props;
 
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -38,6 +39,7 @@ export const Search: FC<SearchProps> = (props) => {
 
   return (
     <form
+      id={id}
       method="GET"
       action="/search"
       className={clsx("mx-auto max-w-[525px]", className)}
