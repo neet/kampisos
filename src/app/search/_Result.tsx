@@ -1,59 +1,87 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Box, Flex, Heading, Separator, Text } from "@radix-ui/themes";
 import { SearchResponse } from "algoliasearch";
-import { FC, use } from "react";
+import { FC, Fragment, use } from "react";
 
-import { Entry, EntrySkeleton } from "@/components/Entry";
+import { Entry } from "@/components/Entry";
 import { Entry as EntryType } from "@/models/entry";
 
-export type ResultProps = {
+type ResultRootProps = {
   resultPromise: Promise<SearchResponse<EntryType>>;
 };
 
-export const Result: FC<ResultProps> = (props) => {
+const ResultRoot: FC<ResultRootProps> = (props) => {
   const { resultPromise } = props;
 
   const result = use(resultPromise);
 
   if (result.hits.length <= 0) {
     return (
-      <div className="py-8 text-center">
-        <h2 className="font-bold text-lg">用例が見つかりませんでした</h2>
-        <p className="mt-2 text-zinc-600 dark:text-zinc-400 leading-relaxed">
-          別のキーワードや、異なる検索条件で再度お試しください。
+      <Flex py="8" direction="column" align="center">
+        <Heading size="4">用例が見つかりませんでした</Heading>
+
+        <p>
+          <Text color="gray" mt="2">
+            別のキーワードや、異なる検索条件で再度お試しください。
+          </Text>
         </p>
-      </div>
+      </Flex>
     );
   }
 
   return (
-    <ul className="divide-y-2 divide-zinc-100 dark:divide-zinc-900 -my-4 md:my-0">
-      {result.hits.map((hit) => (
-        <li key={hit.objectID} className="py-4">
-          <Entry
-            text={hit.text}
-            textHTML={(hit._highlightResult?.text as any).value}
-            translation={hit.translation}
-            translationHTML={(hit._highlightResult?.translation as any).value}
-            book={hit.book}
-            title={hit.title}
-            url={hit.url}
-            author={hit.author}
-            dialect={hit.dialect}
-          />
-        </li>
-      ))}
-    </ul>
+    <Box>
+      {result.hits.map((hit, i) => {
+        const last = i === result.hits.length - 1;
+
+        return (
+          <Fragment key={hit.objectID}>
+            <Entry.Root
+              text={hit.text}
+              textHTML={(hit._highlightResult?.text as any).value}
+              translation={hit.translation}
+              translationHTML={(hit._highlightResult?.translation as any).value}
+              book={hit.book}
+              title={hit.title}
+              url={hit.url}
+              author={hit.author}
+              dialect={hit.dialect}
+            />
+
+            {!last && (
+              <Box my="3">
+                <Separator size="4" />
+              </Box>
+            )}
+          </Fragment>
+        );
+      })}
+    </Box>
   );
 };
 
-export const ResultSkeleton: FC = () => {
+const ResultSkeleton: FC = () => {
   return (
-    <ul className="divide-y-2 divide-zinc-100 dark:divide-zinc-900">
-      {[...Array(8)].map((_, index) => (
-        <li key={index} className="py-4">
-          <EntrySkeleton />
-        </li>
-      ))}
-    </ul>
+    <div>
+      {[...Array(16)].map((_, index) => {
+        const last = index === 7;
+        return (
+          <Fragment key={index}>
+            <Entry.Skeleton />
+
+            {!last && (
+              <Box my="3">
+                <Separator size="4" />
+              </Box>
+            )}
+          </Fragment>
+        );
+      })}
+    </div>
   );
+};
+
+export const Result = {
+  Root: ResultRoot,
+  Skeleton: ResultSkeleton,
 };

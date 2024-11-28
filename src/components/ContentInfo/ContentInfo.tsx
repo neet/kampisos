@@ -1,11 +1,14 @@
+import { Container, Section, Text } from "@radix-ui/themes";
 import { FC } from "react";
 
 export const ContentInfo: FC = () => {
   return (
-    <footer className="max-w-screen-lg mx-auto py-8">
-      <p className="mt-4 text-center text-sm text-zinc-600 dark:text-zinc-400">
-        Copyright © 2024 Ryō Igarashi. All rights reserved.
-      </p>
-    </footer>
+    <Container>
+      <Section size="1">
+        <Text size="2" color="gray" align="center" asChild>
+          <p>Copyright © 2024 Ryō Igarashi. All rights reserved.</p>
+        </Text>
+      </Section>
+    </Container>
   );
 };

@@ -11,11 +11,7 @@ export function parse(html: string) {
   return _parse(html, {
     replace: (domNode) => {
       if (isElement(domNode) && domNode.name === "em") {
-        return (
-          <em className="not-italic bg-amber-100 dark:bg-amber-900">
-            {domToReact(domNode.children as DOMNode[])}
-          </em>
-        );
+        return <em>{domToReact(domNode.children as DOMNode[])}</em>;
       }
     },
   });

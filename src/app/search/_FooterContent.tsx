@@ -17,7 +17,7 @@ export const FooterContent: FC<ResultProps> = (props) => {
     return null;
   }
 
-  if (result.nbPages <= 1) {
+  if (!result.nbPages || result.nbPages <= 1) {
     return null;
   }
 

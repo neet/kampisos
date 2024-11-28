@@ -1,9 +1,12 @@
 import "./globals.css";
+import "@radix-ui/themes/styles.css";
 
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Theme } from "@radix-ui/themes";
 import clsx from "clsx";
 import type { Metadata } from "next";
-import { Roboto, Roboto_Mono } from "next/font/google";
+import { Cookie, Roboto, Roboto_Mono } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 
 import { Banner } from "@/components/Banner";
 import { ContentInfo } from "@/components/ContentInfo";
@@ -18,6 +21,12 @@ const robotoMono = Roboto_Mono({
   subsets: ["latin"],
   weight: ["300", "400", "500"],
   variable: "--font-roboto-mono",
+});
+
+const cookie = Cookie({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-cookie",
 });
 
 export const metadata: Metadata = {
@@ -42,18 +51,25 @@ export default async function RootLayout(props: RootProps) {
   const { children } = props;
 
   return (
-    <html lang="ja" className={clsx(roboto.variable, robotoMono.variable)}>
+    <html
+      lang="ja"
+      className={clsx(roboto.variable, robotoMono.variable, cookie.variable)}
+      // https://github.com/pacocoursey/next-themes?tab=readme-ov-file#with-app
+      suppressHydrationWarning
+    >
       <body
         className={clsx(
           "font-sans antialiased",
-          "text-zinc-950 bg-zinc-50 heropattern-banknote-zinc-100",
-          "dark:text-zinc-50 dark:bg-zinc-900 dark:heropattern-banknote-zinc-950",
           "grid grid-rows-[auto,1fr,auto] grid-cols-[100%] min-h-[100svh]",
         )}
       >
-        <Banner />
-        {children}
-        <ContentInfo />
+        <ThemeProvider attribute="class">
+          <Theme accentColor="teal" grayColor="sand">
+            <Banner />
+            {children}
+            <ContentInfo />
+          </Theme>
+        </ThemeProvider>
       </body>
       <GoogleAnalytics gaId="G-RK31448XYB" />
     </html>

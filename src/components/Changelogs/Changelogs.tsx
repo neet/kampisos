@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { Box, Card, Heading } from "@radix-ui/themes";
 import { FC } from "react";
 
 import * as t from "@/models/changelog";
@@ -14,10 +14,18 @@ export const Changelogs: FC<ChangelogsProps> = (props) => {
   const { className, changelogs } = props;
 
   return (
-    <div className={clsx("mt-2 space-y-1", className)}>
-      {changelogs.map((changelog) => (
-        <Changelog key={changelog.content} changelog={changelog} />
-      ))}
-    </div>
+    <Card className={className} size="2">
+      <Heading as="h2" size="3" weight="bold">
+        最近の更新
+      </Heading>
+
+      <Box mt="2">
+        {changelogs.map((changelog) => (
+          <Box my="1" asChild key={changelog.content}>
+            <Changelog changelog={changelog} />
+          </Box>
+        ))}
+      </Box>
+    </Card>
   );
 };

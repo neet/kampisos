@@ -1,24 +1,38 @@
+import { Badge, Box, Flex, Text } from "@radix-ui/themes";
 import { FC } from "react";
 
 import * as t from "../../models/changelog";
 
 export type ChangelogProps = {
+  className?: string;
   changelog: t.Changelog;
 };
 
 export const Changelog: FC<ChangelogProps> = (props) => {
-  const { changelog } = props;
+  const { changelog, className } = props;
 
-  const formattedDate = new Date(changelog.publishedAt).toLocaleDateString(
-    "ja-JP",
+  const rtf = new Intl.RelativeTimeFormat("ja", { numeric: "auto" });
+  const date = new Date(changelog.publishedAt);
+
+  const diff = date.getTime() - Date.now();
+  const formattedDate = rtf.format(
+    Math.round(diff / 1000 / 60 / 60 / 24),
+    "day",
   );
 
   return (
-    <div className="flex gap-3 text-sm">
-      <time className="font-mono text-zinc-600 dark:text-zinc-400">
-        {formattedDate}
-      </time>
-      <p>{changelog.content}</p>
-    </div>
+    <Flex asChild gap="4" align="center" className={className}>
+      <article>
+        <Box flexGrow="1" flexShrink="1" flexBasis="100%">
+          <Text mt="1" asChild>
+            <p>{changelog.content}</p>
+          </Text>
+        </Box>
+
+        <Badge>
+          <time dateTime={date.toISOString()}>{formattedDate}</time>
+        </Badge>
+      </article>
+    </Flex>
   );
 };
