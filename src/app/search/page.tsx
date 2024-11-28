@@ -4,9 +4,7 @@ import clsx from "clsx";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { FiHelpCircle } from "react-icons/fi";
 
-import { Search } from "@/components/Search";
 import { searchClient } from "@/lib/search";
 import { Entry as EntryType } from "@/models/entry";
 
@@ -94,10 +92,6 @@ export default function SearchPage(props: SearchPageProps) {
           「{searchParams.q}」の検索結果
         </h2>
 
-        <search className="w-full md:w-2/3 max-w-screen-sm">
-          <Search defaultValue={searchParams.q} />
-        </search>
-
         <div className="flex items-center gap-4">
           <Suspense
             fallback={
@@ -106,22 +100,12 @@ export default function SearchPage(props: SearchPageProps) {
             key={searchParams.q}
           >
             <SearchStats resultPromise={result} />
-            <a
-              href="https://www.algolia.com/doc/api-reference/api-parameters/advancedSyntax/"
-              hrefLang="en"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline text-blue-600 dark:text-blue-400"
-            >
-              <FiHelpCircle className="inline-block mr-1" />
-              クエリ構文について
-            </a>
           </Suspense>
         </div>
       </header>
 
       <article className="bg-white dark:bg-black border-y border-zinc-300 dark:border-zinc-700">
-        <div className="max-w-screen-lg mx-auto p-4">
+        <div className="max-w-screen-md mx-auto p-4">
           <Suspense fallback={<ResultSkeleton />} key={searchParams.q}>
             <Result resultPromise={result} />
           </Suspense>

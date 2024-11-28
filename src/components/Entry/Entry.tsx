@@ -40,12 +40,12 @@ export const Entry: React.FC<EntryProps> = (props) => {
 
       <div className="mt-2 flex justify-between items-center">
         <div className="min-w-0 shrink grow-0">
-          <p className="text-zinc-600 dark:text-zinc-400 truncate text-xs w-full block">
+          <p className="truncate text-xs w-full block">
             <a
               href={url}
               target="_blank"
               rel="noreferrer"
-              className="hover:underline"
+              className="no-underline hover:underline text-zinc-600 dark:text-zinc-400"
             >
               <span className="sr-only">出典：</span>
               {book}『{title}』

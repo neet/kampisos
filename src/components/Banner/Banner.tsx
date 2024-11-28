@@ -4,35 +4,31 @@ import { FC } from "react";
 
 export const Banner: FC = () => {
   return (
-    <header
-      className={clsx(
-        "sticky top-0",
-        "backdrop-blur",
-        "bg-white/80",
-        "dark:bg-black/80",
-        "shadow-sm",
-        "dark:shadow-none dark:border-b dark:border-zinc-700",
-        "z-50",
-      )}
-    >
+    <header className={clsx("sticky top-0", "z-50")}>
       <div
         className={clsx(
-          "flex",
-          "box-border",
-          "p-4",
-          "lg:max-w-screen-lg mx-auto",
+          "flex items-center",
+          "mt-3",
+          "px-8 py-3",
+          "lg:max-w-screen-md mx-auto",
+          "bg-white/80 dark:bg-black/80",
+          "shadow",
+          "rounded-full",
+          "dark:border dark:border-zinc-600",
+          "backdrop-blur",
         )}
       >
         <div className="flex flex-1">
-          <Link href="/">
-            <h1 className="text-lg font-bold hover:underline">
-              アイヌ語コーパス検索
-            </h1>
+          <Link
+            href="/"
+            className="text-black dark:text-white no-underline hover:underline"
+          >
+            <h1 className="text-3xl leading-none font-cookie">kampisos</h1>
           </Link>
         </div>
 
-        <div className="flex justify-end text-blue-600 dark:text-blue-400 underline">
-          <Link href="/about">利用方法</Link>
+        <div className="flex justify-end underline">
+          <Link href="/about">使い方</Link>
         </div>
       </div>
     </header>

@@ -49,10 +49,11 @@ export function Paginator(props: PaginatorProps) {
     clsx(
       itemClassName,
       "px-4 py-3 rounded shadow-sm",
+      "no-underline",
       current
         ? [
-            "bg-black border border-zinc-700 text-white",
-            "dark:bg-white dark:border-zinc-300 dark:text-zinc-800",
+            "bg-pink-600 border border-pink-700 text-white",
+            "dark:bg-pink-400 dark:border-pink-300 dark:text-black",
           ]
         : [
             "bg-white border border-zinc-300 bg-white hover:bg-zinc-100",

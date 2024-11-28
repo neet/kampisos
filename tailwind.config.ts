@@ -18,6 +18,7 @@ const config: Config = {
           "system-ui",
         ],
         mono: ["var(--font-roboto-mono)", "ui-monospace", "system-ui"],
+        cookie: ["var(--font-cookie)", "ui-cursive"],
       },
     },
   },
