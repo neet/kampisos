@@ -9,6 +9,7 @@ import { Banner } from "@/components/Banner";
 import { searchClient } from "@/lib/search";
 import { Entry as EntryType } from "@/models/entry";
 
+import { Filters } from "./_Filters";
 import { FooterContent } from "./_FooterContent";
 import { Result, ResultSkeleton } from "./_Result";
 import { SearchStats } from "./_SearchStats";
@@ -19,13 +20,22 @@ type SearchPageProps = {
   searchParams: {
     q?: string;
 
-    dialect?: string;
-    author?: string;
-    book?: string;
-    title?: string;
+    dialect?: string | string[];
+    author?: string | string[];
+    book?: string | string[];
+    pronoun?: string | string[];
 
     page?: number;
   };
+};
+
+const normalizeArrayParam = (
+  value: string | string[] | undefined,
+): string[] => {
+  if (!value) {
+    return [];
+  }
+  return Array.isArray(value) ? value : [value];
 };
 
 export function generateMetadata(props: SearchPageProps): Metadata {
@@ -48,48 +58,71 @@ export default function SearchPage(props: SearchPageProps) {
   }
 
   const page = Number(searchParams.page ?? 0);
+  const filters: string[] = [];
 
-  const facetFilters: string[] = [];
-
-  if (searchParams.dialect) {
-    facetFilters.push(`dialect:${searchParams.dialect}`);
-  }
-  if (searchParams.author) {
-    facetFilters.push(`author:${searchParams.author}`);
-  }
-  if (searchParams.book) {
-    facetFilters.push(`book:${searchParams.book}`);
-  }
-  if (searchParams.title) {
-    facetFilters.push(`title:${searchParams.title}`);
-  }
+  const dialect = normalizeArrayParam(searchParams.dialect);
+  const author = normalizeArrayParam(searchParams.author);
+  const book = normalizeArrayParam(searchParams.book);
+  const pronoun = normalizeArrayParam(searchParams.pronoun);
+  filters.push(dialect.map((value) => `dialect:${value}`).join(" OR "));
+  filters.push(author.map((value) => `author:${value}`).join(" OR "));
+  filters.push(book.map((value) => `book:${value}`).join(" OR "));
+  filters.push(pronoun.map((value) => `pronoun:${value}`).join(" OR "));
 
   const query = searchParams.q.trim();
   if (!query) {
     return notFound();
   }
 
-  const result: Promise<SearchResponse<EntryType>> =
-    searchClient.searchSingleIndex<EntryType>({
-      indexName: "entries",
-      searchParams: {
-        query,
-        facetFilters,
-        page,
-        attributesToHighlight: ["text", "translation"],
-      },
-    });
+  const result: Promise<SearchResponse<EntryType>> = searchClient
+    .search<EntryType>({
+      requests: [
+        {
+          query,
+          indexName: "entries",
+          filters: filters.filter(Boolean).join(" AND "),
+          page,
+          attributesToHighlight: ["text", "translation"],
+        },
+      ],
+    })
+    .then((response) => response.results[0] as SearchResponse<EntryType>);
+
+  const facetOnlyResult: Promise<SearchResponse<EntryType>> = searchClient
+    .search<EntryType>({
+      requests: [
+        {
+          query,
+          indexName: "entries",
+          hitsPerPage: 0,
+          facets: ["dialect", "author", "book", "pronoun"],
+          maxValuesPerFacet: 5,
+        },
+      ],
+    })
+    .then((result) => result.results[0] as SearchResponse<EntryType>);
 
   return (
     <>
       <Banner q={searchParams.q} />
 
-      <main className="grid grid-cols-6 divide-x divide-zinc-400 dark:divide-zinc-600">
-        <aside className="col-span-1 p-4">
+      <main className="flex divide-x divide-zinc-400 dark:divide-zinc-600">
+        <aside className="w-72 grow-0 p-4">
           <h3 className="font-bold">絞り込み</h3>
+
+          <Filters
+            className="mt-2"
+            defaultValues={{
+              dialect,
+              author,
+              book,
+              pronoun,
+            }}
+            resultPromise={facetOnlyResult}
+          />
         </aside>
 
-        <article className="col-span-5 py-4 px-6">
+        <article className="flex-1 py-4 px-6">
           <header className={clsx("px-4 md:px-0")}>
             <Suspense
               fallback={

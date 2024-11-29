@@ -30,6 +30,7 @@ export const Banner: FC<BannerProps> = (props) => {
           </Link>
 
           <form
+            id="search"
             method="GET"
             action="/search"
             className={clsx(

@@ -58,8 +58,8 @@ export const Search: FC<SearchProps> = (props) => {
           className={clsx(
             "block flex-1",
             "border border-r-0",
-            "bg-white border-pink-600",
-            "dark:bg-black dark:border-pink-400",
+            "bg-white border-blue-600",
+            "dark:bg-black dark:border-blue-400",
             "py-2 pl-5 pr-8",
             "text-lg",
             "rounded-full rounded-r-none",
@@ -78,10 +78,10 @@ export const Search: FC<SearchProps> = (props) => {
             "text-lg",
             "pl-4 pr-5 py-2",
             "rounded-full rounded-l-none",
-            "bg-pink-600 text-white",
-            "disabled:bg-pink-600",
-            "dark:bg-pink-400 dark:text-black",
-            "dark:disabled:bg-pink-200",
+            "bg-blue-600 text-white",
+            "disabled:bg-blue-600",
+            "dark:bg-blue-400 dark:text-black",
+            "dark:disabled:bg-blue-200",
             "forced-colors:border forced-colors:border-[ButtonBorder]",
           )}
           type="submit"
