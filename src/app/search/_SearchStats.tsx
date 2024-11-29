@@ -12,8 +12,13 @@ export const SearchStats: FC<SearchStatsProps> = (props) => {
   const result = use(resultPromise);
 
   return (
-    <p className="text-zinc-600 dark:text-zinc-400 flex gap-4">
-      {result.nbHits}件中{result.hits.length}件を表示
-    </p>
+    <>
+      <h2>
+        <span className="text-lg font-bold">{result.nbHits}件の検索結果</span>
+        <span className="text-zinc-600 dark:text-zinc-400">
+          （{result.processingTimeMS / 1000}秒）
+        </span>
+      </h2>
+    </>
   );
 };

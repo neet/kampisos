@@ -62,7 +62,7 @@ export function Paginator(props: PaginatorProps) {
     );
 
   return (
-    <nav className="mt-4" aria-label="ページネーション">
+    <nav aria-label="ページネーション">
       <ul className="flex gap-1 justify-center">
         <li>
           <Link href={createHref(page - 1)} className={linkClassName()}>

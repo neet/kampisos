@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
+import { Banner } from "@/components/Banner";
 import { searchClient } from "@/lib/search";
 import { Entry as EntryType } from "@/models/entry";
 
@@ -80,43 +81,39 @@ export default function SearchPage(props: SearchPageProps) {
     });
 
   return (
-    <main>
-      <header
-        className={clsx(
-          "max-w-screen-lg mx-auto my-12",
-          "flex flex-col items-center gap-3",
-          "px-4 md:px-0",
-        )}
-      >
-        <h2 className="block text-2xl font-bold">
-          「{searchParams.q}」の検索結果
-        </h2>
+    <>
+      <Banner q={searchParams.q} />
 
-        <div className="flex items-center gap-4">
-          <Suspense
-            fallback={
-              <div className="w-1/4 h-[1lh] bg-zinc-100 dark:bg-zinc-900 forced-colors:bg-[GrayText] rounded animate-pulse" />
-            }
-            key={searchParams.q}
-          >
-            <SearchStats resultPromise={result} />
-          </Suspense>
-        </div>
-      </header>
+      <main className="grid grid-cols-6 divide-x divide-zinc-400 dark:divide-zinc-600">
+        <aside className="col-span-1 p-4">
+          <h3 className="font-bold">絞り込み</h3>
+        </aside>
 
-      <article className="bg-white dark:bg-black border-y border-zinc-300 dark:border-zinc-700">
-        <div className="max-w-screen-md mx-auto p-4">
-          <Suspense fallback={<ResultSkeleton />} key={searchParams.q}>
-            <Result resultPromise={result} />
-          </Suspense>
-        </div>
-      </article>
+        <article className="col-span-5 py-4 px-6">
+          <header className={clsx("px-4 md:px-0")}>
+            <Suspense
+              fallback={
+                <div className="w-1/4 h-[1lh] bg-zinc-100 dark:bg-zinc-900 forced-colors:bg-[GrayText] rounded animate-pulse" />
+              }
+              key={searchParams.q}
+            >
+              <SearchStats resultPromise={result} />
+            </Suspense>
+          </header>
 
-      <footer className="max-w-screen-lg mx-auto p-4">
-        <Suspense fallback={null} key={searchParams.q}>
-          <FooterContent page={page} resultPromise={result} />
-        </Suspense>
-      </footer>
-    </main>
+          <div>
+            <Suspense fallback={<ResultSkeleton />} key={searchParams.q}>
+              <Result resultPromise={result} />
+            </Suspense>
+          </div>
+
+          <footer className="max-w-screen-lg mx-auto">
+            <Suspense fallback={null} key={searchParams.q}>
+              <FooterContent page={page} resultPromise={result} />
+            </Suspense>
+          </footer>
+        </article>
+      </main>
+    </>
   );
 }
