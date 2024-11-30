@@ -18,8 +18,7 @@ export type EntryProps = {
 };
 
 export const Entry: React.FC<EntryProps> = (props) => {
-  const { textHTML, translationHTML, book, title, url, author, dialect } =
-    props;
+  const { textHTML, translationHTML, book, url, author, dialect } = props;
 
   return (
     <div>
@@ -30,7 +29,7 @@ export const Entry: React.FC<EntryProps> = (props) => {
 
       <div className="mt-1.5 flex justify-between items-center">
         <div className="min-w-0 shrink grow-0">
-          <p className="truncate text-xs w-full block">
+          <p className="truncate w-full block text-sm">
             <a
               href={url}
               target="_blank"
@@ -38,7 +37,7 @@ export const Entry: React.FC<EntryProps> = (props) => {
               className="no-underline hover:underline text-zinc-600 dark:text-zinc-400"
             >
               <span className="sr-only">出典：</span>
-              {book}『{title}』
+              {book}
               <FiExternalLink
                 aria-hidden
                 className="inline-block size-3 mr-1 align-baseline"

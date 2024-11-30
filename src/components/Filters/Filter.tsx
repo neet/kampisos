@@ -69,8 +69,8 @@ const FilterOption: FC<FilterOptionProps> = (props) => {
         className="accent-blue-600 dark:accent-blue-400"
       />
 
-      <div className="grow truncate text-sm">{label}</div>
-      <div className="text-xs text-gray-600 dark:text-gray-400 py-0.5 px-1.5">
+      <div className="grow truncate">{label}</div>
+      <div className="text-sm text-gray-600 dark:text-gray-400 py-0.5 px-1.5">
         {count}
       </div>
     </label>
