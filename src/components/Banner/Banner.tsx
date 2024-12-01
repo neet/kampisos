@@ -1,15 +1,10 @@
 import clsx from "clsx";
 import Link from "next/link";
-import { FC } from "react";
-import { FiSearch } from "react-icons/fi";
+import { FC, Suspense } from "react";
 
-export type BannerProps = {
-  q?: string;
-};
+import { BannerSearch } from "./BannerSearch";
 
-export const Banner: FC<BannerProps> = (props) => {
-  const { q } = props;
-
+export const Banner: FC = () => {
   return (
     <header>
       <div
@@ -29,46 +24,9 @@ export const Banner: FC<BannerProps> = (props) => {
             <h1 className="text-3xl leading-none font-cookie">kampisos</h1>
           </Link>
 
-          <form
-            id="search"
-            method="GET"
-            action="/search"
-            className={clsx(
-              "flex-1",
-              "h-full",
-              "flex items-center",
-              "rounded-lg",
-              "border border-zinc-400",
-              "dark:border-zinc-600",
-              "dark:bg-black dark:text-white",
-              "forced-colors:border forced-colors:border-[BannerBorder]",
-            )}
-          >
-            <label htmlFor="search-input" className="block mx-2">
-              <FiSearch
-                className="text-zinc-600 dark:text-zinc-400"
-                aria-hidden
-              />
-              <span className="sr-only">キーワード</span>
-            </label>
-
-            <input
-              id="search-input"
-              type="text"
-              name="q"
-              defaultValue={q}
-              className={clsx(
-                "h-full",
-                "w-full bg-transparent",
-                "text-zinc-600 focus:text-black dark:text-zinc-400 dark:focus:text-zinc-400",
-              )}
-              required
-              autoCapitalize="off"
-              autoCorrect="off"
-              autoComplete="off"
-              spellCheck="false"
-            />
-          </form>
+          <Suspense fallback={null}>
+            <BannerSearch className="flex-1 h-full" />
+          </Suspense>
         </div>
 
         <div className="flex justify-end underline">

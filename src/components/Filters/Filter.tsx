@@ -1,5 +1,6 @@
-import Link from "next/link";
-import { FC, ReactNode } from "react";
+"use client";
+
+import { FC, ReactNode, useMemo, useState } from "react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 const MAX_OPTIONS = 5;
@@ -16,27 +17,36 @@ export type FilterProps = {
   name?: string;
   form?: string;
   options: Option[];
-  expanded?: boolean;
-  expandedHref?: string;
-  collapsedHref?: string;
 };
 
 export const Filter: FC<FilterProps> = (props) => {
-  const {
-    label,
-    defaultValues = [],
-    name,
-    form,
-    expanded,
-    expandedHref = "",
-    collapsedHref = "",
-  } = props;
+  const { label, defaultValues = [], name, form } = props;
 
-  const options = expanded
-    ? props.options
-    : props.options.slice(0, MAX_OPTIONS);
+  const [expanded, setExpanded] = useState(false);
 
-  const shouldExpand = props.options.length >= MAX_OPTIONS;
+  const options = useMemo(() => {
+    let returnValue = props.options;
+
+    // checked first
+    returnValue = returnValue.sort((a, b) => {
+      if (defaultValues.includes(a.value)) {
+        return -1;
+      } else if (defaultValues.includes(b.value)) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
+    if (!expanded) {
+      // return returnValue;
+      returnValue = returnValue.slice(0, MAX_OPTIONS);
+    }
+
+    return returnValue;
+  }, [props.options, expanded, defaultValues]);
+
+  const shouldExpand = props.options.length > MAX_OPTIONS;
 
   return (
     <div>
@@ -60,8 +70,8 @@ export const Filter: FC<FilterProps> = (props) => {
       {shouldExpand && (
         <FilterToggle
           expanded={expanded}
-          expandedHref={expandedHref}
-          collapsedHref={collapsedHref}
+          onExpand={() => setExpanded(true)}
+          onCollapse={() => setExpanded(false)}
         />
       )}
     </div>
@@ -102,29 +112,36 @@ const FilterOption: FC<FilterOptionProps> = (props) => {
 
 type FilterToggleProps = {
   expanded?: boolean;
-  expandedHref: string;
-  collapsedHref: string;
+  onExpand: () => void;
+  onCollapse: () => void;
 };
 
 const FilterToggle: FC<FilterToggleProps> = (props) => {
-  const { expanded, expandedHref, collapsedHref } = props;
+  const { expanded, onExpand, onCollapse } = props;
 
   if (expanded) {
     return (
-      <Link
+      <button
         className="py-1 flex items-center gap-1 w-full"
-        href={collapsedHref}
+        onClick={() => onCollapse()}
       >
-        <FiChevronUp className="size-4 text-zinc-600 dark:text-zinc-400" />
-        <span className="grow text-left">閉じる</span>
-      </Link>
+        <FiChevronUp className="size-4 text-zinc-400 dark:text-zinc-600" />
+        <span className="grow text-left text-zinc-600 dark:text-zinc-400">
+          閉じる
+        </span>
+      </button>
     );
   } else {
     return (
-      <Link className="py-1 flex items-center gap-1 w-full" href={expandedHref}>
-        <FiChevronDown className="size-4 text-zinc-600 dark:text-zinc-400" />
-        <span className="grow text-left">さらに表示</span>
-      </Link>
+      <button
+        className="py-1 flex items-center gap-1 w-full"
+        onClick={() => onExpand()}
+      >
+        <FiChevronDown className="size-5 text-zinc-400 dark:text-zinc-600" />
+        <span className="grow text-left text-zinc-600 dark:text-zinc-400">
+          さらに表示
+        </span>
+      </button>
     );
   }
 };

@@ -5,8 +5,6 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import { Banner } from "@/components/Banner";
-import { ContentInfo } from "@/components/ContentInfo";
 import { searchClient } from "@/lib/search";
 import { Entry as EntryType } from "@/models/entry";
 
@@ -20,17 +18,12 @@ export const revalidate = 86_400;
 type SearchPageProps = {
   searchParams: {
     q?: string;
+    page?: number;
 
     dialect?: string | string[];
     author?: string | string[];
     book?: string | string[];
     pronoun?: string | string[];
-
-    expand_books?: boolean;
-    expand_dialects?: boolean;
-    expand_authors?: boolean;
-
-    page?: number;
   };
 };
 
@@ -77,14 +70,6 @@ export default function SearchPage(props: SearchPageProps) {
     .filter(Boolean)
     .join(" AND ");
 
-  const maxValuesPerFacet = [
-    searchParams.expand_books,
-    searchParams.expand_dialects,
-    searchParams.expand_authors,
-  ].some(Boolean)
-    ? undefined
-    : 5;
-
   const query = searchParams.q.trim();
   if (!query) {
     return notFound();
@@ -112,71 +97,67 @@ export default function SearchPage(props: SearchPageProps) {
           indexName: "entries",
           hitsPerPage: 0,
           facets: ["dialect", "author", "book", "pronoun"],
-          maxValuesPerFacet,
         },
       ],
     })
     .then((result) => result.results[0] as SearchResponse<EntryType>);
 
   return (
-    <>
-      <Banner q={searchParams.q} />
+    <main
+      className={clsx(
+        "flex",
+        "text-zinc-900 bg-white",
+        "dark:text-white dark:bg-zinc-900",
+      )}
+    >
+      <aside
+        className={clsx(
+          "sticky top-0",
+          "h-screen",
+          "w-72 grow-0 p-4",
+          "border-r border-zinc-400 dark:border-zinc-600",
+          "hidden md:block",
+          "overflow-y-auto",
+        )}
+      >
+        <h3 className="font-bold">絞り込み</h3>
 
-      <main className="flex">
-        <aside
-          className={clsx(
-            "sticky top-0",
-            "h-screen",
-            "w-72 grow-0 p-4 border-r border-zinc-400 dark:border-zinc-600 hidden md:block",
-            "overflow-y-auto",
-          )}
-        >
-          <h3 className="font-bold">絞り込み</h3>
+        <Filters
+          className="mt-2"
+          defaultValues={{
+            dialect,
+            author,
+            book,
+            pronoun,
+          }}
+          resultPromise={facetOnlyResult}
+        />
+      </aside>
 
-          <Filters
-            className="mt-2"
-            defaultValues={{
-              dialect,
-              author,
-              book,
-              pronoun,
-            }}
-            expanded={{
-              dialect: searchParams.expand_dialects,
-              book: searchParams.expand_books,
-              author: searchParams.expand_authors,
-            }}
-            resultPromise={facetOnlyResult}
-          />
-        </aside>
+      <article className={clsx("flex-1 py-4 px-3 md:px-6")}>
+        <header>
+          <Suspense
+            fallback={
+              <div className="w-1/4 h-[1lh] bg-zinc-200 dark:bg-zinc-800 forced-colors:bg-[GrayText] rounded animate-pulse" />
+            }
+            key={searchParams.q}
+          >
+            <SearchStats resultPromise={result} />
+          </Suspense>
+        </header>
 
-        <article className="flex-1 py-4 px-6">
-          <header>
-            <Suspense
-              fallback={
-                <div className="w-1/4 h-[1lh] bg-zinc-100 dark:bg-zinc-900 forced-colors:bg-[GrayText] rounded animate-pulse" />
-              }
-              key={searchParams.q}
-            >
-              <SearchStats resultPromise={result} />
-            </Suspense>
-          </header>
+        <div>
+          <Suspense fallback={<ResultSkeleton />} key={searchParams.q}>
+            <Result resultPromise={result} />
+          </Suspense>
+        </div>
 
-          <div>
-            <Suspense fallback={<ResultSkeleton />} key={searchParams.q}>
-              <Result resultPromise={result} />
-            </Suspense>
-          </div>
-
-          <footer className="max-w-screen-lg mx-auto">
-            <Suspense fallback={null} key={searchParams.q}>
-              <FooterContent page={page} resultPromise={result} />
-            </Suspense>
-          </footer>
-        </article>
-      </main>
-
-      <ContentInfo />
-    </>
+        <footer className="max-w-screen-lg mx-auto">
+          <Suspense fallback={null} key={searchParams.q}>
+            <FooterContent page={page} resultPromise={result} />
+          </Suspense>
+        </footer>
+      </article>
+    </main>
   );
 }

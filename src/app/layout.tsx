@@ -5,6 +5,9 @@ import clsx from "clsx";
 import type { Metadata } from "next";
 import { Cookie, Roboto, Roboto_Mono } from "next/font/google";
 
+import { Banner } from "@/components/Banner";
+import { ContentInfo } from "@/components/ContentInfo";
+
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["300", "400", "500"],
@@ -52,14 +55,14 @@ export default async function RootLayout(props: RootProps) {
       <body
         className={clsx(
           "font-sans antialiased",
-          "text-zinc-900 bg-white",
-          "dark:text-white dark:bg-zinc-900",
+          "bg-white text-black",
+          "dark:bg-black dark:text-white",
           "grid grid-rows-[auto,1fr,auto] grid-cols-[100%] min-h-[100svh]",
         )}
       >
-        {/* <Banner /> */}
+        <Banner />
         {children}
-        {/* <ContentInfo /> */}
+        <ContentInfo />
       </body>
       <GoogleAnalytics gaId="G-RK31448XYB" />
     </html>

@@ -62,7 +62,7 @@ export const Search: FC<SearchProps> = (props) => {
             "dark:bg-black dark:border-blue-400",
             "py-2 pl-5 pr-8",
             "text-lg",
-            "rounded-full rounded-r-none",
+            "rounded-lg rounded-r-none",
           )}
           defaultValue={defaultValue}
           required
@@ -77,7 +77,7 @@ export const Search: FC<SearchProps> = (props) => {
             "block",
             "text-lg",
             "pl-4 pr-5 py-2",
-            "rounded-full rounded-l-none",
+            "rounded-lg rounded-l-none",
             "bg-blue-600 text-white",
             "disabled:bg-blue-600",
             "dark:bg-blue-400 dark:text-black",
