@@ -1,5 +1,8 @@
+"use client";
+
 import { SearchResponse } from "algoliasearch";
 import clsx from "clsx";
+import { usePathname, useSearchParams } from "next/navigation";
 import { FC, use } from "react";
 
 import { Entry } from "@/models/entry";
@@ -14,13 +17,33 @@ export type FiltersProps = {
     author?: string[];
     pronoun?: string[];
   };
+  expanded: {
+    book?: boolean;
+    dialect?: boolean;
+    author?: boolean;
+  };
   resultPromise: Promise<SearchResponse<Entry>>;
 };
 
 export const Filters: FC<FiltersProps> = (props) => {
-  const { className, defaultValues, resultPromise } = props;
+  const { className, defaultValues, resultPromise, expanded } = props;
 
   const result = use(resultPromise);
+
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const getExpandUrl = (key: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set(`expand_${key}`, "true");
+    return `${pathname}?${params.toString()}`;
+  };
+
+  const getCollapseUrl = (key: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete(`expand_${key}`);
+    return `${pathname}?${params.toString()}`;
+  };
 
   return (
     <div className={clsx("space-y-2", className)}>
@@ -34,6 +57,9 @@ export const Filters: FC<FiltersProps> = (props) => {
             value,
             count,
           }))}
+          expanded={expanded.book}
+          expandedHref={getExpandUrl("books")}
+          collapsedHref={getCollapseUrl("books")}
         />
       )}
 
@@ -49,6 +75,9 @@ export const Filters: FC<FiltersProps> = (props) => {
               count,
             }),
           )}
+          expanded={expanded.dialect}
+          expandedHref={getExpandUrl("dialects")}
+          collapsedHref={getCollapseUrl("dialects")}
         />
       )}
 
@@ -64,6 +93,9 @@ export const Filters: FC<FiltersProps> = (props) => {
               count,
             }),
           )}
+          expanded={expanded.author}
+          expandedHref={getExpandUrl("authors")}
+          collapsedHref={getCollapseUrl("authors")}
         />
       )}
 
@@ -82,6 +114,14 @@ export const Filters: FC<FiltersProps> = (props) => {
           )}
         />
       )}
+
+      <button
+        form="search"
+        type="submit"
+        className="bg-blue-600 dark:bg-blue-400 dark:text-black p-1 rounded text-center w-full"
+      >
+        適用
+      </button>
     </div>
   );
 };

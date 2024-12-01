@@ -1,5 +1,8 @@
+import Link from "next/link";
 import { FC, ReactNode } from "react";
-// import { FiChevronDown } from "react-icons/fi";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+
+const MAX_OPTIONS = 5;
 
 type Option = {
   label?: string;
@@ -13,10 +16,27 @@ export type FilterProps = {
   name?: string;
   form?: string;
   options: Option[];
+  expanded?: boolean;
+  expandedHref?: string;
+  collapsedHref?: string;
 };
 
 export const Filter: FC<FilterProps> = (props) => {
-  const { label, defaultValues = [], name, form, options } = props;
+  const {
+    label,
+    defaultValues = [],
+    name,
+    form,
+    expanded,
+    expandedHref = "",
+    collapsedHref = "",
+  } = props;
+
+  const options = expanded
+    ? props.options
+    : props.options.slice(0, MAX_OPTIONS);
+
+  const shouldExpand = props.options.length >= MAX_OPTIONS;
 
   return (
     <div>
@@ -37,10 +57,13 @@ export const Filter: FC<FilterProps> = (props) => {
         ))}
       </ol>
 
-      {/* <button className="py-1 flex items-center gap-1 w-full">
-        <FiChevronDown className="size-4 text-zinc-600 dark:text-zinc-400" />
-        <span className="text-sm grow text-left">さらに表示</span>
-      </button> */}
+      {shouldExpand && (
+        <FilterToggle
+          expanded={expanded}
+          expandedHref={expandedHref}
+          collapsedHref={collapsedHref}
+        />
+      )}
     </div>
   );
 };
@@ -75,4 +98,33 @@ const FilterOption: FC<FilterOptionProps> = (props) => {
       </div>
     </label>
   );
+};
+
+type FilterToggleProps = {
+  expanded?: boolean;
+  expandedHref: string;
+  collapsedHref: string;
+};
+
+const FilterToggle: FC<FilterToggleProps> = (props) => {
+  const { expanded, expandedHref, collapsedHref } = props;
+
+  if (expanded) {
+    return (
+      <Link
+        className="py-1 flex items-center gap-1 w-full"
+        href={collapsedHref}
+      >
+        <FiChevronUp className="size-4 text-zinc-600 dark:text-zinc-400" />
+        <span className="grow text-left">閉じる</span>
+      </Link>
+    );
+  } else {
+    return (
+      <Link className="py-1 flex items-center gap-1 w-full" href={expandedHref}>
+        <FiChevronDown className="size-4 text-zinc-600 dark:text-zinc-400" />
+        <span className="grow text-left">さらに表示</span>
+      </Link>
+    );
+  }
 };

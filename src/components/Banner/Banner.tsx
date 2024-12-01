@@ -11,7 +11,7 @@ export const Banner: FC<BannerProps> = (props) => {
   const { q } = props;
 
   return (
-    <header className={clsx("sticky top-0", "z-50")}>
+    <header>
       <div
         className={clsx(
           "flex items-center gap-3",

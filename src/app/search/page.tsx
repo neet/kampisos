@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import { Banner } from "@/components/Banner";
+import { ContentInfo } from "@/components/ContentInfo";
 import { searchClient } from "@/lib/search";
 import { Entry as EntryType } from "@/models/entry";
 
@@ -24,6 +25,10 @@ type SearchPageProps = {
     author?: string | string[];
     book?: string | string[];
     pronoun?: string | string[];
+
+    expand_books?: boolean;
+    expand_dialects?: boolean;
+    expand_authors?: boolean;
 
     page?: number;
   };
@@ -58,16 +63,27 @@ export default function SearchPage(props: SearchPageProps) {
   }
 
   const page = Number(searchParams.page ?? 0);
-  const filters: string[] = [];
-
   const dialect = normalizeArrayParam(searchParams.dialect);
   const author = normalizeArrayParam(searchParams.author);
   const book = normalizeArrayParam(searchParams.book);
   const pronoun = normalizeArrayParam(searchParams.pronoun);
-  filters.push(dialect.map((value) => `dialect:${value}`).join(" OR "));
-  filters.push(author.map((value) => `author:${value}`).join(" OR "));
-  filters.push(book.map((value) => `book:${value}`).join(" OR "));
-  filters.push(pronoun.map((value) => `pronoun:${value}`).join(" OR "));
+
+  const filters = [
+    dialect.map((value) => `dialect:${value}`).join(" OR "),
+    author.map((value) => `author:${value}`).join(" OR "),
+    book.map((value) => `book:${value}`).join(" OR "),
+    pronoun.map((value) => `pronoun:${value}`).join(" OR "),
+  ]
+    .filter(Boolean)
+    .join(" AND ");
+
+  const maxValuesPerFacet = [
+    searchParams.expand_books,
+    searchParams.expand_dialects,
+    searchParams.expand_authors,
+  ].some(Boolean)
+    ? undefined
+    : 5;
 
   const query = searchParams.q.trim();
   if (!query) {
@@ -80,7 +96,7 @@ export default function SearchPage(props: SearchPageProps) {
         {
           query,
           indexName: "entries",
-          filters: filters.filter(Boolean).join(" AND "),
+          filters,
           page,
           attributesToHighlight: ["text", "translation"],
         },
@@ -96,7 +112,7 @@ export default function SearchPage(props: SearchPageProps) {
           indexName: "entries",
           hitsPerPage: 0,
           facets: ["dialect", "author", "book", "pronoun"],
-          maxValuesPerFacet: 5,
+          maxValuesPerFacet,
         },
       ],
     })
@@ -106,8 +122,15 @@ export default function SearchPage(props: SearchPageProps) {
     <>
       <Banner q={searchParams.q} />
 
-      <main className="flex divide-x divide-zinc-400 dark:divide-zinc-600">
-        <aside className="w-72 grow-0 p-4">
+      <main className="flex">
+        <aside
+          className={clsx(
+            "sticky top-0",
+            "h-screen",
+            "w-72 grow-0 p-4 border-r border-zinc-400 dark:border-zinc-600 hidden md:block",
+            "overflow-y-auto",
+          )}
+        >
           <h3 className="font-bold">絞り込み</h3>
 
           <Filters
@@ -118,12 +141,17 @@ export default function SearchPage(props: SearchPageProps) {
               book,
               pronoun,
             }}
+            expanded={{
+              dialect: searchParams.expand_dialects,
+              book: searchParams.expand_books,
+              author: searchParams.expand_authors,
+            }}
             resultPromise={facetOnlyResult}
           />
         </aside>
 
         <article className="flex-1 py-4 px-6">
-          <header className={clsx("px-4 md:px-0")}>
+          <header>
             <Suspense
               fallback={
                 <div className="w-1/4 h-[1lh] bg-zinc-100 dark:bg-zinc-900 forced-colors:bg-[GrayText] rounded animate-pulse" />
@@ -147,6 +175,8 @@ export default function SearchPage(props: SearchPageProps) {
           </footer>
         </article>
       </main>
+
+      <ContentInfo />
     </>
   );
 }
