@@ -9,6 +9,7 @@ import { Entry as EntryType } from "@/models/entry";
 import { buildFiltersFromFacets } from "@/utils/buildFiltersFromFacets";
 import { fetchComplexFacets } from "@/utils/fetchComplexFacets";
 
+import { FilterDialog } from "./_FilterDialog";
 import { Filters } from "./_Filters";
 import { FooterContent } from "./_FooterContent";
 import { Result, ResultSkeleton } from "./_Result";
@@ -136,6 +137,15 @@ export default function SearchPage(props: SearchPageProps) {
             key={searchParams.q}
           >
             <SearchStats resultPromise={result} />
+            <FilterDialog
+              defaultValues={{
+                dialect,
+                author,
+                book,
+                pronoun,
+              }}
+              resultPromise={facets}
+            />
           </Suspense>
         </header>
 
