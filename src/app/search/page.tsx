@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { SearchResponse } from "algoliasearch";
 import clsx from "clsx";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -7,6 +6,8 @@ import { Suspense } from "react";
 
 import { searchClient } from "@/lib/search";
 import { Entry as EntryType } from "@/models/entry";
+import { buildFiltersFromFacets } from "@/utils/buildFiltersFromFacets";
+import { fetchComplexFacets } from "@/utils/fetchComplexFacets";
 
 import { Filters } from "./_Filters";
 import { FooterContent } from "./_FooterContent";
@@ -61,22 +62,27 @@ export default function SearchPage(props: SearchPageProps) {
   const book = normalizeArrayParam(searchParams.book);
   const pronoun = normalizeArrayParam(searchParams.pronoun);
 
-  const filters = [
-    dialect.map((value) => `dialect:${value}`).join(" OR "),
-    author.map((value) => `author:${value}`).join(" OR "),
-    book.map((value) => `book:${value}`).join(" OR "),
-    pronoun.map((value) => `pronoun:${value}`).join(" OR "),
-  ]
-    .filter(Boolean)
-    .join(" AND ");
+  const filters = buildFiltersFromFacets({
+    dialect,
+    author,
+    book,
+    pronoun,
+  });
 
   const query = searchParams.q.trim();
   if (!query) {
     return notFound();
   }
 
-  const result: Promise<SearchResponse<EntryType>> = searchClient
-    .search<EntryType>({
+  const facets = fetchComplexFacets(query, {
+    dialect,
+    author,
+    book,
+    pronoun,
+  });
+
+  const result = searchClient
+    .searchForHits<EntryType>({
       requests: [
         {
           query,
@@ -87,20 +93,7 @@ export default function SearchPage(props: SearchPageProps) {
         },
       ],
     })
-    .then((response) => response.results[0] as SearchResponse<EntryType>);
-
-  const facetOnlyResult: Promise<SearchResponse<EntryType>> = searchClient
-    .search<EntryType>({
-      requests: [
-        {
-          query,
-          indexName: "entries",
-          hitsPerPage: 0,
-          facets: ["dialect", "author", "book", "pronoun"],
-        },
-      ],
-    })
-    .then((result) => result.results[0] as SearchResponse<EntryType>);
+    .then((response) => response.results[0]);
 
   return (
     <main
@@ -130,7 +123,7 @@ export default function SearchPage(props: SearchPageProps) {
             book,
             pronoun,
           }}
-          resultPromise={facetOnlyResult}
+          resultPromise={facets}
         />
       </aside>
 
