@@ -29,9 +29,9 @@ export const Banner: FC = () => {
           </Suspense>
         </div>
 
-        <div className="flex justify-end underline">
+        {/* <div className="flex justify-end underline">
           <Link href="/about">使い方</Link>
-        </div>
+        </div> */}
       </div>
     </header>
   );

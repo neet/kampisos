@@ -1,6 +1,7 @@
 "use client";
 
 import { FC, useRef } from "react";
+import { FiFilter } from "react-icons/fi";
 
 import { Button } from "@/components/Button";
 import { Dialog } from "@/components/Dialog";
@@ -29,7 +30,12 @@ export const FilterDialog: FC<FiltersProps> = (props) => {
 
   return (
     <>
-      <Button className={className} onClick={handleClick}>
+      <Button
+        icon={<FiFilter />}
+        variant="secondary"
+        className={className}
+        onClick={handleClick}
+      >
         フィルター
       </Button>
 

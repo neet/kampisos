@@ -136,18 +136,18 @@ export default function SearchPage(props: SearchPageProps) {
             }
             key={searchParams.q}
           >
-            <SearchStats resultPromise={result} />
-
-            <FilterDialog
-              className="md:hidden"
-              defaultValues={{
-                dialect,
-                author,
-                book,
-                pronoun,
-              }}
-              resultPromise={facets}
-            />
+            <SearchStats resultPromise={result}>
+              <FilterDialog
+                className="md:hidden"
+                defaultValues={{
+                  dialect,
+                  author,
+                  book,
+                  pronoun,
+                }}
+                resultPromise={facets}
+              />
+            </SearchStats>
           </Suspense>
         </header>
 

@@ -29,7 +29,9 @@ export default async function Home() {
           <h2 className="leading-tight">
             <span className="text-7xl font-cookie">kampisos</span>
           </h2>
-          <p className="leading-relaxed mt-1">アイヌ語コーパス検索サイト</p>
+          <p className="leading-relaxed mt-1">
+            アイヌ語例文対訳コーパス検索サイト
+          </p>
         </div>
 
         <search className="mt-4 max-w-screen-sm mx-auto">
