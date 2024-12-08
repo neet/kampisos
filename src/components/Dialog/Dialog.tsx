@@ -1,38 +1,34 @@
 import clsx from "clsx";
-import { forwardRef, ForwardRefRenderFunction, ReactNode } from "react";
+import { FC, ReactNode, RefObject } from "react";
 
 export type DialogProps = {
+  id?: string;
+  ref?: RefObject<HTMLDialogElement>;
+  className?: string;
   children: ReactNode;
 };
 
-const DialogInternal: ForwardRefRenderFunction<
-  HTMLDialogElement,
-  DialogProps
-> = (props, ref) => {
-  const { children } = props;
+export const Dialog: FC<DialogProps> = (props) => {
+  const { id, ref, className, children } = props;
 
   return (
     <dialog
+      id={id}
       ref={ref}
       className={clsx(
         "backdrop:backdrop-blur",
         "backdrop:bg-black/60",
         "dark:border dark:border-zinc-600",
-        "p-4",
         "rounded-lg",
         "shadow",
         "w-full",
         "bg-white text-black",
         "dark:bg-black dark:text-white",
         "md:max-w-screen-sm",
+        className,
       )}
     >
       {children}
     </dialog>
   );
 };
-
-// TODO: Remove when React 19 is released
-export const Dialog = forwardRef<HTMLDialogElement, DialogProps>(
-  DialogInternal,
-);

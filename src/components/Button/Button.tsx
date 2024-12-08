@@ -18,8 +18,9 @@ const button = tv({
         "forced-colors:border forced-colors:border-[ButtonBorder]",
       ],
       secondary: [
-        "border border-black text-black",
-        "dark:border-white dark:text-white",
+        "hover:bg-zinc-200 dark:hover:bg-zinc-800",
+        "border border-zinc-300 dark:border-zinc-600",
+        "dark:bg-black dark:text-white",
         "forced-colors:border forced-colors:border-[ButtonBorder]",
       ],
     },
@@ -35,7 +36,7 @@ type ButtonProps = {
   size?: "md";
   variant?: "primary" | "secondary";
   icon?: ReactNode;
-  children: ReactNode;
+  children?: ReactNode;
 } & ComponentPropsWithoutRef<"button">;
 
 const _Button: FC<ButtonProps> = (props) => {

@@ -16,7 +16,7 @@ export const Banner: FC = () => {
           "bg-zinc-100 dark:bg-black",
         )}
       >
-        <div className="flex grow gap-2 items-center h-full">
+        <div className="flex grow gap-2 items-center justify-between h-full">
           <Link
             href="/"
             className="text-black dark:text-white no-underline hover:underline"
@@ -25,13 +25,9 @@ export const Banner: FC = () => {
           </Link>
 
           <Suspense fallback={null}>
-            <BannerSearch />
+            <BannerSearch className="h-full flex-1" />
           </Suspense>
         </div>
-
-        {/* <div className="flex justify-end underline">
-          <Link href="/about">使い方</Link>
-        </div> */}
       </div>
     </header>
   );

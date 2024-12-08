@@ -4,13 +4,13 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
+import { Dialog, DialogContent, DialogHeader } from "@/components/Dialog";
+import { Filters } from "@/components/Filters";
 import { searchClient } from "@/lib/search";
 import { Entry as EntryType } from "@/models/entry";
 import { buildFiltersFromFacets } from "@/utils/buildFiltersFromFacets";
 import { fetchComplexFacets } from "@/utils/fetchComplexFacets";
 
-import { FilterDialog } from "./_FilterDialog";
-import { Filters } from "./_Filters";
 import { FooterContent } from "./_FooterContent";
 import { Result, ResultSkeleton } from "./_Result";
 import { SearchStats } from "./_SearchStats";
@@ -136,18 +136,7 @@ export default function SearchPage(props: SearchPageProps) {
             }
             key={searchParams.q}
           >
-            <SearchStats resultPromise={result}>
-              <FilterDialog
-                className="md:hidden"
-                defaultValues={{
-                  dialect,
-                  author,
-                  book,
-                  pronoun,
-                }}
-                resultPromise={facets}
-              />
-            </SearchStats>
+            <SearchStats resultPromise={result} />
           </Suspense>
         </header>
 
@@ -163,6 +152,24 @@ export default function SearchPage(props: SearchPageProps) {
           </Suspense>
         </footer>
       </article>
+
+      <Dialog id="filter-dialog" className="md:hidden">
+        <DialogHeader>
+          <h2 className="text-lg font-bold">フィルターを設定</h2>
+        </DialogHeader>
+
+        <DialogContent>
+          <Filters
+            defaultValues={{
+              dialect,
+              author,
+              book,
+              pronoun,
+            }}
+            resultPromise={facets}
+          />
+        </DialogContent>
+      </Dialog>
     </main>
   );
 }

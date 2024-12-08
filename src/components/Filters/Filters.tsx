@@ -20,6 +20,7 @@ export const Filters: FC<FiltersProps> = (props) => {
   const { className, defaultValues, resultPromise } = props;
 
   const result = use(resultPromise);
+
   return (
     <div>
       <div className={clsx("space-y-2", className)}>

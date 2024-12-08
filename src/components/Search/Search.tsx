@@ -14,22 +14,21 @@ const search = tv({
       "dark:bg-black dark:text-white",
       "forced-colors:border forced-colors:border-[BannerBorder]",
       "focus-within:outline outline-2 outline-blue-600 dark:outline-blue-400",
+      "max-w-screen-sm",
     ],
     icon: "block mx-2",
     textarea: [
-      "w-full bg-transparent",
+      "h-full w-full bg-transparent",
       "text-zinc-600 focus:text-black dark:text-zinc-400 dark:focus:text-zinc-400",
       "focus:outline-none",
     ],
   },
   variants: {
     size: {
+      sm: {},
       md: {
         icon: ["text-lg", "mx-3"],
-        textarea: ["text-lg", "p-2"],
-      },
-      sm: {
-        textarea: ["h-full"],
+        textarea: ["text-lg", "p-2", "pl-0"],
       },
     },
   },
