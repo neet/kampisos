@@ -12,7 +12,7 @@ export function parse(html: string) {
     replace: (domNode) => {
       if (isElement(domNode) && domNode.name === "em") {
         return (
-          <em className="not-italic bg-amber-100 dark:bg-amber-900">
+          <em className="not-italic bg-yellow-200 dark:bg-yellow-800">
             {domToReact(domNode.children as DOMNode[])}
           </em>
         );

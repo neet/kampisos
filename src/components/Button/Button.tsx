@@ -1,45 +1,57 @@
 import clsx from "clsx";
 import { ComponentPropsWithoutRef, ElementType, FC, ReactNode } from "react";
 import { overridable } from "react-as-prop";
+import { tv } from "tailwind-variants";
+
+const button = tv({
+  base: ["flex items-center justify-center gap-1"],
+  variants: {
+    size: {
+      md: ["px-3 py-2", "rounded-lg"],
+    },
+    variant: {
+      primary: [
+        "bg-black text-white",
+        "disabled:bg-zinc-600",
+        "dark:bg-white dark:text-black",
+        "dark:disabled:bg-zinc-200",
+        "forced-colors:border forced-colors:border-[ButtonBorder]",
+      ],
+      secondary: [
+        "border border-black text-black",
+        "dark:border-white dark:text-white",
+        "forced-colors:border forced-colors:border-[ButtonBorder]",
+      ],
+    },
+  },
+  defaultVariants: {
+    size: "md",
+    variant: "primary",
+  },
+});
 
 type ButtonProps = {
   as: ElementType;
+  size?: "md";
   variant?: "primary" | "secondary";
+  icon?: ReactNode;
   children: ReactNode;
 } & ComponentPropsWithoutRef<"button">;
 
 const _Button: FC<ButtonProps> = (props) => {
   const {
     as: Component,
-    variant = "primary",
+    icon,
+    size,
+    variant,
     children,
     className,
     ...rest
   } = props;
 
-  const classNames =
-    variant === "primary"
-      ? clsx(
-          "px-3 py-2",
-          "rounded-lg",
-          "bg-black text-white",
-          "disabled:bg-zinc-600",
-          "dark:bg-white dark:text-black",
-          "dark:disabled:bg-zinc-200",
-          "forced-colors:border forced-colors:border-[ButtonBorder]",
-          className,
-        )
-      : clsx(
-          "px-3 py-2",
-          "rounded-lg",
-          "border border-black text-black",
-          "dark:border-white dark:text-white",
-          "forced-colors:border forced-colors:border-[ButtonBorder]",
-          className,
-        );
-
   return (
-    <Component className={classNames} {...rest}>
+    <Component className={clsx(button({ size, variant }), className)} {...rest}>
+      {icon}
       {children}
     </Component>
   );

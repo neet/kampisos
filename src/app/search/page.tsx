@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { SearchResponse } from "algoliasearch";
 import clsx from "clsx";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { FiHelpCircle } from "react-icons/fi";
 
-import { Search } from "@/components/Search";
 import { searchClient } from "@/lib/search";
 import { Entry as EntryType } from "@/models/entry";
+import { buildFiltersFromFacets } from "@/utils/buildFiltersFromFacets";
+import { fetchComplexFacets } from "@/utils/fetchComplexFacets";
 
+import { FilterDialog } from "./_FilterDialog";
+import { Filters } from "./_Filters";
 import { FooterContent } from "./_FooterContent";
 import { Result, ResultSkeleton } from "./_Result";
 import { SearchStats } from "./_SearchStats";
@@ -19,14 +20,22 @@ export const revalidate = 86_400;
 type SearchPageProps = {
   searchParams: {
     q?: string;
-
-    dialect?: string;
-    author?: string;
-    book?: string;
-    title?: string;
-
     page?: number;
+
+    dialect?: string | string[];
+    author?: string | string[];
+    book?: string | string[];
+    pronoun?: string | string[];
   };
+};
+
+const normalizeArrayParam = (
+  value: string | string[] | undefined,
+): string[] => {
+  if (!value) {
+    return [];
+  }
+  return Array.isArray(value) ? value : [value];
 };
 
 export function generateMetadata(props: SearchPageProps): Metadata {
@@ -49,90 +58,111 @@ export default function SearchPage(props: SearchPageProps) {
   }
 
   const page = Number(searchParams.page ?? 0);
+  const dialect = normalizeArrayParam(searchParams.dialect);
+  const author = normalizeArrayParam(searchParams.author);
+  const book = normalizeArrayParam(searchParams.book);
+  const pronoun = normalizeArrayParam(searchParams.pronoun);
 
-  const facetFilters: string[] = [];
-
-  if (searchParams.dialect) {
-    facetFilters.push(`dialect:${searchParams.dialect}`);
-  }
-  if (searchParams.author) {
-    facetFilters.push(`author:${searchParams.author}`);
-  }
-  if (searchParams.book) {
-    facetFilters.push(`book:${searchParams.book}`);
-  }
-  if (searchParams.title) {
-    facetFilters.push(`title:${searchParams.title}`);
-  }
+  const filters = buildFiltersFromFacets({
+    dialect,
+    author,
+    book,
+    pronoun,
+  });
 
   const query = searchParams.q.trim();
   if (!query) {
     return notFound();
   }
 
-  const result: Promise<SearchResponse<EntryType>> =
-    searchClient.searchSingleIndex<EntryType>({
-      indexName: "entries",
-      searchParams: {
-        query,
-        facetFilters,
-        page,
-        attributesToHighlight: ["text", "translation"],
-      },
-    });
+  const facets = fetchComplexFacets(query, {
+    dialect,
+    author,
+    book,
+    pronoun,
+  });
+
+  const result = searchClient
+    .searchForHits<EntryType>({
+      requests: [
+        {
+          query,
+          indexName: "entries",
+          filters,
+          page,
+          attributesToHighlight: ["text", "translation"],
+        },
+      ],
+    })
+    .then((response) => response.results[0]);
 
   return (
-    <main>
-      <header
+    <main
+      className={clsx(
+        "flex",
+        "text-zinc-900 bg-white",
+        "dark:text-white dark:bg-zinc-900",
+      )}
+    >
+      <aside
         className={clsx(
-          "max-w-screen-lg mx-auto my-12",
-          "flex flex-col items-center gap-3",
-          "px-4 md:px-0",
+          "sticky top-0",
+          "h-screen",
+          "w-72 grow-0 p-4",
+          "border-r border-zinc-300 dark:border-zinc-600",
+          "hidden md:block",
+          "overflow-y-auto",
         )}
       >
-        <h2 className="block text-2xl font-bold">
-          「{searchParams.q}」の検索結果
-        </h2>
+        <h3 className="font-bold">絞り込み</h3>
 
-        <search className="w-full md:w-2/3 max-w-screen-sm">
-          <Search defaultValue={searchParams.q} />
-        </search>
+        <Filters
+          className="mt-2"
+          defaultValues={{
+            dialect,
+            author,
+            book,
+            pronoun,
+          }}
+          resultPromise={facets}
+        />
+      </aside>
 
-        <div className="flex items-center gap-4">
+      <article className={clsx("flex-1 py-4 px-3 md:px-6")}>
+        <header>
           <Suspense
             fallback={
-              <div className="w-1/4 h-[1lh] bg-zinc-100 dark:bg-zinc-900 forced-colors:bg-[GrayText] rounded animate-pulse" />
+              <div className="w-1/4 h-[1lh] bg-zinc-200 dark:bg-zinc-800 forced-colors:bg-[GrayText] rounded animate-pulse" />
             }
             key={searchParams.q}
           >
-            <SearchStats resultPromise={result} />
-            <a
-              href="https://www.algolia.com/doc/api-reference/api-parameters/advancedSyntax/"
-              hrefLang="en"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline text-blue-600 dark:text-blue-400"
-            >
-              <FiHelpCircle className="inline-block mr-1" />
-              クエリ構文について
-            </a>
+            <SearchStats resultPromise={result}>
+              <FilterDialog
+                className="md:hidden"
+                defaultValues={{
+                  dialect,
+                  author,
+                  book,
+                  pronoun,
+                }}
+                resultPromise={facets}
+              />
+            </SearchStats>
           </Suspense>
-        </div>
-      </header>
+        </header>
 
-      <article className="bg-white dark:bg-black border-y border-zinc-300 dark:border-zinc-700">
-        <div className="max-w-screen-lg mx-auto p-4">
+        <div>
           <Suspense fallback={<ResultSkeleton />} key={searchParams.q}>
             <Result resultPromise={result} />
           </Suspense>
         </div>
-      </article>
 
-      <footer className="max-w-screen-lg mx-auto p-4">
-        <Suspense fallback={null} key={searchParams.q}>
-          <FooterContent page={page} resultPromise={result} />
-        </Suspense>
-      </footer>
+        <footer className="max-w-screen-lg mx-auto">
+          <Suspense fallback={null} key={searchParams.q}>
+            <FooterContent page={page} resultPromise={result} />
+          </Suspense>
+        </footer>
+      </article>
     </main>
   );
 }

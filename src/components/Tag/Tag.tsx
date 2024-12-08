@@ -4,10 +4,11 @@ import { FC, ReactNode } from "react";
 export type TagProps = {
   children: ReactNode;
   icon?: ReactNode;
+  className?: string;
 };
 
 export const Tag: FC<TagProps> = (props) => {
-  const { icon, children } = props;
+  const { icon, children, className } = props;
 
   return (
     <div
@@ -15,9 +16,10 @@ export const Tag: FC<TagProps> = (props) => {
         "flex items-center gap-1",
         "text-sm",
         "text-zinc-600 dark:text-zinc-400",
+        className,
       )}
     >
-      {icon && <div>{icon}</div>}
+      {icon}
       {children}
     </div>
   );
