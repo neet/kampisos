@@ -26,7 +26,7 @@ export const Result: FC<ResultProps> = (props) => {
   }
 
   return (
-    <ul className="divide-y divide-zinc-400 dark:divide-zinc-600">
+    <ul className="divide-y divide-zinc-300 dark:divide-zinc-600">
       {result.hits.map((hit) => (
         <li key={hit.objectID} className="py-3">
           <Entry
@@ -48,7 +48,7 @@ export const Result: FC<ResultProps> = (props) => {
 
 export const ResultSkeleton: FC = () => {
   return (
-    <ul className="divide-y divide-zinc-400 dark:divide-zinc-600">
+    <ul className="divide-y divide-zinc-300 dark:divide-zinc-600">
       {[...Array(8)].map((_, index) => (
         <li key={index} className="py-4">
           <EntrySkeleton />

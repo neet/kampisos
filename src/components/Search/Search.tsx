@@ -1,18 +1,51 @@
 "use client";
-
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { FC, useTransition } from "react";
+import { FiLoader, FiSearch } from "react-icons/fi";
+import { tv } from "tailwind-variants";
 
-import { Button } from "../Button";
+const search = tv({
+  slots: {
+    wrapper: [
+      "flex items-center",
+      "rounded-lg",
+      "border border-zinc-300 dark:border-zinc-600",
+      "dark:bg-black dark:text-white",
+      "forced-colors:border forced-colors:border-[BannerBorder]",
+      "focus-within:outline outline-2 outline-blue-600 dark:outline-blue-400",
+    ],
+    icon: "block mx-2",
+    textarea: [
+      "w-full bg-transparent",
+      "text-zinc-600 focus:text-black dark:text-zinc-400 dark:focus:text-zinc-400",
+      "focus:outline-none",
+    ],
+  },
+  variants: {
+    size: {
+      md: {
+        icon: ["text-lg", "mx-3"],
+        textarea: ["text-lg", "p-2"],
+      },
+      sm: {
+        textarea: ["h-full"],
+      },
+    },
+  },
+  defaultVariants: {
+    size: "md",
+  },
+});
 
 export type SearchProps = {
   className?: string;
+  size?: "sm" | "md";
   defaultValue?: string;
 };
 
 export const Search: FC<SearchProps> = (props) => {
-  const { className, defaultValue } = props;
+  const { className, size, defaultValue } = props;
 
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -38,46 +71,37 @@ export const Search: FC<SearchProps> = (props) => {
     });
   };
 
+  const { wrapper, textarea, icon } = search({ size });
+
   return (
     <form
+      id="search"
       method="GET"
       action="/search"
-      className={clsx("mx-auto max-w-[525px]", className)}
+      className={clsx(wrapper(), className)}
       onSubmit={handleSubmit}
-      style={{
-        viewTransitionName: "search-form",
-      }}
     >
-      <label htmlFor="input-q" className="sr-only">
-        キーワードを入力してください
+      <label htmlFor="search-input" className={icon()}>
+        {isPending ? (
+          <FiLoader className="animate-spin" aria-hidden />
+        ) : (
+          <FiSearch className="text-zinc-600 dark:text-zinc-400" aria-hidden />
+        )}
+        <span className="sr-only">キーワード</span>
       </label>
 
-      <div className="flex mt-1">
-        <input
-          id="input-q"
-          type="text"
-          name="q"
-          className={clsx(
-            "block flex-1",
-            "border border-r-0",
-            "bg-white border-blue-600",
-            "dark:bg-black dark:border-blue-400",
-            "py-2 pl-5 pr-8",
-            "text-lg",
-            "rounded-lg rounded-r-none",
-          )}
-          defaultValue={defaultValue}
-          required
-          autoCapitalize="off"
-          autoCorrect="off"
-          autoComplete="off"
-          spellCheck="false"
-        />
-
-        <Button type="submit" className="rounded-lg rounded-l-none">
-          {isPending ? "検索中…" : "検索"}
-        </Button>
-      </div>
+      <input
+        id="search-input"
+        type="text"
+        name="q"
+        defaultValue={defaultValue}
+        className={textarea()}
+        required
+        autoCapitalize="off"
+        autoCorrect="off"
+        autoComplete="off"
+        spellCheck="false"
+      />
     </form>
   );
 };

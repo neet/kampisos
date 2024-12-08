@@ -109,7 +109,7 @@ export default function SearchPage(props: SearchPageProps) {
           "sticky top-0",
           "h-screen",
           "w-72 grow-0 p-4",
-          "border-r border-zinc-400 dark:border-zinc-600",
+          "border-r border-zinc-300 dark:border-zinc-600",
           "hidden md:block",
           "overflow-y-auto",
         )}

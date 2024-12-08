@@ -12,7 +12,7 @@ export const Banner: FC = () => {
           "flex items-center gap-3",
           "p-4",
           "h-16",
-          "border-b border-zinc-400 dark:border-zinc-600",
+          "border-b border-zinc-300 dark:border-zinc-600",
           "bg-zinc-100 dark:bg-black",
         )}
       >
@@ -25,7 +25,7 @@ export const Banner: FC = () => {
           </Link>
 
           <Suspense fallback={null}>
-            <BannerSearch className="flex-1 h-full" />
+            <BannerSearch />
           </Suspense>
         </div>
 
