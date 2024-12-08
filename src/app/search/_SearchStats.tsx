@@ -11,7 +11,8 @@ export const SearchStats: FC<SearchStatsProps> = (props) => {
   const { resultPromise } = props;
 
   const result = use(resultPromise);
-  const nbHits = Intl.NumberFormat("ja-JP").format(result.nbHits);
+  const nbHits =
+    result.nbHits && Intl.NumberFormat("ja-JP").format(result.nbHits);
 
   return (
     <h2>

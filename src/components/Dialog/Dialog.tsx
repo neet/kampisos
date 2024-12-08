@@ -3,7 +3,7 @@ import { FC, ReactNode, RefObject } from "react";
 
 export type DialogProps = {
   id?: string;
-  ref?: RefObject<HTMLDialogElement>;
+  ref?: RefObject<HTMLDialogElement | null>;
   className?: string;
   children: ReactNode;
 };

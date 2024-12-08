@@ -18,7 +18,7 @@ import { SearchStats } from "./_SearchStats";
 export const revalidate = 86_400;
 
 type SearchPageProps = {
-  searchParams: {
+  searchParams: Promise<{
     q?: string;
     page?: number;
 
@@ -26,7 +26,7 @@ type SearchPageProps = {
     author?: string | string[];
     book?: string | string[];
     pronoun?: string | string[];
-  };
+  }>;
 };
 
 const normalizeArrayParam = (
@@ -38,20 +38,22 @@ const normalizeArrayParam = (
   return Array.isArray(value) ? value : [value];
 };
 
-export function generateMetadata(props: SearchPageProps): Metadata {
-  if (!props.searchParams.q) {
+export async function generateMetadata(
+  props: SearchPageProps,
+): Promise<Metadata> {
+  if (!(await props.searchParams).q) {
     throw new Error("q is required");
   }
 
   return {
-    title: `「${props.searchParams.q}」の検索結果`,
+    title: `「${(await props.searchParams).q}」の検索結果`,
     description:
       "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます",
   };
 }
 
-export default function SearchPage(props: SearchPageProps) {
-  const { searchParams } = props;
+export default async function SearchPage(props: SearchPageProps) {
+  const searchParams = await props.searchParams;
 
   if (!searchParams.q) {
     return notFound();
