@@ -9,11 +9,17 @@ export type SearchStatsProps = {
 
 export const SearchStats: FC<SearchStatsProps> = (props) => {
   const { resultPromise } = props;
+
   const result = use(resultPromise);
+  const nbHits =
+    result.nbHits && Intl.NumberFormat("ja-JP").format(result.nbHits);
 
   return (
-    <p className="text-zinc-600 dark:text-zinc-400 flex gap-4">
-      {result.nbHits}件中{result.hits.length}件を表示
-    </p>
+    <h2>
+      <span className="font-bold">{nbHits}件の検索結果</span>
+      <span className="text-zinc-600 dark:text-zinc-400 text-xs">
+        （{result.processingTimeMS}ミリ秒）
+      </span>
+    </h2>
   );
 };

@@ -49,10 +49,11 @@ export function Paginator(props: PaginatorProps) {
     clsx(
       itemClassName,
       "px-4 py-3 rounded shadow-sm",
+      "no-underline",
       current
         ? [
-            "bg-black border border-zinc-700 text-white",
-            "dark:bg-white dark:border-zinc-300 dark:text-zinc-800",
+            "bg-blue-600 border border-blue-700 text-white",
+            "dark:bg-blue-400 dark:border-blue-300 dark:text-black",
           ]
         : [
             "bg-white border border-zinc-300 bg-white hover:bg-zinc-100",
@@ -61,7 +62,7 @@ export function Paginator(props: PaginatorProps) {
     );
 
   return (
-    <nav className="mt-4" aria-label="ページネーション">
+    <nav aria-label="ページネーション">
       <ul className="flex gap-1 justify-center">
         <li>
           <Link href={createHref(page - 1)} className={linkClassName()}>

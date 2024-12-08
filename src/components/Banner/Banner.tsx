@@ -1,38 +1,32 @@
 import clsx from "clsx";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, Suspense } from "react";
+
+import { BannerSearch } from "./BannerSearch";
 
 export const Banner: FC = () => {
   return (
-    <header
-      className={clsx(
-        "sticky top-0",
-        "backdrop-blur",
-        "bg-white/80",
-        "dark:bg-black/80",
-        "shadow-sm",
-        "dark:shadow-none dark:border-b dark:border-zinc-700",
-        "z-50",
-      )}
-    >
+    <header>
       <div
         className={clsx(
-          "flex",
-          "box-border",
+          "flex items-center gap-3",
           "p-4",
-          "lg:max-w-screen-lg mx-auto",
+          "h-16",
+          "border-b border-zinc-300 dark:border-zinc-600",
+          "bg-zinc-100 dark:bg-black",
         )}
       >
-        <div className="flex flex-1">
-          <Link href="/">
-            <h1 className="text-lg font-bold hover:underline">
-              アイヌ語コーパス検索
-            </h1>
+        <div className="flex grow gap-2 items-center justify-between h-full">
+          <Link
+            href="/"
+            className="text-black dark:text-white no-underline hover:underline"
+          >
+            <h1 className="text-3xl leading-none font-cookie">kampisos</h1>
           </Link>
-        </div>
 
-        <div className="flex justify-end text-blue-600 dark:text-blue-400 underline">
-          <Link href="/about">利用方法</Link>
+          <Suspense fallback={null}>
+            <BannerSearch className="h-full flex-1" />
+          </Suspense>
         </div>
       </div>
     </header>
