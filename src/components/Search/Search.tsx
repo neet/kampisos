@@ -4,6 +4,8 @@ import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { FC, useTransition } from "react";
 
+import { Button } from "../Button";
+
 export type SearchProps = {
   className?: string;
   defaultValue?: string;
@@ -72,23 +74,9 @@ export const Search: FC<SearchProps> = (props) => {
           spellCheck="false"
         />
 
-        <button
-          className={clsx(
-            "block",
-            "text-lg",
-            "pl-4 pr-5 py-2",
-            "rounded-lg rounded-l-none",
-            "bg-blue-600 text-white",
-            "disabled:bg-blue-600",
-            "dark:bg-blue-400 dark:text-black",
-            "dark:disabled:bg-blue-200",
-            "forced-colors:border forced-colors:border-[ButtonBorder]",
-          )}
-          type="submit"
-          disabled={isPending}
-        >
-          {isPending ? "検索中..." : "検索"}
-        </button>
+        <Button type="submit" className="rounded-lg rounded-l-none">
+          {isPending ? "検索中…" : "検索"}
+        </Button>
       </div>
     </form>
   );

@@ -19,6 +19,8 @@ export type FiltersProps = {
 };
 
 export const FilterDialog: FC<FiltersProps> = (props) => {
+  const { className, ...rest } = props;
+
   const ref = useRef<HTMLDialogElement>(null);
 
   const handleClick = () => {
@@ -27,12 +29,14 @@ export const FilterDialog: FC<FiltersProps> = (props) => {
 
   return (
     <>
-      <Button onClick={handleClick}>フィルター</Button>
+      <Button className={className} onClick={handleClick}>
+        フィルター
+      </Button>
 
       <Dialog ref={ref}>
         <h2 className="text-lg font-bold">詳細情報</h2>
 
-        <Filters {...props} />
+        <Filters {...rest} />
       </Dialog>
     </>
   );

@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import { FC, use } from "react";
 
+import { Button } from "@/components/Button";
+
 import { Filter } from "../../components/Filters/Filter";
 
 export type FiltersProps = {
@@ -76,15 +78,9 @@ export const Filters: FC<FiltersProps> = (props) => {
         )}
       </div>
 
-      <hr className="border-zinc-400 dark:border-zinc-600 my-5" />
-
-      <button
-        form="search"
-        type="submit"
-        className="bg-blue-600 dark:bg-blue-400 dark:text-black p-1 rounded text-center w-full"
-      >
+      <Button form="search" type="submit" className="w-full mt-4">
         適用
-      </button>
+      </Button>
     </div>
   );
 };

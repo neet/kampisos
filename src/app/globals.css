@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  a {
-    @apply text-blue-600 dark:text-blue-400;
-    @apply underline;
-  }
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
