@@ -4,6 +4,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { BsCaretLeftFill, BsCaretRightFill } from "react-icons/bs";
+import { FiMoreHorizontal } from "react-icons/fi";
 
 import { createPages } from "@/utils/pages";
 
@@ -32,33 +33,24 @@ export function Paginator(props: PaginatorProps) {
   };
 
   const itemClassName = clsx(
-    "block",
-    "box-border",
-    "h-full",
-    "leading-none",
+    "flex items-center justify-center",
     "text-center",
+    "size-9",
   );
 
   const ellipsisClassName = clsx(
     itemClassName,
-    "py-3 px-1",
     "text-zinc-400 dark:text-zinc-600",
   );
 
   const linkClassName = (current: boolean = false) =>
     clsx(
       itemClassName,
-      "px-4 py-3 rounded shadow-sm",
-      "no-underline",
+      "rounded-lg",
+      "transition-colors",
       current
-        ? [
-            "bg-emerald-600 border border-emerald-700 text-white",
-            "dark:bg-emerald-400 dark:border-emerald-300 dark:text-black",
-          ]
-        : [
-            "bg-white border border-zinc-300 bg-white hover:bg-zinc-100",
-            "dark:bg-black dark:border-zinc-700 dark:hover:bg-zinc-800",
-          ],
+        ? ["bg-emerald-600 text-white", "dark:bg-emerald-400 dark:text-black"]
+        : ["hover:bg-zinc-100 dark:hover:bg-zinc-800"],
     );
 
   return (
@@ -93,7 +85,9 @@ export function Paginator(props: PaginatorProps) {
 
         {pages.hasMore.tail && (
           <li>
-            <a className={ellipsisClassName}>&#8230;</a>
+            <a className={ellipsisClassName}>
+              <FiMoreHorizontal />
+            </a>
           </li>
         )}
 
