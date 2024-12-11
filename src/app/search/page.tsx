@@ -110,7 +110,7 @@ export default async function SearchPage(props: SearchPageProps) {
           />
         </div>
 
-        <div className="flex justify-end">
+        <div>
           <MobileFilterButton
             defaultValues={{
               dialect,
@@ -125,10 +125,10 @@ export default async function SearchPage(props: SearchPageProps) {
 
       <div
         className={clsx(
-          "flex",
           "text-zinc-900 bg-white",
           "dark:text-white dark:bg-zinc-900",
           "border-y border-zinc-300 dark:border-zinc-600",
+          "md:flex",
         )}
       >
         <aside
@@ -153,7 +153,7 @@ export default async function SearchPage(props: SearchPageProps) {
           />
         </aside>
 
-        <article className={clsx("flex-1 py-4 px-3 md:px-6")}>
+        <article className="flex-1 py-4 px-3 md:px-6">
           <header>
             <Suspense
               fallback={
