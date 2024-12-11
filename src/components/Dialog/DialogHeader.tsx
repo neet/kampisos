@@ -22,7 +22,9 @@ export const DialogHeader: FC<DialogHeaderProps> = (props) => {
     <header
       ref={ref}
       className={clsx(
-        "sticky top-0 left-0 bg-white/80 backdrop-blur",
+        "sticky top-0 left-0",
+        "bg-white/80 backdrop-blur",
+        "dark:bg-black/80",
         "flex items-center justify-between",
         "px-4 py-3",
       )}

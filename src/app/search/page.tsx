@@ -4,14 +4,15 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import { Dialog, DialogContent, DialogHeader } from "@/components/Dialog";
 import { Filters } from "@/components/Filters";
+import { Search } from "@/components/Search";
 import { searchClient } from "@/lib/search";
 import { Entry as EntryType } from "@/models/entry";
 import { buildFiltersFromFacets } from "@/utils/buildFiltersFromFacets";
 import { fetchComplexFacets } from "@/utils/fetchComplexFacets";
 
 import { FooterContent } from "./_FooterContent";
+import { MobileFilterButton } from "./_MobileFilterButton";
 import { Result, ResultSkeleton } from "./_Result";
 import { SearchStats } from "./_SearchStats";
 
@@ -84,7 +85,7 @@ export default async function SearchPage(props: SearchPageProps) {
     pronoun,
   });
 
-  const result = searchClient
+  const hits = searchClient
     .searchForHits<EntryType>({
       requests: [
         {
@@ -99,69 +100,18 @@ export default async function SearchPage(props: SearchPageProps) {
     .then((response) => response.results[0]);
 
   return (
-    <main
-      className={clsx(
-        "flex",
-        "text-zinc-900 bg-white",
-        "dark:text-white dark:bg-zinc-900",
-      )}
-    >
-      <aside
-        className={clsx(
-          "sticky top-0",
-          "h-screen",
-          "w-72 grow-0 p-4",
-          "border-r border-zinc-300 dark:border-zinc-600",
-          "hidden md:block",
-          "overflow-y-auto",
-        )}
-      >
-        <h3 className="font-bold">絞り込み</h3>
-
-        <Filters
-          className="mt-2"
-          defaultValues={{
-            dialect,
-            author,
-            book,
-            pronoun,
-          }}
-          resultPromise={facets}
-        />
-      </aside>
-
-      <article className={clsx("flex-1 py-4 px-3 md:px-6")}>
-        <header>
-          <Suspense
-            fallback={
-              <div className="w-1/4 h-[1lh] bg-zinc-200 dark:bg-zinc-800 forced-colors:bg-[GrayText] rounded animate-pulse" />
-            }
-            key={searchParams.q}
-          >
-            <SearchStats resultPromise={result} />
-          </Suspense>
-        </header>
-
-        <div>
-          <Suspense fallback={<ResultSkeleton />} key={searchParams.q}>
-            <Result resultPromise={result} />
-          </Suspense>
+    <main>
+      <header className="p-2">
+        <div className="flex flex-col items-center my-8 w-full">
+          <h2 className="font-bold text-2xl">「{query}」を含む資料</h2>
+          <Search
+            className="mt-2 w-full max-w-screen-sm"
+            defaultValue={query}
+          />
         </div>
 
-        <footer className="max-w-screen-lg mx-auto">
-          <Suspense fallback={null} key={searchParams.q}>
-            <FooterContent page={page} resultPromise={result} />
-          </Suspense>
-        </footer>
-      </article>
-
-      <Dialog id="filter-dialog" className="md:hidden">
-        <DialogHeader>
-          <h2 className="text-lg font-bold">フィルターを設定</h2>
-        </DialogHeader>
-
-        <DialogContent>
-          <Filters
+        <div className="flex justify-end">
+          <MobileFilterButton
             defaultValues={{
               dialect,
               author,
@@ -170,8 +120,64 @@ export default async function SearchPage(props: SearchPageProps) {
             }}
             resultPromise={facets}
           />
-        </DialogContent>
-      </Dialog>
+        </div>
+      </header>
+
+      <div
+        className={clsx(
+          "flex",
+          "text-zinc-900 bg-white",
+          "dark:text-white dark:bg-zinc-900",
+          "border-y border-zinc-300 dark:border-zinc-600",
+        )}
+      >
+        <aside
+          className={clsx(
+            "w-72 grow-0 p-4",
+            "border-r border-zinc-300 dark:border-zinc-600",
+            "hidden md:block",
+            "overflow-y-auto",
+          )}
+        >
+          <h3 className="font-bold">絞り込み</h3>
+
+          <Filters
+            className="mt-2"
+            defaultValues={{
+              dialect,
+              author,
+              book,
+              pronoun,
+            }}
+            resultPromise={facets}
+          />
+        </aside>
+
+        <article className={clsx("flex-1 py-4 px-3 md:px-6")}>
+          <header>
+            <Suspense
+              fallback={
+                <div className="w-1/4 h-[1lh] bg-zinc-200 dark:bg-zinc-800 forced-colors:bg-[GrayText] rounded animate-pulse" />
+              }
+              key={searchParams.q}
+            >
+              <SearchStats resultPromise={hits} />
+            </Suspense>
+          </header>
+
+          <div>
+            <Suspense fallback={<ResultSkeleton />} key={searchParams.q}>
+              <Result resultPromise={hits} />
+            </Suspense>
+          </div>
+
+          <footer className="max-w-screen-lg mx-auto">
+            <Suspense fallback={null} key={searchParams.q}>
+              <FooterContent page={page} resultPromise={hits} />
+            </Suspense>
+          </footer>
+        </article>
+      </div>
     </main>
   );
 }

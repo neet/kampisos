@@ -92,14 +92,14 @@ const FilterOption: FC<FilterOptionProps> = (props) => {
   const count = Intl.NumberFormat("ja-JP").format(option.count);
 
   return (
-    <label className="flex gap-1 py-1 select-none">
+    <label className="flex gap-1 py-1 items-center select-none">
       <input
         type="checkbox"
         value={option.value}
         name={name}
         form={form}
         defaultChecked={defaultChecked}
-        className="accent-blue-600 dark:accent-blue-400"
+        className="accent-emerald-600 dark:accent-emerald-400"
       />
 
       <div className="grow truncate">{label}</div>

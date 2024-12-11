@@ -7,13 +7,13 @@ const button = tv({
   base: ["flex items-center justify-center gap-1"],
   variants: {
     size: {
-      md: ["px-3 py-2", "rounded-lg"],
+      md: ["px-4 py-1", "rounded-lg"],
     },
     variant: {
       primary: [
-        "bg-black text-white",
+        "bg-emerald-600 text-white",
         "disabled:bg-zinc-600",
-        "dark:bg-white dark:text-black",
+        "dark:bg-emerald-400 dark:text-black",
         "dark:disabled:bg-zinc-200",
         "forced-colors:border forced-colors:border-[ButtonBorder]",
       ],

@@ -14,10 +14,16 @@ export const Changelogs: FC<ChangelogsProps> = (props) => {
   const { className, changelogs } = props;
 
   return (
-    <div className={clsx("mt-2 space-y-1", className)}>
-      {changelogs.map((changelog) => (
-        <Changelog key={changelog.content} changelog={changelog} />
-      ))}
+    <div className={clsx("mt-2", className)}>
+      <h2 className="font-bold">最近の更新</h2>
+
+      <ul className="mt-1">
+        {changelogs.map((changelog) => (
+          <li key={changelog.content}>
+            <Changelog changelog={changelog} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

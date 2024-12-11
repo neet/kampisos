@@ -12,23 +12,20 @@ const search = tv({
       "rounded-lg",
       "border border-zinc-300 dark:border-zinc-600",
       "dark:bg-black dark:text-white",
+      "bg-white dark:bg-black",
       "forced-colors:border forced-colors:border-[BannerBorder]",
-      "focus-within:outline outline-2 outline-blue-600 dark:outline-blue-400",
+      "focus-within:outline outline-2 outline-emerald-600 dark:outline-emerald-400",
       "max-w-screen-sm",
     ],
     icon: "block mx-2",
-    textarea: [
-      "h-full w-full bg-transparent",
-      "text-zinc-600 focus:text-black dark:text-zinc-400 dark:focus:text-zinc-400",
-      "focus:outline-none",
-    ],
+    textarea: ["h-full w-full bg-transparent", "focus:outline-none"],
   },
   variants: {
     size: {
       sm: {},
       md: {
         icon: ["text-lg", "mx-3"],
-        textarea: ["text-lg", "p-2", "pl-0"],
+        textarea: ["text-lg", "py-2 px-3", "pr-0"],
       },
     },
   },
@@ -80,15 +77,6 @@ export const Search: FC<SearchProps> = (props) => {
       className={clsx(wrapper(), className)}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="search-input" className={icon()}>
-        {isPending ? (
-          <FiLoader className="animate-spin" aria-hidden />
-        ) : (
-          <FiSearch className="text-zinc-600 dark:text-zinc-400" aria-hidden />
-        )}
-        <span className="sr-only">キーワード</span>
-      </label>
-
       <input
         id="search-input"
         type="text"
@@ -101,6 +89,18 @@ export const Search: FC<SearchProps> = (props) => {
         autoComplete="off"
         spellCheck="false"
       />
+
+      <label htmlFor="search-input" className={icon()}>
+        {isPending ? (
+          <FiLoader
+            className="text-zinc-600 dark:text-zinc-400 animate-spin"
+            aria-hidden
+          />
+        ) : (
+          <FiSearch className="text-zinc-600 dark:text-zinc-400" aria-hidden />
+        )}
+        <span className="sr-only">キーワード</span>
+      </label>
     </form>
   );
 };

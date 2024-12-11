@@ -55,7 +55,7 @@ export default async function RootLayout(props: RootProps) {
       <body
         className={clsx(
           "font-sans antialiased",
-          "bg-white text-black",
+          "bg-zinc-100 text-black",
           "dark:bg-black dark:text-white",
           "grid grid-rows-[auto,1fr,auto] grid-cols-[100%] min-h-[100svh]",
         )}

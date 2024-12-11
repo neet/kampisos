@@ -52,8 +52,8 @@ export function Paginator(props: PaginatorProps) {
       "no-underline",
       current
         ? [
-            "bg-blue-600 border border-blue-700 text-white",
-            "dark:bg-blue-400 dark:border-blue-300 dark:text-black",
+            "bg-emerald-600 border border-emerald-700 text-white",
+            "dark:bg-emerald-400 dark:border-emerald-300 dark:text-black",
           ]
         : [
             "bg-white border border-zinc-300 bg-white hover:bg-zinc-100",
