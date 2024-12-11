@@ -4,8 +4,7 @@
     "plugin:import/recommended",
     "plugin:prettier/recommended",
     "plugin:storybook/recommended",
-    "next/core-web-vitals",
-    "plugin:storybook/recommended"
+    "next/core-web-vitals"
   ],
   "plugins": ["import", "simple-import-sort"],
   "env": {
@@ -19,7 +18,7 @@
     {
       "files": ["*.ts", "*.tsx"],
       "extends": [
-        "next/typescript",
+        "plugin:@typescript-eslint/strict",
         "plugin:import/typescript",
         "plugin:prettier/recommended"
       ],

@@ -55,7 +55,7 @@ export const EntryDetailsViewer: FC<EntryDetailsViewerProps> = (props) => {
             href={url}
             target="_blank"
             rel="noreferrer"
-            className="text-blue-600 dark:text-blue-400 underline"
+            className="text-emerald-600 dark:text-emerald-400 underline"
           >
             {url}
             <FiExternalLink className="inline align-top" />

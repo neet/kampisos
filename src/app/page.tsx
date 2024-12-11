@@ -26,16 +26,16 @@ export default async function Home() {
     <main className="flex items-center justify-center p-4">
       <div>
         <div className="text-center">
-          <h2 className="text-2xl font-bold leading-tight">
-            アイヌ語コーパス検索
+          <h2 className="leading-tight">
+            <span className="text-7xl font-cookie">kampisos</span>
           </h2>
           <p className="leading-relaxed mt-1">
-            アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます
+            アイヌ語例文対訳コーパス検索サイト
           </p>
         </div>
 
         <search className="mt-4 max-w-screen-sm mx-auto">
-          <Search defaultValue="" />
+          <Search />
           <Changelogs className="mt-6" changelogs={changelogs.contents} />
         </search>
       </div>
