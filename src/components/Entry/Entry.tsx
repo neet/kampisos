@@ -21,6 +21,7 @@ import { Tag } from "../Tag";
 import { EntryDetailsDialog } from "./EntryDetailsDialog";
 
 export type EntryRootProps = {
+  searchLang: "ja" | "ain";
   text: string;
   textHTML: string;
   translation: string;
@@ -33,20 +34,33 @@ export type EntryRootProps = {
 };
 
 const EntryRoot: React.FC<EntryRootProps> = (props) => {
-  const { textHTML, translationHTML, book, title, url, author, dialect } =
-    props;
+  const {
+    searchLang,
+    textHTML,
+    translationHTML,
+    book,
+    title,
+    url,
+    author,
+    dialect,
+  } = props;
+
+  const highlights: [string, string] =
+    searchLang === "ja"
+      ? [translationHTML, textHTML]
+      : [textHTML, translationHTML];
 
   return (
     <div className="entry">
       <Flex gap="2" direction={{ initial: "column", md: "row" }}>
         <Box flexGrow="1" flexShrink="1" flexBasis="100%" asChild>
           <Text asChild>
-            <p>{parse(textHTML)}</p>
+            <p>{parse(highlights[0])}</p>
           </Text>
         </Box>
         <Box flexGrow="1" flexShrink="1" flexBasis="100%" asChild>
           <Text asChild>
-            <p>{parse(translationHTML)}</p>
+            <p>{parse(highlights[1])}</p>
           </Text>
         </Box>
       </Flex>

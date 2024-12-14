@@ -200,7 +200,10 @@ export default async function SearchPage(props: SearchPageProps) {
 
                 <Box mt="3">
                   <Suspense fallback={<Result.Skeleton />} key={searchParams.q}>
-                    <Result.Root resultPromise={hits} />
+                    <Result.Root
+                      resultPromise={hits}
+                      searchLang={isAlpha(searchParams.q) ? "ain" : "ja"}
+                    />
                   </Suspense>
                 </Box>
 
