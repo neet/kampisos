@@ -69,7 +69,6 @@ export default async function SearchPage(props: SearchPageProps) {
     return notFound();
   }
 
-  const searchableAttribute = isAlpha(searchParams.q) ? "text" : "translation";
   const page = Number(searchParams.page ?? 0);
 
   const dialect = normalizeArrayParam(searchParams.dialect);
@@ -104,7 +103,6 @@ export default async function SearchPage(props: SearchPageProps) {
           indexName: "entries",
           filters,
           page,
-          restrictSearchableAttributes: [searchableAttribute],
           attributesToHighlight: ["text", "translation"],
         },
       ],
