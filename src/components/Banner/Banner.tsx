@@ -1,40 +1,23 @@
-import clsx from "clsx";
+import "./style.css";
+
+import { Container, Flex, Link as RadixLink } from "@radix-ui/themes";
 import Link from "next/link";
 import { FC } from "react";
 
 export const Banner: FC = () => {
   return (
-    <header
-      className={clsx(
-        "sticky top-0",
-        "backdrop-blur",
-        "bg-white/80",
-        "dark:bg-black/80",
-        "shadow-sm",
-        "dark:shadow-none dark:border-b dark:border-zinc-700",
-        "z-50",
-      )}
-    >
-      <div
-        className={clsx(
-          "flex",
-          "box-border",
-          "p-4",
-          "lg:max-w-screen-lg mx-auto",
-        )}
-      >
-        <div className="flex flex-1">
+    <header className="banner">
+      <Container size="4" p="3">
+        <Flex justify="between" align="center">
           <Link href="/">
-            <h1 className="text-lg font-bold hover:underline">
-              アイヌ語コーパス検索
-            </h1>
+            <h1>kampisos</h1>
           </Link>
-        </div>
 
-        <div className="flex justify-end text-blue-600 dark:text-blue-400 underline">
-          <Link href="/about">利用方法</Link>
-        </div>
-      </div>
+          <RadixLink asChild>
+            <Link href="/about">使い方</Link>
+          </RadixLink>
+        </Flex>
+      </Container>
     </header>
   );
 };

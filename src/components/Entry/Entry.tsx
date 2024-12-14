@@ -1,12 +1,26 @@
+import "./style.css";
+
+import {
+  ExternalLinkIcon,
+  PersonIcon,
+  SewingPinIcon,
+} from "@radix-ui/react-icons";
+import {
+  Box,
+  Flex,
+  Link,
+  Skeleton,
+  Text,
+  VisuallyHidden,
+} from "@radix-ui/themes";
 import { FC } from "react";
-import { FiExternalLink, FiMapPin, FiUser } from "react-icons/fi";
 
 import { parse } from "@/utils/parse";
 
 import { Tag } from "../Tag";
-import { EntryDetailsButton } from "./EntryDetailsButton";
+import { EntryDetailsDialog } from "./EntryDetailsDialog";
 
-export type EntryProps = {
+export type EntryRootProps = {
   text: string;
   textHTML: string;
   translation: string;
@@ -18,86 +32,97 @@ export type EntryProps = {
   dialect: string | null;
 };
 
-export const Entry: React.FC<EntryProps> = (props) => {
-  const {
-    text,
-    translation,
-    textHTML,
-    translationHTML,
-    book,
-    title,
-    url,
-    author,
-    dialect,
-  } = props;
+const EntryRoot: React.FC<EntryRootProps> = (props) => {
+  const { textHTML, translationHTML, book, title, url, author, dialect } =
+    props;
 
   return (
-    <div>
-      <div className="flex gap-2 flex-col md:flex-row md:gap-4">
-        <div className="flex-1">{parse(textHTML)}</div>
-        <div className="flex-1">{parse(translationHTML)}</div>
-      </div>
+    <div className="entry">
+      <Flex gap="2" direction={{ initial: "column", md: "row" }}>
+        <Box flexGrow="1" flexShrink="1" flexBasis="100%" asChild>
+          <Text asChild>
+            <p>{parse(textHTML)}</p>
+          </Text>
+        </Box>
+        <Box flexGrow="1" flexShrink="1" flexBasis="100%" asChild>
+          <Text asChild>
+            <p>{parse(translationHTML)}</p>
+          </Text>
+        </Box>
+      </Flex>
 
-      <div className="mt-2 flex justify-between items-center">
-        <div className="min-w-0 shrink grow-0">
-          <p className="text-zinc-600 dark:text-zinc-400 truncate text-xs w-full block">
-            <a
-              href={url}
-              target="_blank"
-              rel="noreferrer"
-              className="hover:underline"
-            >
-              <span className="sr-only">出典：</span>
-              {book}『{title}』
-              <FiExternalLink
-                aria-hidden
-                className="inline-block size-3 mr-1 align-baseline"
-              />
-            </a>
-          </p>
-        </div>
+      <Flex gap="2" justify="between" align="center" mt="1">
+        <Box flexGrow="0" flexShrink="1" minWidth="0px" asChild>
+          <Link
+            href={url}
+            target="_blank"
+            rel="noreferrer"
+            truncate
+            size="2"
+            color="gray"
+          >
+            <VisuallyHidden>出典：</VisuallyHidden>
+            {book}
+            <Box display="inline-block" ml="1">
+              <ExternalLinkIcon aria-hidden />
+            </Box>
+          </Link>
+        </Box>
 
-        <div className={"shrink-0 grow flex gap-4 justify-end"}>
-          {author && <Tag icon={<FiUser aria-label="著者" />}>{author}</Tag>}
-
-          {dialect && (
-            <Tag icon={<FiMapPin aria-label="方言" />}>{dialect}</Tag>
+        <Flex gap="3" flexGrow="1" flexShrink="0" justify="end" align="center">
+          {author && (
+            <Box flexGrow="1" flexShrink="0" asChild>
+              <Tag icon={<PersonIcon aria-label="著者" />}>{author}</Tag>
+            </Box>
           )}
 
-          <EntryDetailsButton
-            text={text}
-            translation={translation}
+          {dialect && (
+            <Box flexGrow="1" flexShrink="0" asChild>
+              <Tag icon={<SewingPinIcon aria-label="方言" />}>{dialect}</Tag>
+            </Box>
+          )}
+
+          <EntryDetailsDialog
             book={book}
             title={title}
+            author={author}
+            dialect={dialect}
             url={url}
-            author={author ?? undefined}
-            dialect={dialect ?? undefined}
           />
-        </div>
-      </div>
+        </Flex>
+      </Flex>
     </div>
   );
 };
 
-export const EntrySkeleton: FC = () => {
+const EntrySkeleton: FC = () => {
   return (
     <div>
-      <div className="flex gap-2 flex-col md:flex-row md:gap-4">
-        <div className="flex-1 space-y-1">
-          <div className="w-1/3 h-[1lh] bg-zinc-100 dark:bg-zinc-900 forced-colors:bg-[GrayText] rounded animate-pulse" />
-          <div className="w-1/2 h-[1lh] bg-zinc-100 dark:bg-zinc-900 forced-colors:bg-[GrayText] rounded animate-pulse" />
-        </div>
-        <div className="flex-1 space-y-1">
-          <div className="w-1/3 h-[1lh] bg-zinc-100 dark:bg-zinc-900 forced-colors:bg-[GrayText] rounded animate-pulse" />
-          <div className="w-2/3 h-[1lh] bg-zinc-100 dark:bg-zinc-900 forced-colors:bg-[GrayText] rounded animate-pulse" />
-        </div>
-      </div>
+      <Flex gap="2" direction={{ initial: "column", md: "row" }}>
+        <Box flexGrow="1" flexShrink="1" flexBasis="100%" asChild>
+          <Skeleton>
+            <Text>irankarapte tanto sirpirka wa!</Text>
+          </Skeleton>
+        </Box>
+        <Box flexGrow="1" flexShrink="1" flexBasis="100%" asChild>
+          <Skeleton>
+            <Text>こんにちは。今日は天気がいいですね！</Text>
+          </Skeleton>
+        </Box>
+      </Flex>
 
-      <div className="mt-2 flex justify-between items-center">
-        <div className="shrink-0 grow flex gap-2 justify-end">
-          <div className="w-1/4 text-sm h-[1lh] bg-zinc-100 dark:bg-zinc-900 forced-colors:bg-[GrayText] rounded animate-pulse" />
+      <Flex gap="2" justify="between" align="center" mt="1">
+        <div>
+          <Skeleton>
+            <Link size="2">アイヌ語アーカイブ</Link>
+          </Skeleton>
         </div>
-      </div>
+      </Flex>
     </div>
   );
+};
+
+export const Entry = {
+  Root: EntryRoot,
+  Skeleton: EntrySkeleton,
 };

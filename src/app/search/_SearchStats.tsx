@@ -1,19 +1,49 @@
+import { Flex, Heading, Skeleton, Text } from "@radix-ui/themes";
 import { SearchResponse } from "algoliasearch";
-import { FC, use } from "react";
+import { FC, ReactNode, use } from "react";
 
 import { Entry } from "@/models/entry";
 
-export type SearchStatsProps = {
+type SearchStatsRootProps = {
   resultPromise: Promise<SearchResponse<Entry>>;
+  suffix?: ReactNode;
 };
 
-export const SearchStats: FC<SearchStatsProps> = (props) => {
-  const { resultPromise } = props;
+const SearchStatsRoot: FC<SearchStatsRootProps> = (props) => {
+  const { resultPromise, suffix } = props;
+
   const result = use(resultPromise);
+  const nbHits =
+    result.nbHits && Intl.NumberFormat("ja-JP").format(result.nbHits);
 
   return (
-    <p className="text-zinc-600 dark:text-zinc-400 flex gap-4">
-      {result.nbHits}件中{result.hits.length}件を表示
-    </p>
+    <Flex align="center" justify="between">
+      <Heading as="h3" size="4">
+        {nbHits}件の検索結果
+        <Text size="1" color="gray" weight="medium">
+          （{result.processingTimeMS}ミリ秒）
+        </Text>
+      </Heading>
+
+      {suffix}
+    </Flex>
   );
+};
+
+const SearchStatsSkeleton: FC = () => {
+  return (
+    <Heading as="h3" size="3">
+      <Skeleton>
+        1,000件の検索結果
+        <Text size="1" color="gray" weight="medium">
+          （0ミリ秒）
+        </Text>
+      </Skeleton>
+    </Heading>
+  );
+};
+
+export const SearchStats = {
+  Root: SearchStatsRoot,
+  Skeleton: SearchStatsSkeleton,
 };

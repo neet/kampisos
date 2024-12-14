@@ -1,16 +1,15 @@
 "use client";
-
-import clsx from "clsx";
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import { Spinner, TextField, VisuallyHidden } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 import { FC, useTransition } from "react";
 
 export type SearchProps = {
-  className?: string;
   defaultValue?: string;
 };
 
 export const Search: FC<SearchProps> = (props) => {
-  const { className, defaultValue } = props;
+  const { defaultValue } = props;
 
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -37,59 +36,33 @@ export const Search: FC<SearchProps> = (props) => {
   };
 
   return (
-    <form
-      method="GET"
-      action="/search"
-      className={clsx("mx-auto max-w-[525px]", className)}
-      onSubmit={handleSubmit}
-      style={{
-        viewTransitionName: "search-form",
-      }}
-    >
-      <label htmlFor="input-q" className="sr-only">
-        キーワードを入力してください
-      </label>
+    <form id="search" method="GET" action="/search" onSubmit={handleSubmit}>
+      <VisuallyHidden asChild>
+        <label htmlFor="search-input">キーワード</label>
+      </VisuallyHidden>
 
-      <div className="flex mt-1">
-        <input
-          id="input-q"
-          type="text"
-          name="q"
-          className={clsx(
-            "block flex-1 box-border",
-            "border border-r-0",
-            "bg-white border-zinc-300",
-            "dark:bg-black dark:border-zinc-700",
-            "py-2 px-3",
-            "text-lg",
-            "rounded-lg rounded-r-none",
-          )}
-          defaultValue={defaultValue}
-          required
-          autoCapitalize="off"
-          autoCorrect="off"
-          autoComplete="off"
-          spellCheck="false"
-        />
+      <TextField.Root
+        id="search-input"
+        type="text"
+        name="q"
+        defaultValue={defaultValue}
+        required
+        autoCapitalize="off"
+        autoCorrect="off"
+        autoComplete="off"
+        spellCheck="false"
+        size="3"
+      >
+        <TextField.Slot>
+          <MagnifyingGlassIcon />
+        </TextField.Slot>
 
-        <button
-          className={clsx(
-            "block",
-            "text-lg",
-            "px-4 py-2",
-            "rounded-lg rounded-l-none",
-            "bg-black text-white",
-            "disabled:bg-zinc-600",
-            "dark:bg-white dark:text-black",
-            "dark:disabled:bg-zinc-200",
-            "forced-colors:border forced-colors:border-[ButtonBorder]",
-          )}
-          type="submit"
-          disabled={isPending}
-        >
-          {isPending ? "検索中..." : "検索"}
-        </button>
-      </div>
+        {isPending && (
+          <TextField.Slot>
+            <Spinner />
+          </TextField.Slot>
+        )}
+      </TextField.Root>
     </form>
   );
 };

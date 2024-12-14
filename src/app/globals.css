@@ -1,3 +1,20 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}
+
+html,
+body {
+  margin: 0;
+  font-family: var(--font-roboto), Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body > div {
+  background: linear-gradient(
+    12deg,
+    rgba(0, 0, 0, 0) 50%,
+    var(--teal-2) 90%,
+    var(--teal-4) 100%
+  );
+}

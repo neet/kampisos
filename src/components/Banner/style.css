@@ -1,0 +1,15 @@
+.banner {
+  width: 100%;
+}
+
+.banner a:first-child {
+  text-decoration: none;
+}
+
+.banner h1 {
+  line-height: 1;
+  margin: 0px;
+  color: var(--gray-12);
+  font-weight: normal;
+  font-family: var(--font-cookie);
+}

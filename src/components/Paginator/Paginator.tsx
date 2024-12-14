@@ -1,9 +1,19 @@
 "use client";
 
-import clsx from "clsx";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  DotsHorizontalIcon,
+} from "@radix-ui/react-icons";
+import {
+  Button,
+  Flex,
+  IconButton,
+  Reset,
+  VisuallyHidden,
+} from "@radix-ui/themes";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { BsCaretLeftFill, BsCaretRightFill } from "react-icons/bs";
 
 import { createPages } from "@/utils/pages";
 
@@ -31,77 +41,70 @@ export function Paginator(props: PaginatorProps) {
     return pathname + "?" + params.toString();
   };
 
-  const itemClassName = clsx(
-    "block",
-    "box-border",
-    "h-full",
-    "leading-none",
-    "text-center",
-  );
-
-  const ellipsisClassName = clsx(
-    itemClassName,
-    "py-3 px-1",
-    "text-zinc-400 dark:text-zinc-600",
-  );
-
-  const linkClassName = (current: boolean = false) =>
-    clsx(
-      itemClassName,
-      "px-4 py-3 rounded shadow-sm",
-      current
-        ? [
-            "bg-black border border-zinc-700 text-white",
-            "dark:bg-white dark:border-zinc-300 dark:text-zinc-800",
-          ]
-        : [
-            "bg-white border border-zinc-300 bg-white hover:bg-zinc-100",
-            "dark:bg-black dark:border-zinc-700 dark:hover:bg-zinc-800",
-          ],
-    );
-
   return (
-    <nav className="mt-4" aria-label="ページネーション">
-      <ul className="flex gap-1 justify-center">
-        <li>
-          <Link href={createHref(page - 1)} className={linkClassName()}>
-            <BsCaretLeftFill title="前のページへ" className="size-3" />
-          </Link>
-        </li>
+    <nav aria-label="ページネーション">
+      <Reset>
+        <Flex gap="1" asChild justify="center">
+          <ul>
+            <li>
+              <IconButton asChild variant="outline" size="3">
+                <Link href={createHref(page - 1)}>
+                  <ChevronLeftIcon />
+                </Link>
+              </IconButton>
+            </li>
 
-        {pages.hasMore.head && (
-          <li>
-            <a className={ellipsisClassName}>&#8230;</a>
-          </li>
-        )}
+            {pages.hasMore.head && (
+              <Flex justify="center" align="center" asChild p="1">
+                <li>
+                  <DotsHorizontalIcon color="gray" />
+                </li>
+              </Flex>
+            )}
 
-        {pages.value.map((value) => (
-          <li key={value}>
-            <Link
-              href={createHref(value)}
-              className={linkClassName(value === page)}
-            >
-              {value + 1}
-              <span className="sr-only">ページ</span>
-              {value === totalPages - 1 && (
-                <span className="sr-only">（最後のページ）</span>
-              )}
-            </Link>
-          </li>
-        ))}
+            {pages.value.map((value) => {
+              const current = value === page;
+              const lastPage = value === totalPages - 1;
 
-        {pages.hasMore.tail && (
-          <li>
-            <a className={ellipsisClassName}>&#8230;</a>
-          </li>
-        )}
+              return (
+                <li key={value}>
+                  <Button
+                    asChild
+                    variant={current ? "solid" : "outline"}
+                    size="3"
+                  >
+                    <Link href={createHref(value)}>
+                      {value + 1}
 
-        <li>
-          <Link href={createHref(page + 1)} className={linkClassName()}>
-            <BsCaretRightFill title="次のページへ" className="size-3" />
-          </Link>
-        </li>
-      </ul>
+                      <VisuallyHidden>ページ</VisuallyHidden>
+
+                      {lastPage && (
+                        <VisuallyHidden>（最後のページ）</VisuallyHidden>
+                      )}
+                    </Link>
+                  </Button>
+                </li>
+              );
+            })}
+
+            {pages.hasMore.tail && (
+              <Flex justify="center" align="center" asChild p="1">
+                <li>
+                  <DotsHorizontalIcon color="gray" />
+                </li>
+              </Flex>
+            )}
+
+            <li>
+              <IconButton asChild variant="outline" size="3">
+                <Link href={createHref(page + 1)}>
+                  <ChevronRightIcon />
+                </Link>
+              </IconButton>
+            </li>
+          </ul>
+        </Flex>
+      </Reset>
     </nav>
   );
 }

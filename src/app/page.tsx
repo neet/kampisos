@@ -1,3 +1,4 @@
+import { Box, Container, Flex, Heading, Section, Text } from "@radix-ui/themes";
 import { Metadata } from "next";
 
 import { Changelogs } from "@/components/Changelogs";
@@ -23,22 +24,29 @@ export default async function Home() {
   });
 
   return (
-    <main className="flex items-center justify-center p-4">
-      <div>
-        <div className="text-center">
-          <h2 className="text-2xl font-bold leading-tight">
-            アイヌ語コーパス検索
-          </h2>
-          <p className="leading-relaxed mt-1">
-            アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます
-          </p>
-        </div>
+    <Container size="2" m="3">
+      <main>
+        <Section size="2">
+          <Flex direction="column" align="center" gap="1">
+            <Heading as="h2" size={{ initial: "7", sm: "8" }} weight="bold">
+              アイヌ語の世界を探訪しよう
+            </Heading>
+            <Text asChild align="center" color="gray">
+              <p>約15万語を収録した日本語・アイヌ語対訳コーパス</p>
+            </Text>
+          </Flex>
 
-        <search className="mt-4 max-w-screen-sm mx-auto">
-          <Search defaultValue="" />
-          <Changelogs className="mt-6" changelogs={changelogs.contents} />
-        </search>
-      </div>
-    </main>
+          <Box mt="4" asChild>
+            <search>
+              <Search />
+            </search>
+          </Box>
+        </Section>
+
+        <Section size="1">
+          <Changelogs changelogs={changelogs.contents} />
+        </Section>
+      </main>
+    </Container>
   );
 }
