@@ -4,10 +4,14 @@
   }
 }
 
+.radix-themes {
+  --default-font-family: var(--font-roboto), "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans", "Meiryo", "ui-sans-serif", "system-ui";
+}
+
 html,
 body {
   margin: 0;
-  font-family: var(--font-roboto), Verdana, Geneva, Tahoma, sans-serif;
 }
 
 body > div {
