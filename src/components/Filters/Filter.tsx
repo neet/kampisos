@@ -36,13 +36,16 @@ export const Filter: FC<FilterProps> = (props) => {
 
   const options = useMemo(() => {
     return props.options.sort((a, b) => {
-      if (defaultValues.includes(a.value)) {
-        return -1;
-      } else if (defaultValues.includes(b.value)) {
-        return 1;
-      } else {
-        return 0;
+      const aChecked = defaultValues.includes(a.value);
+      const bChecked = defaultValues.includes(b.value);
+
+      if (aChecked !== bChecked) {
+        return aChecked ? -1 : 1;
       }
+      if (a.count !== b.count) {
+        return b.count - a.count;
+      }
+      return a.value.localeCompare(b.value);
     });
   }, [props.options, defaultValues]);
 
