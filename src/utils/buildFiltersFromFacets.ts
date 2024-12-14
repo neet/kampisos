@@ -6,7 +6,7 @@ export const buildFiltersFromFacets = (facets: FacetFilters): string => {
       if (values.length === 0) {
         return null;
       }
-      const filter = values.map((value) => `${facet}:${value}`).join(" OR ");
+      const filter = values.map((value) => `${facet}:"${value}"`).join(" OR ");
       return `(${filter})`;
     }),
   ]
