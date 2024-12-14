@@ -2,7 +2,7 @@ import "./globals.css";
 import "@radix-ui/themes/styles.css";
 
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { Theme } from "@radix-ui/themes";
+import { Grid, Theme } from "@radix-ui/themes";
 import clsx from "clsx";
 import type { Metadata } from "next";
 import { Cookie, Roboto, Roboto_Mono } from "next/font/google";
@@ -57,17 +57,14 @@ export default async function RootLayout(props: RootProps) {
       // https://github.com/pacocoursey/next-themes?tab=readme-ov-file#with-app
       suppressHydrationWarning
     >
-      <body
-        className={clsx(
-          "font-sans antialiased",
-          "grid grid-rows-[auto,1fr,auto] grid-cols-[100%] min-h-[100svh]",
-        )}
-      >
+      <body>
         <ThemeProvider attribute="class">
           <Theme accentColor="teal" grayColor="sand">
-            <Banner />
-            {children}
-            <ContentInfo />
+            <Grid columns="100%" rows="auto 1fr auto" minHeight="100vh">
+              <Banner />
+              {children}
+              <ContentInfo />
+            </Grid>
           </Theme>
         </ThemeProvider>
       </body>
