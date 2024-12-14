@@ -19,7 +19,7 @@ export default async function Home() {
     endpoint: "changelogs",
     queries: {
       orders: "-publishedAt",
-      limit: 5,
+      limit: 8,
     },
   });
 
