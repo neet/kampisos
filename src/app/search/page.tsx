@@ -37,8 +37,6 @@ type SearchPageProps = {
   }>;
 };
 
-const isAlpha = (value: string): boolean => /[a-zA-Z]+/.test(value);
-
 const normalizeArrayParam = (
   value: string | string[] | undefined,
 ): string[] => {
@@ -198,10 +196,7 @@ export default async function SearchPage(props: SearchPageProps) {
 
                 <Box mt="3">
                   <Suspense fallback={<Result.Skeleton />} key={searchParams.q}>
-                    <Result.Root
-                      resultPromise={hits}
-                      searchLang={isAlpha(searchParams.q) ? "ain" : "ja"}
-                    />
+                    <Result.Root resultPromise={hits} />
                   </Suspense>
                 </Box>
 

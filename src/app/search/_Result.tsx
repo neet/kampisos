@@ -8,11 +8,10 @@ import { Entry as EntryType } from "@/models/entry";
 
 type ResultRootProps = {
   resultPromise: Promise<SearchResponse<EntryType>>;
-  searchLang: "ja" | "ain";
 };
 
 const ResultRoot: FC<ResultRootProps> = (props) => {
-  const { searchLang, resultPromise } = props;
+  const { resultPromise } = props;
 
   const result = use(resultPromise);
 
@@ -38,7 +37,6 @@ const ResultRoot: FC<ResultRootProps> = (props) => {
         return (
           <Fragment key={hit.objectID}>
             <Entry.Root
-              searchLang={searchLang}
               text={hit.text}
               textHTML={(hit._highlightResult?.text as any).value}
               translation={hit.translation}
