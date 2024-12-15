@@ -1,12 +1,12 @@
 import { Button, Dialog, Text } from "@radix-ui/themes";
-import { FC } from "react";
+import { FC, Suspense } from "react";
 
-import { Filters, FiltersProps } from "@/components/Filters";
+import { Filter, FilterRootProps } from "@/components/Filter";
 
 export type MobileFilterButtonProps = {
   className?: string;
-  defaultValues: FiltersProps["defaultValues"];
-  resultPromise: FiltersProps["resultPromise"];
+  defaultValues: FilterRootProps["defaultValues"];
+  resultPromise: FilterRootProps["resultPromise"];
 };
 
 export const MobileFilterButton: FC<MobileFilterButtonProps> = (props) => {
@@ -29,7 +29,12 @@ export const MobileFilterButton: FC<MobileFilterButtonProps> = (props) => {
           検索結果を絞り込むための条件を設定してください。
         </Dialog.Description>
 
-        <Filters defaultValues={defaultValues} resultPromise={resultPromise} />
+        <Suspense fallback={<Filter.Skeleton />}>
+          <Filter.Root
+            defaultValues={defaultValues}
+            resultPromise={resultPromise}
+          />
+        </Suspense>
       </Dialog.Content>
     </Dialog.Root>
   );

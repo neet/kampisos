@@ -2,26 +2,15 @@
 
 import * as Collapsible from "@radix-ui/react-collapsible";
 import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
-import {
-  Badge,
-  Box,
-  Button,
-  Checkbox,
-  Flex,
-  Heading,
-  Text,
-} from "@radix-ui/themes";
+import { Box, Button, Flex, Heading, Skeleton, Text } from "@radix-ui/themes";
 import { FC, ReactNode, useMemo, useState } from "react";
+
+import { FilterOption } from "./FilterOption";
+import { Option } from "./model";
 
 const MAX_OPTIONS = 5;
 
-type Option = {
-  label?: string;
-  value: string;
-  count: number;
-};
-
-export type FilterProps = {
+export type FilterItemRootProps = {
   label: ReactNode;
   defaultValues?: string[];
   name?: string;
@@ -29,7 +18,7 @@ export type FilterProps = {
   options: Option[];
 };
 
-export const Filter: FC<FilterProps> = (props) => {
+export const FilterItemRoot: FC<FilterItemRootProps> = (props) => {
   const { label, defaultValues = [], name, form } = props;
 
   const [open, setOpen] = useState(false);
@@ -61,21 +50,9 @@ export const Filter: FC<FilterProps> = (props) => {
 
       <Collapsible.Root open={open} onOpenChange={() => setOpen(!open)}>
         <Flex direction="column" gap="1">
-          {firstOptions.map((option) => (
-            <FilterOption
-              key={option.value}
-              name={name}
-              form={form}
-              option={option}
-              defaultChecked={defaultValues.includes(option.value)}
-            />
-          ))}
-        </Flex>
-
-        <Collapsible.Content>
           <Flex direction="column" gap="1">
-            {restOptions.map((option) => (
-              <FilterOption
+            {firstOptions.map((option) => (
+              <FilterOption.Root
                 key={option.value}
                 name={name}
                 form={form}
@@ -84,7 +61,21 @@ export const Filter: FC<FilterProps> = (props) => {
               />
             ))}
           </Flex>
-        </Collapsible.Content>
+
+          <Collapsible.Content>
+            <Flex direction="column" gap="1">
+              {restOptions.map((option) => (
+                <FilterOption.Root
+                  key={option.value}
+                  name={name}
+                  form={form}
+                  option={option}
+                  defaultChecked={defaultValues.includes(option.value)}
+                />
+              ))}
+            </Flex>
+          </Collapsible.Content>
+        </Flex>
 
         {hasMore && (
           <Collapsible.Trigger asChild>
@@ -110,38 +101,22 @@ export const Filter: FC<FilterProps> = (props) => {
   );
 };
 
-type FilterOptionProps = {
-  name?: string;
-  form?: string;
-  option: Option;
-  defaultChecked?: boolean;
-};
+// --------------------------------------------------
 
-const FilterOption: FC<FilterOptionProps> = (props) => {
-  const { name, form, option, defaultChecked } = props;
-
-  const label = option.label ?? option.value;
-  const count = Intl.NumberFormat("ja-JP").format(option.count);
-
+export const FilterItemSkeleton: FC = () => {
   return (
-    <Flex asChild gap="1" align="center">
-      <label>
-        <Checkbox
-          name={name}
-          form={form}
-          value={option.value}
-          defaultChecked={defaultChecked}
-          variant="surface"
-        />
+    <Box>
+      <Skeleton>
+        <Heading as="h4" size="2" weight="bold" color="gray" mb="3">
+          出典
+        </Heading>
+      </Skeleton>
 
-        <Box asChild flexGrow="1">
-          <Text truncate>{label}</Text>
-        </Box>
-
-        <Badge variant="soft" color="gray">
-          {count}
-        </Badge>
-      </label>
-    </Flex>
+      <Flex direction="column" gap="1">
+        {[...Array(5)].map((_, i) => (
+          <FilterOption.Skeleton key={i} />
+        ))}
+      </Flex>
+    </Box>
   );
 };

@@ -11,7 +11,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import { Filters } from "@/components/Filters";
+import { Filter } from "@/components/Filter";
 import { Search } from "@/components/Search";
 import { searchClient } from "@/lib/search";
 import { Entry as EntryType } from "@/models/entry";
@@ -154,15 +154,17 @@ export default async function SearchPage(props: SearchPageProps) {
                   絞り込み
                 </Heading>
 
-                <Filters
-                  defaultValues={{
-                    dialect,
-                    author,
-                    book,
-                    pronoun,
-                  }}
-                  resultPromise={facets}
-                />
+                <Suspense fallback={<Filter.Skeleton />}>
+                  <Filter.Root
+                    defaultValues={{
+                      dialect,
+                      author,
+                      book,
+                      pronoun,
+                    }}
+                    resultPromise={facets}
+                  />
+                </Suspense>
               </aside>
             </Card>
           </Box>

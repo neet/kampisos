@@ -1,9 +1,9 @@
 import { Button, Flex } from "@radix-ui/themes";
 import { FC, use } from "react";
 
-import { Filter } from "../../components/Filters/Filter";
+import { FilterItemRoot, FilterItemSkeleton } from "./FilterItem";
 
-export type FiltersProps = {
+export type FilterRootProps = {
   className?: string;
   defaultValues?: {
     book?: string[];
@@ -14,7 +14,7 @@ export type FiltersProps = {
   resultPromise: Promise<Record<string, Record<string, number>>>;
 };
 
-export const Filters: FC<FiltersProps> = (props) => {
+const FilterRoot: FC<FilterRootProps> = (props) => {
   const { defaultValues, resultPromise } = props;
 
   const result = use(resultPromise);
@@ -23,7 +23,7 @@ export const Filters: FC<FiltersProps> = (props) => {
     <Flex direction="column" gap="5">
       <Flex direction="column" gap="4">
         {result.book && (
-          <Filter
+          <FilterItemRoot
             form="search"
             label="出典"
             name="book"
@@ -36,7 +36,7 @@ export const Filters: FC<FiltersProps> = (props) => {
         )}
 
         {result.dialect && (
-          <Filter
+          <FilterItemRoot
             form="search"
             label="方言"
             name="dialect"
@@ -49,7 +49,7 @@ export const Filters: FC<FiltersProps> = (props) => {
         )}
 
         {result.author && (
-          <Filter
+          <FilterItemRoot
             form="search"
             label="著者"
             name="author"
@@ -62,7 +62,7 @@ export const Filters: FC<FiltersProps> = (props) => {
         )}
 
         {result.pronoun && (
-          <Filter
+          <FilterItemRoot
             form="search"
             label="主な一人称"
             name="pronoun"
@@ -81,4 +81,28 @@ export const Filters: FC<FiltersProps> = (props) => {
       </Button>
     </Flex>
   );
+};
+
+// --------------------------------------------------
+
+const FilterSkeleton: FC = () => {
+  return (
+    <Flex direction="column" gap="5">
+      <Flex direction="column" gap="4">
+        <FilterItemSkeleton />
+        <FilterItemSkeleton />
+        <FilterItemSkeleton />
+        <FilterItemSkeleton />
+      </Flex>
+
+      <Button disabled>適用</Button>
+    </Flex>
+  );
+};
+
+// --------------------------------------------------
+
+export const Filter = {
+  Root: FilterRoot,
+  Skeleton: FilterSkeleton,
 };
