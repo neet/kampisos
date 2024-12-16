@@ -30,9 +30,10 @@ const cookie = Cookie({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://kampisos.aynu.io"),
   title: {
-    default: "アイヌ語コーパス検索",
-    template: "%s | アイヌ語コーパス検索",
+    default: "kampisos - アイヌ語コーパス検索",
+    template: "%s | kampisos（アイヌ語コーパス検索サイト）",
   },
   robots: {
     index: true,
