@@ -42,6 +42,18 @@ export const metadata: Metadata = {
   openGraph: {
     images: "/cover.png",
   },
+  icons: [
+    {
+      media: "(prefers-color-scheme: light)",
+      url: "icon_light.svg",
+      type: "image/svg+xml",
+    },
+    {
+      media: "(prefers-color-scheme: dark)",
+      url: "icon_dark.svg",
+      type: "image/svg+xml",
+    },
+  ],
 };
 
 type RootProps = {
