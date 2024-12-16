@@ -28,11 +28,28 @@ export default async function Home() {
       <main>
         <Section size="2">
           <Flex direction="column" align="center" gap="1">
-            <Heading as="h2" size={{ initial: "7", sm: "8" }} weight="bold">
-              アイヌ語の世界を探訪しよう
+            <Heading
+              as="h2"
+              size={{ initial: "7", sm: "8" }}
+              weight="bold"
+              align="center"
+              style={{ wordBreak: "keep-all", overflowWrap: "anywhere" }}
+            >
+              アイヌ語の世界を
+              <wbr />
+              探訪しよう
             </Heading>
-            <Text asChild align="center" color="gray">
-              <p>約15万語を収録した日本語・アイヌ語対訳コーパス</p>
+            <Text
+              asChild
+              align="center"
+              color="gray"
+              style={{ wordBreak: "keep-all", overflowWrap: "anywhere" }}
+            >
+              <p>
+                約15万語を収録した
+                <wbr />
+                日本語・アイヌ語対訳コーパス
+              </p>
             </Text>
           </Flex>
 
