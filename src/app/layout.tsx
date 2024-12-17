@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://kampisos.aynu.io"),
   title: {
     default: "kampisos - アイヌ語コーパス検索",
-    template: "%s | kampisos（アイヌ語コーパス検索サイト）",
+    template: "%s | アイヌ語コーパス検索",
   },
   robots: {
     index: true,

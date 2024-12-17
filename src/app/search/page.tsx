@@ -7,6 +7,7 @@ import {
   Section,
   Text,
 } from "@radix-ui/themes";
+import { to_kana } from "ainu-utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -49,12 +50,19 @@ const normalizeArrayParam = (
 export async function generateMetadata(
   props: SearchPageProps,
 ): Promise<Metadata> {
-  if (!(await props.searchParams).q) {
+  const searchParams = await props.searchParams;
+  const q = searchParams.q;
+
+  if (!q) {
     throw new Error("q is required");
   }
 
+  const title = /^[a-zA-Z0-9\s]+$/.test(q)
+    ? `${q}（${to_kana(q)}）の検索結果`
+    : `「${q}」の検索結果`;
+
   return {
-    title: `「${(await props.searchParams).q}」の検索結果`,
+    title: title,
     description:
       "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます",
   };
