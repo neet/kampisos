@@ -57,14 +57,22 @@ export async function generateMetadata(
     throw new Error("q is required");
   }
 
-  const title = /^[a-zA-Z0-9\s]+$/.test(q)
-    ? `${q}（${to_kana(q)}）の検索結果`
-    : `「${q}」の検索結果`;
+  const entry = /^[a-zA-Z0-9\s]+$/.test(q)
+    ? `${q}（${to_kana(q)}）`
+    : `「${q}」`;
+
+  const title = `${entry}の検索結果`;
+  const description = `${entry}に関連するアイヌ語の資料の検索結果です。意味や使い方などを、実際の例文から探してみましょう。`;
 
   return {
-    title: title,
-    description:
-      "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます",
+    title,
+    description,
+    openGraph: {
+      description,
+    },
+    twitter: {
+      card: "summary",
+    },
   };
 }
 
