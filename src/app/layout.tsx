@@ -3,6 +3,7 @@ import "@radix-ui/themes/styles.css";
 
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Grid, Theme } from "@radix-ui/themes";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import clsx from "clsx";
 import type { Metadata } from "next";
 import { Cookie, Roboto, Roboto_Mono } from "next/font/google";
@@ -84,7 +85,9 @@ export default async function RootLayout(props: RootProps) {
           </Theme>
         </ThemeProvider>
       </body>
+
       <GoogleAnalytics gaId="G-RK31448XYB" />
+      <SpeedInsights />
     </html>
   );
 }
