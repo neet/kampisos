@@ -125,11 +125,15 @@ export default async function SearchPage(props: SearchPageProps) {
 
   return (
     <Container asChild m="3" size="4">
-      <main>
-        <header>
+      <main aria-labelledby="search-heading search-stats">
+        <header aria-labelledby="search-heading">
           <Section size="2">
             <Flex direction="column" gap="2" align="center">
-              <Heading as="h2" size={{ initial: "8", sm: "9" }}>
+              <Heading
+                id="search-heading"
+                as="h2"
+                size={{ initial: "8", sm: "9" }}
+              >
                 {query}
               </Heading>
 
@@ -165,8 +169,13 @@ export default async function SearchPage(props: SearchPageProps) {
             }}
           >
             <Card asChild size="2">
-              <aside>
-                <Heading as="h3" size="4" mb="4">
+              <aside aria-labelledby="search-complementary-heading">
+                <Heading
+                  id="search-complementary-heading"
+                  as="h3"
+                  size="4"
+                  mb="4"
+                >
                   絞り込み
                 </Heading>
 
@@ -187,13 +196,14 @@ export default async function SearchPage(props: SearchPageProps) {
 
           <Box asChild flexGrow="1">
             <Card asChild size="2">
-              <article>
+              <article aria-labelledby="search-stats">
                 <header>
                   <Suspense
                     fallback={<SearchStats.Skeleton />}
                     key={searchParams.q}
                   >
                     <SearchStats.Root
+                      id="search-stats"
                       resultPromise={hits}
                       suffix={
                         <Box asChild display={{ initial: "block", md: "none" }}>

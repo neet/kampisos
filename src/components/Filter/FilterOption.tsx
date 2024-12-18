@@ -1,5 +1,12 @@
-import { Badge, Checkbox, Flex, Skeleton, Text } from "@radix-ui/themes";
-import { FC, useId } from "react";
+import {
+  Badge,
+  Checkbox,
+  Flex,
+  Skeleton,
+  Text,
+  VisuallyHidden,
+} from "@radix-ui/themes";
+import { FC } from "react";
 
 import { Option } from "./model";
 
@@ -13,37 +20,35 @@ type FilterOptionRootProps = {
 const FilterOptionRoot: FC<FilterOptionRootProps> = (props) => {
   const { name, form, option, defaultChecked } = props;
 
-  const id = useId();
-
   const label = option.label ?? option.value;
   const count = Intl.NumberFormat("ja-JP").format(option.count);
 
   return (
-    <Flex gap="1" align="center">
-      <Checkbox
-        id={id}
-        name={name}
-        form={form}
-        value={option.value}
-        defaultChecked={defaultChecked}
-        variant="surface"
-      />
+    <Flex gap="1" align="center" asChild>
+      <Text as="label">
+        <Checkbox
+          name={name}
+          form={form}
+          value={option.value}
+          defaultChecked={defaultChecked}
+          variant="surface"
+        />
 
-      <Flex
-        flexGrow="1"
-        gap="1"
-        justify="between"
-        align="center"
-        minWidth="0"
-        asChild
-      >
-        <label htmlFor={id}>
+        <Flex
+          flexGrow="1"
+          gap="1"
+          justify="between"
+          align="center"
+          minWidth="0"
+        >
           <Text truncate>{label}</Text>
           <Badge variant="soft" color="gray">
+            <VisuallyHidden>（</VisuallyHidden>
             {count}
+            <VisuallyHidden>件）</VisuallyHidden>
           </Badge>
-        </label>
-      </Flex>
+        </Flex>
+      </Text>
     </Flex>
   );
 };

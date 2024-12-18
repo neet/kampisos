@@ -5,12 +5,13 @@ import { FC, ReactNode, use } from "react";
 import { Entry } from "@/models/entry";
 
 type SearchStatsRootProps = {
+  id?: string;
   resultPromise: Promise<SearchResponse<Entry>>;
   suffix?: ReactNode;
 };
 
 const SearchStatsRoot: FC<SearchStatsRootProps> = (props) => {
-  const { resultPromise, suffix } = props;
+  const { id, resultPromise, suffix } = props;
 
   const result = use(resultPromise);
   const nbHits =
@@ -18,7 +19,7 @@ const SearchStatsRoot: FC<SearchStatsRootProps> = (props) => {
 
   return (
     <Flex align="center" justify="between">
-      <Heading as="h3" size="4">
+      <Heading id={id} as="h3" size="4">
         {nbHits}件の検索結果
         <Text size="1" color="gray" weight="medium">
           （{result.processingTimeMS}ミリ秒）

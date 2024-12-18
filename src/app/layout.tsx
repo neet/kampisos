@@ -84,10 +84,10 @@ export default async function RootLayout(props: RootProps) {
             </Grid>
           </Theme>
         </ThemeProvider>
-      </body>
 
-      <GoogleAnalytics gaId="G-RK31448XYB" />
-      <SpeedInsights />
+        <GoogleAnalytics gaId="G-RK31448XYB" />
+        <SpeedInsights />
+      </body>
     </html>
   );
 }

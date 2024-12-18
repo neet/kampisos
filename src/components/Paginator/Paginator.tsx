@@ -49,7 +49,7 @@ export function Paginator(props: PaginatorProps) {
             <li>
               <IconButton asChild variant="outline" size="3">
                 <Link href={createHref(page - 1)}>
-                  <ChevronLeftIcon />
+                  <ChevronLeftIcon aria-label="前のページ" />
                 </Link>
               </IconButton>
             </li>
@@ -98,7 +98,7 @@ export function Paginator(props: PaginatorProps) {
             <li>
               <IconButton asChild variant="outline" size="3">
                 <Link href={createHref(page + 1)}>
-                  <ChevronRightIcon />
+                  <ChevronRightIcon aria-label="次のページ" />
                 </Link>
               </IconButton>
             </li>
