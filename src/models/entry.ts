@@ -8,4 +8,5 @@ export type Entry = {
   dialect: string;
   text: string;
   translation: string;
+  alignment: string;
 };
