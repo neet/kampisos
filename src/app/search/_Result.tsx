@@ -46,6 +46,7 @@ const ResultRoot: FC<ResultRootProps> = (props) => {
               url={hit.url}
               author={hit.author}
               dialect={hit.dialect}
+              alignment={hit.alignment}
             />
 
             {!last && (
