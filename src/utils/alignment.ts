@@ -76,15 +76,18 @@ export class Alignment {
   }
 
   toJSON() {
-    return this.#abMatrix.map((charAlignment) => charAlignment.toJSON())
+    return this.#abMatrix.map((charAlignment) => charAlignment.toJSON());
   }
 }
 
 //
 
-type Matrix<T> = T[][]
+type Matrix<T> = T[][];
 
-const horizontallyAppendMatrices = (matrix1: Matrix<number>, matrix2: Matrix<number>) => {
+const horizontallyAppendMatrices = (
+  matrix1: Matrix<number>,
+  matrix2: Matrix<number>,
+) => {
   if (matrix1.length === 0) return matrix2;
   if (matrix2.length === 0) return matrix1;
 
@@ -98,7 +101,10 @@ const horizontallyAppendMatrices = (matrix1: Matrix<number>, matrix2: Matrix<num
 };
 
 const horizontallyConcatMatrices = (matrices: Matrix<number>[]) => {
-  return matrices.reduce((matrix1, matrix2) => horizontallyAppendMatrices(matrix1, matrix2), []);
+  return matrices.reduce(
+    (matrix1, matrix2) => horizontallyAppendMatrices(matrix1, matrix2),
+    [],
+  );
 };
 
 const createCharToCharAlignmentFromData = (
@@ -110,22 +116,22 @@ const createCharToCharAlignmentFromData = (
   for (let i = 0; i < s.length; i++) {
     const width = l2[i];
     const blocks: Matrix<number>[] = [];
-  
+
     for (let j = 0; j < s[i].length; j++) {
       const height = l1[j];
-  
+
       const score = s[i][j];
       const block = Array.from({ length: width }, () =>
         Array.from({ length: height }, () => score),
       );
-      
+
       blocks.push(block);
     }
-  
+
     borders.push(...horizontallyConcatMatrices(blocks));
   }
-  
-  return borders; 
+
+  return borders;
 };
 
 const createAlignmentMatrix = (alignmentData: AlignmentData): Alignment => {
