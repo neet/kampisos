@@ -15,7 +15,8 @@ import {
 } from "@radix-ui/themes";
 import { FC } from "react";
 
-import { parse } from "@/utils/parse";
+import { TokenAlignment } from "@/models/alignment";
+import { format } from "@/utils/parse";
 
 import { Tag } from "../Tag";
 import { EntryDetailsDialog } from "./EntryDetailsDialog";
@@ -30,23 +31,31 @@ export type EntryRootProps = {
   url: string;
   author: string | null;
   dialect: string | null;
+  alignment: string | null;
 };
 
 const EntryRoot: React.FC<EntryRootProps> = (props) => {
   const { textHTML, translationHTML, book, title, url, author, dialect } =
     props;
 
+  const tokenAlignment = props.alignment
+    ? TokenAlignment.from(props.alignment)
+    : undefined;
+  const charAlignment = tokenAlignment?.toCharAlignment();
+
+  const formatResult = format(textHTML, translationHTML, charAlignment);
+
   return (
     <div className="entry">
       <Flex gap="2" direction={{ initial: "column", md: "row" }}>
         <Box flexGrow="1" flexShrink="1" flexBasis="100%" asChild>
           <Text asChild>
-            <p lang="ain">{parse(textHTML)}</p>
+            <p lang="ain">{formatResult.text}</p>
           </Text>
         </Box>
         <Box flexGrow="1" flexShrink="1" flexBasis="100%" asChild>
           <Text asChild>
-            <p lang="ja">{parse(translationHTML)}</p>
+            <p lang="ja">{formatResult.translation}</p>
           </Text>
         </Box>
       </Flex>
