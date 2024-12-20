@@ -15,7 +15,7 @@ import {
 } from "@radix-ui/themes";
 import { FC } from "react";
 
-import * as alignment from "@/utils/alignment";
+import { TokenAlignment } from "@/models/alignment";
 import { format } from "@/utils/parse";
 
 import { Tag } from "../Tag";
@@ -38,11 +38,12 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
   const { textHTML, translationHTML, book, title, url, author, dialect } =
     props;
 
-  const alignmentMatrix = props.alignment
-    ? alignment.parse(props.alignment)
+  const tokenAlignment = props.alignment
+    ? TokenAlignment.from(props.alignment)
     : undefined;
+  const charAlignment = tokenAlignment?.toCharAlignment();
 
-  const formatResult = format(textHTML, translationHTML, alignmentMatrix);
+  const formatResult = format(textHTML, translationHTML, charAlignment);
 
   return (
     <div className="entry">
