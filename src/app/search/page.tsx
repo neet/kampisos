@@ -184,7 +184,7 @@ export default async function SearchPage(props: SearchPageProps) {
                   絞り込み
                 </Heading>
 
-                <Suspense fallback={<Filter.Skeleton />}>
+                <Suspense fallback={<Filter.Skeleton />} key={searchParams.q}>
                   <Filter.Root
                     defaultValues={{
                       dialect,
