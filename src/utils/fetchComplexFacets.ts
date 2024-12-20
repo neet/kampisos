@@ -1,4 +1,6 @@
-import { SearchQuery } from "algoliasearch";
+import { SearchQuery, SearchResponse } from "algoliasearch";
+
+import { Entry } from "@/models/entry";
 
 import { searchClient } from "../lib/search";
 import { buildFiltersFromFacets, FacetFilters } from "./buildFiltersFromFacets";
@@ -9,6 +11,7 @@ type FacetValues = Record<string, Facet>;
 export const fetchComplexFacets = async (
   query: string,
   facetFilters: FacetFilters,
+  searchRequest: Promise<SearchResponse<Entry>>,
 ): Promise<FacetValues> => {
   const requests: SearchQuery[] = [];
 
@@ -36,27 +39,17 @@ export const fetchComplexFacets = async (
   }
 
   // ----------------------------------
-  // facetがセットされていない物を取得
-  // ----------------------------------
-  const facetsUnset = Object.fromEntries(
-    Object.entries(facetFilters).filter((entry) => entry[1].length <= 0),
-  );
-  const facetsUnsetKeys = Object.keys(facetsUnset);
 
-  requests.push({
-    query,
-    indexName: "entries",
-    hitsPerPage: 0,
-    facets: facetsUnsetKeys,
-    filters: buildFiltersFromFacets(facetFilters),
-  });
+  const base = await searchRequest;
 
-  // ----------------------------------
+  if (requests.length === 0) {
+    return base.facets ?? {};
+  }
 
   const responses = await searchClient.searchForHits(requests);
 
   return responses.results.reduce<FacetValues>(
     (acc, response) => Object.assign(acc, response.facets),
-    {},
+    base.facets ?? {},
   );
 };

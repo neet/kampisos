@@ -102,13 +102,6 @@ export default async function SearchPage(props: SearchPageProps) {
     return notFound();
   }
 
-  const facets = fetchComplexFacets(query, {
-    dialect,
-    author,
-    book,
-    pronoun,
-  });
-
   const hits = searchClient
     .searchForHits<EntryType>({
       requests: [
@@ -117,11 +110,23 @@ export default async function SearchPage(props: SearchPageProps) {
           indexName: "entries",
           filters,
           page,
+          facets: ["dialect", "author", "book", "pronoun"],
           attributesToHighlight: ["text", "translation"],
         },
       ],
     })
     .then((response) => response.results[0]);
+
+  const facets = fetchComplexFacets(
+    query,
+    {
+      dialect,
+      author,
+      book,
+      pronoun,
+    },
+    hits,
+  );
 
   return (
     <Container asChild m="3" size="4">
