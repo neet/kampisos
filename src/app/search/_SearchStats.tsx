@@ -33,7 +33,7 @@ const SearchStatsRoot: FC<SearchStatsRootProps> = (props) => {
 
 const SearchStatsSkeleton: FC = () => {
   return (
-    <Heading as="h3" size="3">
+    <Heading as="h3" size="4">
       <Skeleton>
         1,000件の検索結果
         <Text size="1" color="gray" weight="medium">
