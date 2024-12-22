@@ -41,10 +41,10 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    siteName: "kampisos",
-    images: "/cover2.png",
+    title: "kampisos - アイヌ語コーパス検索",
     description:
       "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます",
+    images: "/ogp.png",
   },
   icons: [
     {

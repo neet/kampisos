@@ -9,7 +9,7 @@ import {
 } from "@radix-ui/themes";
 import { to_kana } from "ainu-utils";
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 import { Filter } from "@/components/Filter";
@@ -18,6 +18,7 @@ import { searchClient } from "@/lib/search";
 import { Entry as EntryType } from "@/models/entry";
 import { buildFiltersFromFacets } from "@/utils/buildFiltersFromFacets";
 import { fetchComplexFacets } from "@/utils/fetchComplexFacets";
+import { toArraySearchParam } from "@/utils/toArraySearchParams";
 
 import { FooterContent } from "./_FooterContent";
 import { MobileFilterButton } from "./_MobileFilterButton";
@@ -30,7 +31,6 @@ type SearchPageProps = {
   searchParams: Promise<{
     q?: string;
     page?: number;
-
     dialect?: string | string[];
     author?: string | string[];
     book?: string | string[];
@@ -38,29 +38,19 @@ type SearchPageProps = {
   }>;
 };
 
-const normalizeArrayParam = (
-  value: string | string[] | undefined,
-): string[] => {
-  if (!value) {
-    return [];
-  }
-  return Array.isArray(value) ? value : [value];
-};
-
 export async function generateMetadata(
   props: SearchPageProps,
 ): Promise<Metadata> {
   const searchParams = await props.searchParams;
-  const q = searchParams.q;
+  const query = searchParams.q?.trim();
 
-  if (!q) {
-    throw new Error("q is required");
+  if (!query) {
+    redirect("/");
   }
 
-  const entry = /^[a-zA-Z0-9\s]+$/.test(q)
-    ? `${q}（${to_kana(q)}）`
-    : `「${q}」`;
-
+  const entry = /^[a-zA-Z0-9\s]+$/.test(query)
+    ? `${query}（${to_kana(query)}）`
+    : `「${query}」`;
   const title = `${entry}の検索結果`;
   const description = `${entry}に関連するアイヌ語の資料の検索結果です。意味や使い方などを、実際の例文から探してみましょう。`;
 
@@ -68,7 +58,9 @@ export async function generateMetadata(
     title,
     description,
     openGraph: {
+      title,
       description,
+      images: "/ogp.png",
     },
     twitter: {
       card: "summary",
@@ -79,16 +71,13 @@ export async function generateMetadata(
 export default async function SearchPage(props: SearchPageProps) {
   const searchParams = await props.searchParams;
 
-  if (!searchParams.q) {
-    return notFound();
-  }
-
+  const query = searchParams.q?.trim() as string;
   const page = Number(searchParams.page ?? 0);
 
-  const dialect = normalizeArrayParam(searchParams.dialect);
-  const author = normalizeArrayParam(searchParams.author);
-  const book = normalizeArrayParam(searchParams.book);
-  const pronoun = normalizeArrayParam(searchParams.pronoun);
+  const dialect = toArraySearchParam(searchParams.dialect);
+  const author = toArraySearchParam(searchParams.author);
+  const book = toArraySearchParam(searchParams.book);
+  const pronoun = toArraySearchParam(searchParams.pronoun);
 
   const filters = buildFiltersFromFacets({
     dialect,
@@ -96,11 +85,6 @@ export default async function SearchPage(props: SearchPageProps) {
     book,
     pronoun,
   });
-
-  const query = searchParams.q.trim();
-  if (!query) {
-    return notFound();
-  }
 
   const hits = searchClient
     .searchForHits<EntryType>({
