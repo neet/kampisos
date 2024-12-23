@@ -7,7 +7,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .split("\n")
     .map((line) => line.split("\t")[0]);
 
-  const japaneseWordFile = await fs.readFile("public/freq_ja.tsv", "utf-8");
+  const japaneseWordFile = await fs.readFile("public/freq_jpn.tsv", "utf-8");
   const japaneseWordList = japaneseWordFile
     .split("\n")
     .map((line) => line.split("\t")[0]);
