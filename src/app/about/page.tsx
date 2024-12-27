@@ -8,6 +8,9 @@ export function generateMetadata(): Metadata {
     title: "このサイトについて",
     description:
       "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます",
+    alternates: {
+      canonical: "/about",
+    },
   };
 }
 

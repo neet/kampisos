@@ -65,6 +65,9 @@ export async function generateMetadata(
     twitter: {
       card: "summary",
     },
+    alternates: {
+      canonical: `/search?q=${encodeURIComponent(query)}`,
+    },
   };
 }
 
