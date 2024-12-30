@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+Disallow: /search?*&*
+Sitemap: https://kampisos.aynu.io/sitemap.xml
