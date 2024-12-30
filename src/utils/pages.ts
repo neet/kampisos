@@ -1,8 +1,8 @@
 export type Pages = {
   value: number[];
   hasMore: {
-    head: boolean;
-    tail: boolean;
+    leading: boolean;
+    trailing: boolean;
   };
 };
 
@@ -17,8 +17,8 @@ export const createPages = (
     return {
       value: pages,
       hasMore: {
-        head: false,
-        tail: false,
+        leading: false,
+        trailing: false,
       },
     };
   }
@@ -29,8 +29,8 @@ export const createPages = (
   return {
     value: pages.slice(start, end),
     hasMore: {
-      head: start > 0,
-      tail: end < total,
+      leading: start > 0,
+      trailing: end < total,
     },
   };
 };

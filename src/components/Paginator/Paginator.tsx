@@ -46,15 +46,17 @@ export function Paginator(props: PaginatorProps) {
       <Reset>
         <Flex gap="1" asChild justify="center">
           <ul>
-            <li>
-              <IconButton asChild variant="outline" size="3">
-                <Link href={createHref(page - 1)}>
-                  <ChevronLeftIcon aria-label="前のページ" />
-                </Link>
-              </IconButton>
-            </li>
+            {page > 0 && (
+              <li>
+                <IconButton asChild variant="outline" size="3">
+                  <Link href={createHref(page - 1)} rel="prev">
+                    <ChevronLeftIcon aria-label="前のページ" />
+                  </Link>
+                </IconButton>
+              </li>
+            )}
 
-            {pages.hasMore.head && (
+            {pages.hasMore.leading && (
               <Flex justify="center" align="center" asChild p="1">
                 <li>
                   <DotsHorizontalIcon color="gray" />
@@ -75,9 +77,7 @@ export function Paginator(props: PaginatorProps) {
                   >
                     <Link href={createHref(value)}>
                       {value + 1}
-
                       <VisuallyHidden>ページ</VisuallyHidden>
-
                       {lastPage && (
                         <VisuallyHidden>（最後のページ）</VisuallyHidden>
                       )}
@@ -87,7 +87,7 @@ export function Paginator(props: PaginatorProps) {
               );
             })}
 
-            {pages.hasMore.tail && (
+            {pages.hasMore.trailing && (
               <Flex justify="center" align="center" asChild p="1">
                 <li>
                   <DotsHorizontalIcon color="gray" />
@@ -95,13 +95,15 @@ export function Paginator(props: PaginatorProps) {
               </Flex>
             )}
 
-            <li>
-              <IconButton asChild variant="outline" size="3">
-                <Link href={createHref(page + 1)}>
-                  <ChevronRightIcon aria-label="次のページ" />
-                </Link>
-              </IconButton>
-            </li>
+            {page < totalPages - 1 && (
+              <li>
+                <IconButton asChild variant="outline" size="3">
+                  <Link href={createHref(page + 1)} rel="next">
+                    <ChevronRightIcon aria-label="次のページ" />
+                  </Link>
+                </IconButton>
+              </li>
+            )}
           </ul>
         </Flex>
       </Reset>
