@@ -7,15 +7,15 @@ import { Entry } from "@/components/Entry";
 import { Entry as EntryType } from "@/models/entry";
 
 type ResultRootProps = {
-  resultPromise: Promise<SearchResponse<EntryType>>;
+  searchResponsePromise: Promise<SearchResponse<EntryType>>;
 };
 
 const ResultRoot: FC<ResultRootProps> = (props) => {
-  const { resultPromise } = props;
+  const { searchResponsePromise } = props;
 
-  const result = use(resultPromise);
+  const searchResponse = use(searchResponsePromise);
 
-  if (result.hits.length <= 0) {
+  if (searchResponse.hits.length <= 0) {
     return (
       <Flex py="8" direction="column" align="center">
         <Heading size="4">用例が見つかりませんでした</Heading>
@@ -31,8 +31,8 @@ const ResultRoot: FC<ResultRootProps> = (props) => {
 
   return (
     <Box>
-      {result.hits.map((hit, i) => {
-        const last = i === result.hits.length - 1;
+      {searchResponse.hits.map((hit, i) => {
+        const last = i === searchResponse.hits.length - 1;
 
         return (
           <Fragment key={hit.objectID}>

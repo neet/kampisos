@@ -6,11 +6,11 @@ import { Filter, FilterRootProps } from "@/components/Filter";
 export type MobileFilterButtonProps = {
   className?: string;
   defaultValues: FilterRootProps["defaultValues"];
-  resultPromise: FilterRootProps["resultPromise"];
+  facetsPromise: Promise<Record<string, Record<string, number>>>;
 };
 
 export const MobileFilterButton: FC<MobileFilterButtonProps> = (props) => {
-  const { className, defaultValues, resultPromise } = props;
+  const { className, defaultValues, facetsPromise } = props;
 
   return (
     <Dialog.Root>
@@ -32,7 +32,7 @@ export const MobileFilterButton: FC<MobileFilterButtonProps> = (props) => {
         <Suspense fallback={<Filter.Skeleton />}>
           <Filter.Root
             defaultValues={defaultValues}
-            resultPromise={resultPromise}
+            facetsPromise={facetsPromise}
           />
         </Suspense>
       </Dialog.Content>
