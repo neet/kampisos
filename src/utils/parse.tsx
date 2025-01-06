@@ -7,7 +7,7 @@ import {
 import { ReactNode } from "react";
 
 import { CharAlignment } from "../models/alignment";
-import { maximum, scale } from "./array";
+import { maximum } from "./array";
 
 const isElement = (node: DOMNode): node is Element => "name" in node;
 
@@ -57,15 +57,12 @@ const findEmSpans = (textStr: string): number[][] => {
 const createStyleFromScore = (score: number): React.CSSProperties => {
   const styles: React.CSSProperties = {};
 
-  if (score >= 1) {
-    styles.color = `var(--teal-11)`;
-    styles.backgroundColor = `var(--teal-4)`;
-  } else if (score > 0.9) {
-    styles.color = `var(--teal-12)`;
-    styles.backgroundColor = `var(--teal-3)`;
-  } else if (score > 0.8) {
-    styles.color = "white";
-    styles.backgroundColor = `var(--teal-2)`;
+  if (score > 0.09) {
+    styles.backgroundColor = `var(--amber-4)`;
+  } else if (score > 0.08) {
+    styles.backgroundColor = `var(--amber-3)`;
+  } else if (score > 0.07) {
+    styles.backgroundColor = `var(--amber-2)`;
   }
 
   return styles;
@@ -110,11 +107,9 @@ export function format(
 
   if (text.includes("<em>")) {
     const spans = findEmSpans(text);
-    const scores = scale(
-      spans
-        .map(([start, end]) => alignment.getJapaneseScoresAinuSpan(start, end))
-        .reduce(maximum, []),
-    );
+    const scores = spans
+      .map(([start, end]) => alignment.getJapaneseScoresAinuSpan(start, end))
+      .reduce(maximum, []);
 
     return {
       text: parse(text),
@@ -124,13 +119,11 @@ export function format(
 
   if (translation.includes("<em>")) {
     const spans = findEmSpans(translation);
-    const scores = scale(
-      spans
-        .map(([start, end]) =>
-          alignment.getAinuScoresFromJapaneseSpan(start, end),
-        )
-        .reduce(maximum, []),
-    );
+    const scores = spans
+      .map(([start, end]) =>
+        alignment.getAinuScoresFromJapaneseSpan(start, end),
+      )
+      .reduce(maximum, []);
 
     return {
       text: markupByScore(text, scores),

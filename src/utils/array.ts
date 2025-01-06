@@ -7,7 +7,7 @@ export function maximum(a: number[], b: number[]): number[] {
   });
 }
 
-export function scale(xs: number[]): number[] {
+export function minmax(xs: number[]): number[] {
   const min = Math.min(...xs);
   const max = Math.max(...xs);
   return xs.map((x) => (x - min) / (max - min));
