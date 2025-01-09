@@ -1,4 +1,5 @@
 "use client";
+import "./style.css";
 
 import * as Collapsible from "@radix-ui/react-collapsible";
 import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
@@ -43,28 +44,16 @@ export const FilterItemRoot: FC<FilterItemRootProps> = (props) => {
   const hasMore = props.options.length > MAX_OPTIONS;
 
   return (
-    <Box>
-      <Heading as="h4" size="2" weight="bold" color="gray" mb="3">
-        {label}
-      </Heading>
+    <Box asChild>
+      <fieldset>
+        <Heading asChild size="2" weight="bold" color="gray" mb="3">
+          <legend>{label}</legend>
+        </Heading>
 
-      <Collapsible.Root open={open} onOpenChange={() => setOpen(!open)}>
-        <Flex direction="column" gap="1">
+        <Collapsible.Root open={open} onOpenChange={() => setOpen(!open)}>
           <Flex direction="column" gap="1">
-            {firstOptions.map((option) => (
-              <FilterOption.Root
-                key={option.value}
-                name={name}
-                form={form}
-                option={option}
-                defaultChecked={defaultValues.includes(option.value)}
-              />
-            ))}
-          </Flex>
-
-          <Collapsible.Content>
             <Flex direction="column" gap="1">
-              {restOptions.map((option) => (
+              {firstOptions.map((option) => (
                 <FilterOption.Root
                   key={option.value}
                   name={name}
@@ -74,29 +63,43 @@ export const FilterItemRoot: FC<FilterItemRootProps> = (props) => {
                 />
               ))}
             </Flex>
-          </Collapsible.Content>
-        </Flex>
 
-        {hasMore && (
-          <Collapsible.Trigger asChild>
-            <Flex asChild justify="between" width="100%" mt="2">
-              <Button variant="ghost" color="gray">
-                {open ? (
-                  <>
-                    <Text>閉じる</Text>
-                    <ChevronUpIcon />
-                  </>
-                ) : (
-                  <>
-                    <Text>さらに表示</Text>
-                    <ChevronDownIcon />
-                  </>
-                )}
-              </Button>
-            </Flex>
-          </Collapsible.Trigger>
-        )}
-      </Collapsible.Root>
+            <Collapsible.Content>
+              <Flex direction="column" gap="1">
+                {restOptions.map((option) => (
+                  <FilterOption.Root
+                    key={option.value}
+                    name={name}
+                    form={form}
+                    option={option}
+                    defaultChecked={defaultValues.includes(option.value)}
+                  />
+                ))}
+              </Flex>
+            </Collapsible.Content>
+          </Flex>
+
+          {hasMore && (
+            <Collapsible.Trigger asChild>
+              <Flex asChild justify="between" width="100%" mt="2">
+                <Button variant="ghost" color="gray">
+                  {open ? (
+                    <>
+                      <Text>閉じる</Text>
+                      <ChevronUpIcon />
+                    </>
+                  ) : (
+                    <>
+                      <Text>さらに表示</Text>
+                      <ChevronDownIcon />
+                    </>
+                  )}
+                </Button>
+              </Flex>
+            </Collapsible.Trigger>
+          )}
+        </Collapsible.Root>
+      </fieldset>
     </Box>
   );
 };
