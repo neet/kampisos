@@ -29,7 +29,7 @@ export default async function Home() {
   return (
     <Container size="2" m="3">
       <main>
-        <Section size="2">
+        <Section size="1">
           <Flex direction="column" align="center" gap="1">
             <Heading
               as="h2"

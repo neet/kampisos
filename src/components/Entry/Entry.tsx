@@ -41,12 +41,12 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
       <Flex gap="2" direction={{ initial: "column", md: "row" }}>
         <Box flexGrow="1" flexShrink="1" flexBasis="100%" asChild>
           <Text asChild>
-            <p lang="ain">{parse(textHTML)}</p>
+            <blockquote lang="ain">{parse(textHTML)}</blockquote>
           </Text>
         </Box>
         <Box flexGrow="1" flexShrink="1" flexBasis="100%" asChild>
           <Text asChild>
-            <p lang="ja">{parse(translationHTML)}</p>
+            <blockquote lang="ja">{parse(translationHTML)}</blockquote>
           </Text>
         </Box>
       </Flex>
@@ -56,13 +56,13 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
           <Link
             href={url}
             target="_blank"
-            rel="noreferrer"
+            rel="nofollow"
             truncate
             size="2"
             color="gray"
           >
             <VisuallyHidden>出典：</VisuallyHidden>
-            {book}
+            <cite>{book}</cite>
             <Box display="inline-block" ml="1">
               <ExternalLinkIcon aria-hidden />
             </Box>

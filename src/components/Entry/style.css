@@ -3,3 +3,7 @@
   color: var(--teal-11);
   background-color: var(--teal-4);
 }
+
+.entry cite {
+  font-style: normal;
+}
