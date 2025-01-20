@@ -53,13 +53,13 @@ export async function generateMetadata(
   if (/^[a-zA-Z0-9\s]+$/.test(query)) {
     title += `${query}（${to_kana(query)}）の検索結果`;
   } else {
-    title += `${query}の検索結果`;
+    title += `「${query}」の検索結果`;
   }
   if (page > 0) {
     title += `（${page + 1}ページ目）`;
   }
 
-  const description = `${query}に関連するアイヌ語の資料の検索結果です。意味や使い方などを、実際の例文から探してみましょう。`;
+  const description = `「${query}」に関連するアイヌ語の資料の検索結果です。意味や使い方などを、実際の例文から探してみましょう。`;
 
   return {
     title,

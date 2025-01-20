@@ -1,12 +1,23 @@
 import { expect, test } from "@playwright/test";
 
-test("トップページから検索できる", async ({ page }) => {
+test("トップページからアイヌ語で検索できる", async ({ page }) => {
   await page.goto("/");
   const form = page.getByRole("textbox", { name: "キーワード" });
   await form.fill("pirka");
   await form.press("Enter");
 
   await expect(page).toHaveURL(/\/search\?q=pirka/);
+  await expect(page).toHaveTitle(/pirka（ピㇼカ）の検索結果/);
+});
+
+test("トップページから日本語で検索できる", async ({ page }) => {
+  await page.goto("/");
+  const form = page.getByRole("textbox", { name: "キーワード" });
+  await form.fill("良い");
+  await form.press("Enter");
+
+  await expect(page).toHaveURL(/\/search\?q=%E8%89%AF%E3%81%84/);
+  await expect(page).toHaveTitle(/「良い」の検索結果/);
 });
 
 test("詳細を押すとダイアログが開く", async ({ page }) => {
