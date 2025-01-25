@@ -31,7 +31,9 @@ type SearchPageProps = {
   searchParams: Promise<{
     q?: string;
     page?: number;
-    dialect?: string | string[];
+    dialect_lv1?: string | string[];
+    dialect_lv2?: string | string[];
+    dialect_lv3?: string | string[];
     author?: string | string[];
     book?: string | string[];
     pronoun?: string | string[];
@@ -88,7 +90,9 @@ export default async function SearchPage(props: SearchPageProps) {
 
   const query = searchParams.q?.trim() as string;
   const page = Number(searchParams.page ?? 0);
-  const dialect = toArraySearchParam(searchParams.dialect);
+  const dialectLv1 = toArraySearchParam(searchParams.dialect_lv1);
+  const dialectLv2 = toArraySearchParam(searchParams.dialect_lv2);
+  const dialectLv3 = toArraySearchParam(searchParams.dialect_lv3);
   const author = toArraySearchParam(searchParams.author);
   const book = toArraySearchParam(searchParams.book);
   const pronoun = toArraySearchParam(searchParams.pronoun);
@@ -98,7 +102,14 @@ export default async function SearchPage(props: SearchPageProps) {
       requests: buildRequests({
         query,
         page,
-        facets: { dialect, author, book, pronoun },
+        facets: {
+          author,
+          book,
+          pronoun,
+          dialect_lv1: dialectLv1,
+          dialect_lv2: dialectLv2,
+          dialect_lv3: dialectLv3,
+        },
       }),
     },
     {
@@ -167,7 +178,9 @@ export default async function SearchPage(props: SearchPageProps) {
                   <Filter.Root
                     facetsPromise={facetsPromise}
                     defaultValues={{
-                      dialect,
+                      dialectLv1,
+                      dialectLv2,
+                      dialectLv3,
                       author,
                       book,
                       pronoun,
@@ -192,7 +205,9 @@ export default async function SearchPage(props: SearchPageProps) {
                         <Box asChild display={{ initial: "block", md: "none" }}>
                           <MobileFilterButton
                             defaultValues={{
-                              dialect,
+                              dialectLv1,
+                              dialectLv2,
+                              dialectLv3,
                               author,
                               book,
                               pronoun,

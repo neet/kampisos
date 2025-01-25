@@ -17,7 +17,9 @@ export type BuildRequestsParams = {
 
   facets: {
     /** 方言 */
-    dialect: string[];
+    dialect_lv1: string[];
+    dialect_lv2: string[];
+    dialect_lv3: string[];
     /** 本 */
     book: string[];
     /** 著者 */
@@ -55,7 +57,9 @@ export const buildRequests = (params: BuildRequestsParams): SearchQuery[] => {
       hitsPerPage: 20,
       maxValuesPerFacet: 10,
       filters: buildFilters({
-        dialect: facets.dialect,
+        dialect_lv1: facets.dialect_lv1,
+        dialect_lv2: facets.dialect_lv2,
+        dialect_lv3: facets.dialect_lv3,
         book: facets.book,
         author: facets.author,
         pronoun: facets.pronoun,
@@ -66,7 +70,9 @@ export const buildRequests = (params: BuildRequestsParams): SearchQuery[] => {
       attributesToHighlight: ["text", "translation"],
     },
     ...facetEntries
-      .filter(([, values]) => values.length > 0)
+      .filter(([, values]) => {
+        return values.length > 0;
+      })
       .map(([selfKey]): SearchQuery => {
         const facetExcludingSelf = Object.fromEntries(
           facetEntries.filter((entry) => entry[0] !== selfKey),
