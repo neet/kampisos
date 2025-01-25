@@ -8,7 +8,9 @@ test("buildRequests", () => {
       query: "test",
       page: 0,
       facets: {
-        dialect: ["沙流", "千歳"],
+        dialect_lv1: [],
+        dialect_lv2: [],
+        dialect_lv3: ["北海道>南西>沙流", "北海道>南西>千歳"],
         book: ["アイヌタイムズ"],
         author: [],
         pronoun: [],
@@ -22,10 +24,12 @@ test("buildRequests", () => {
           "translation",
         ],
         "facets": [
+          "dialect_lv1",
+          "dialect_lv2",
           "author",
           "pronoun",
         ],
-        "filters": "(dialect:"沙流" OR dialect:"千歳") AND (book:"アイヌタイムズ")",
+        "filters": "(dialect_lv3:"北海道>南西>沙流" OR dialect_lv3:"北海道>南西>千歳") AND (book:"アイヌタイムズ")",
         "hitsPerPage": 20,
         "indexName": "entries",
         "maxValuesPerFacet": 10,
@@ -34,7 +38,7 @@ test("buildRequests", () => {
       },
       {
         "facets": [
-          "dialect",
+          "dialect_lv3",
         ],
         "filters": "(book:"アイヌタイムズ")",
         "hitsPerPage": 0,
@@ -46,7 +50,7 @@ test("buildRequests", () => {
         "facets": [
           "book",
         ],
-        "filters": "(dialect:"沙流" OR dialect:"千歳")",
+        "filters": "(dialect_lv3:"北海道>南西>沙流" OR dialect_lv3:"北海道>南西>千歳")",
         "hitsPerPage": 0,
         "indexName": "entries",
         "maxValuesPerFacet": 10,

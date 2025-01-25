@@ -42,7 +42,7 @@ test("出典で絞り込み検索が行える", async ({ page }) => {
     .getByRole("checkbox", { name: /アイヌ語アーカイブ （ [\d,]+ 件）/ })
     .check();
   await page.getByRole("button", { name: "適用" }).click();
-  await page.waitForLoadState("networkidle");
+  await page.waitForURL("search?*&*");
 
   const url = new URL(page.url());
 
@@ -50,19 +50,69 @@ test("出典で絞り込み検索が行える", async ({ page }) => {
   expect(url.searchParams.get("book")).toBe("アイヌ語アーカイブ");
 });
 
-test("方言で絞り込み検索が行える", async ({ page }) => {
+test("方言（レベル１）で絞り込み検索が行える", async ({ page }) => {
   await page.goto("/search?q=pirka");
   await page
     .getByRole("group", { name: "方言" })
-    .getByRole("checkbox", { name: /沙流 （ [\d,]+ 件）/ })
+    .getByRole("checkbox", { name: /北海道 （ [\d,]+ 件）/ })
     .check();
+
   await page.getByRole("button", { name: "適用" }).click();
-  await page.waitForLoadState("networkidle");
+  await page.waitForURL("search?*&*");
 
   const url = new URL(page.url());
 
   expect(url.searchParams.get("q")).toBe("pirka");
-  expect(url.searchParams.get("dialect")).toBe("沙流");
+  expect(url.searchParams.get("dialect_lv1")).toBe("北海道");
+});
+
+test("方言（レベル２）で絞り込み検索が行える", async ({ page }) => {
+  await page.goto("/search?q=pirka");
+
+  await page
+    .getByRole("group", { name: "方言" })
+    .getByRole("button", { name: "「北海道」を開く" })
+    .click();
+
+  await page
+    .getByRole("group", { name: "方言" })
+    .getByRole("checkbox", { name: /南西 （ [\d,]+ 件）/ })
+    .check();
+
+  await page.getByRole("button", { name: "適用" }).click();
+  await page.waitForURL("search?*&*");
+
+  const url = new URL(page.url());
+
+  expect(url.searchParams.get("q")).toBe("pirka");
+  expect(url.searchParams.get("dialect_lv2")).toBe("北海道/南西");
+});
+
+test("方言（レベル３）で絞り込み検索が行える", async ({ page }) => {
+  await page.goto("/search?q=pirka");
+
+  await page
+    .getByRole("group", { name: "方言" })
+    .getByRole("button", { name: "「北海道」を開く" })
+    .click();
+
+  await page
+    .getByRole("group", { name: "方言" })
+    .getByRole("button", { name: "「南西」を開く" })
+    .click();
+
+  await page
+    .getByRole("group", { name: "方言" })
+    .getByRole("checkbox", { name: /沙流 （ [\d,]+ 件）/ })
+    .check();
+
+  await page.getByRole("button", { name: "適用" }).click();
+  await page.waitForURL("search?*&*");
+
+  const url = new URL(page.url());
+
+  expect(url.searchParams.get("q")).toBe("pirka");
+  expect(url.searchParams.get("dialect_lv3")).toBe("北海道/南西/沙流");
 });
 
 test("著者で絞り込み検索が行える", async ({ page }) => {
@@ -72,7 +122,7 @@ test("著者で絞り込み検索が行える", async ({ page }) => {
     .getByRole("checkbox", { name: /川上まつ子 （ [\d,]+ 件）/ })
     .check();
   await page.getByRole("button", { name: "適用" }).click();
-  await page.waitForLoadState("networkidle");
+  await page.waitForURL("search?*&*");
 
   const url = new URL(page.url());
 
@@ -87,7 +137,7 @@ test("人称で絞り込み検索が行える", async ({ page }) => {
     .getByRole("checkbox", { name: /一人称 （ [\d,]+ 件）/ })
     .check();
   await page.getByRole("button", { name: "適用" }).click();
-  await page.waitForLoadState("networkidle");
+  await page.waitForURL("search?*&*");
 
   const url = new URL(page.url());
 
