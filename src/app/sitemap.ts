@@ -16,19 +16,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: "https://kampisos.aynu.io",
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "yearly",
     },
     {
       url: "https://kampisos.aynu.io/about",
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "yearly",
     },
 
     ...ainuWordList.map((word) => {
       return {
         url: `https://kampisos.aynu.io/search?q=${encodeURIComponent(word)}`,
         lastModified: new Date(),
-        changeFrequency: "monthly" as const,
+        changeFrequency: "yearly" as const,
       };
     }),
 
@@ -36,7 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       return {
         url: `https://kampisos.aynu.io/search?q=${encodeURIComponent(word)}`,
         lastModified: new Date(),
-        changeFrequency: "monthly" as const,
+        changeFrequency: "yearly" as const,
       };
     }),
   ];
