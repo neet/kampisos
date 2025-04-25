@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     template: "%s | kampisos - アイヌ語コーパス検索",
   },
   robots: {
-    index: false,
+    index: true,
     follow: false,
   },
   openGraph: {
