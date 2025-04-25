@@ -32,7 +32,6 @@ test("buildRequests", () => {
         "filters": "(dialect_lv3:"北海道>南西>沙流" OR dialect_lv3:"北海道>南西>千歳") AND (book:"アイヌタイムズ")",
         "hitsPerPage": 20,
         "indexName": "entries",
-        "maxValuesPerFacet": 10,
         "page": 0,
         "query": "test",
       },
@@ -43,7 +42,6 @@ test("buildRequests", () => {
         "filters": "(book:"アイヌタイムズ")",
         "hitsPerPage": 0,
         "indexName": "entries",
-        "maxValuesPerFacet": 10,
         "query": "test",
       },
       {
@@ -53,7 +51,6 @@ test("buildRequests", () => {
         "filters": "(dialect_lv3:"北海道>南西>沙流" OR dialect_lv3:"北海道>南西>千歳")",
         "hitsPerPage": 0,
         "indexName": "entries",
-        "maxValuesPerFacet": 10,
         "query": "test",
       },
     ]

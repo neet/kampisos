@@ -55,7 +55,6 @@ export const buildRequests = (params: BuildRequestsParams): SearchQuery[] => {
       indexName: "entries",
       page: page,
       hitsPerPage: 20,
-      maxValuesPerFacet: 10,
       filters: buildFilters({
         dialect_lv1: facets.dialect_lv1,
         dialect_lv2: facets.dialect_lv2,
@@ -82,7 +81,6 @@ export const buildRequests = (params: BuildRequestsParams): SearchQuery[] => {
           query,
           indexName: "entries",
           hitsPerPage: 0,
-          maxValuesPerFacet: 10,
           facets: [selfKey],
           filters: buildFilters(facetExcludingSelf),
         };
