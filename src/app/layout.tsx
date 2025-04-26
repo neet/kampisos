@@ -48,14 +48,14 @@ export const metadata: Metadata = {
   },
   icons: [
     {
-      media: "(prefers-color-scheme: light)",
-      url: "icon_light.svg",
+      url: "/icon+light.svg",
       type: "image/svg+xml",
+      media: "(prefers-color-scheme: light)",
     },
     {
-      media: "(prefers-color-scheme: dark)",
-      url: "icon_dark.svg",
+      url: "/icon+dark.svg",
       type: "image/svg+xml",
+      media: "(prefers-color-scheme: dark)",
     },
   ],
 };
