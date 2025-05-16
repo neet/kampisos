@@ -15,14 +15,6 @@ test("トップページを表示できる", async ({ page }) => {
       - textbox "キーワード"
       - img
       - heading "最近の更新" [level=2]
-      - article
-      - article
-      - article
-      - article
-      - article
-      - article
-      - article
-      - article
     - paragraph: /Copyright © \\d+ Ryō Igarashi\\. All rights reserved\\./
   `);
 });

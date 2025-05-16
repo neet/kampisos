@@ -22,7 +22,7 @@ export const Changelog: FC<ChangelogProps> = (props) => {
 
   return (
     <Flex asChild gap="4" align="center" className={className}>
-      <article>
+      <div>
         <Box flexGrow="1" flexShrink="1" flexBasis="100%">
           <Text mt="1" asChild>
             <p>{changelog.content}</p>
@@ -32,7 +32,7 @@ export const Changelog: FC<ChangelogProps> = (props) => {
         <Badge>
           <time dateTime={date.toISOString()}>{formattedDate}</time>
         </Badge>
-      </article>
+      </div>
     </Flex>
   );
 };
