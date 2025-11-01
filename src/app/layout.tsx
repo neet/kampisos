@@ -77,7 +77,7 @@ export default async function RootLayout(props: RootProps) {
       <body>
         <ThemeProvider attribute="class">
           <Theme accentColor="teal" grayColor="sand">
-            <Grid columns="100%" rows="auto 1fr auto" minHeight="100vh">
+            <Grid className="gradient" columns="100%" rows="auto 1fr auto" minHeight="100vh">
               <Banner />
               {children}
               <ContentInfo />
