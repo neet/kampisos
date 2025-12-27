@@ -4,7 +4,7 @@ import "@radix-ui/themes/styles.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Grid, Theme } from "@radix-ui/themes";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import clsx from "clsx";
+import { clsx } from "clsx";
 import type { Metadata } from "next";
 import { Cookie, Roboto, Roboto_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
@@ -77,7 +77,12 @@ export default async function RootLayout(props: RootProps) {
       <body>
         <ThemeProvider attribute="class">
           <Theme accentColor="teal" grayColor="sand">
-            <Grid className="gradient" columns="100%" rows="auto 1fr auto" minHeight="100vh">
+            <Grid
+              className="gradient"
+              columns="100%"
+              rows="auto 1fr auto"
+              minHeight="100vh"
+            >
               <Banner />
               {children}
               <ContentInfo />
