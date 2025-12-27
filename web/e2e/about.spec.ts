@@ -1,7 +1,6 @@
-import { expect, test } from "vitest";
-import { page } from "vitest/browser";
+import { expect, test } from "@playwright/test";
 
-test("使い方を表示できる", async () => {
+test("使い方を表示できる", async ({ page }) => {
   await page.goto("/about");
 
   await expect(page.locator("body")).toMatchAriaSnapshot(`
