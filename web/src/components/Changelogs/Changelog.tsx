@@ -2,6 +2,7 @@ import { Badge, Box, Flex, Text } from "@radix-ui/themes";
 import { FC } from "react";
 
 import * as t from "../../models/changelog";
+import { useRelativeTimeFormat } from "./useRelativeTimeFormat";
 
 export type ChangelogProps = {
   className?: string;
@@ -11,14 +12,7 @@ export type ChangelogProps = {
 export const Changelog: FC<ChangelogProps> = (props) => {
   const { changelog, className } = props;
 
-  const rtf = new Intl.RelativeTimeFormat("ja", { numeric: "auto" });
-  const date = new Date(changelog.publishedAt);
-
-  const diff = date.getTime() - Date.now();
-  const formattedDate = rtf.format(
-    Math.round(diff / 1000 / 60 / 60 / 24),
-    "day",
-  );
+  const relativeDate = useRelativeTimeFormat(new Date(changelog.publishedAt));
 
   return (
     <Flex asChild gap="4" align="center" className={className}>
@@ -30,7 +24,7 @@ export const Changelog: FC<ChangelogProps> = (props) => {
         </Box>
 
         <Badge>
-          <time dateTime={date.toISOString()}>{formattedDate}</time>
+          <time dateTime={changelog.publishedAt}>{relativeDate}</time>
         </Badge>
       </div>
     </Flex>
