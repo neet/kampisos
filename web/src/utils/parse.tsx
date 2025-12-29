@@ -10,7 +10,7 @@ const isElement = (node: DOMNode): node is Element => "name" in node;
 export function parse(html: string) {
   return _parse(html, {
     replace: (domNode) => {
-      if (isElement(domNode) && domNode.name === "em") {
+      if (isElement(domNode) && domNode.name === "mark") {
         return <em>{domToReact(domNode.children as DOMNode[])}</em>;
       }
     },
