@@ -46,7 +46,7 @@ export function Paginator(props: PaginatorProps) {
       <Reset>
         <Flex gap="1" asChild justify="center">
           <ul>
-            {page > 0 && (
+            {page > 1 && (
               <li>
                 <IconButton asChild variant="outline" size="3">
                   <Link href={createHref(page - 1)} rel="prev">
@@ -66,7 +66,7 @@ export function Paginator(props: PaginatorProps) {
 
             {pages.value.map((value) => {
               const current = value === page;
-              const lastPage = value === totalPages - 1;
+              const lastPage = value === totalPages;
 
               return (
                 <li key={value}>
@@ -76,7 +76,7 @@ export function Paginator(props: PaginatorProps) {
                     size="3"
                   >
                     <Link href={createHref(value)}>
-                      {value + 1}
+                      {value}
                       <VisuallyHidden>ページ</VisuallyHidden>
                       {lastPage && (
                         <VisuallyHidden>（最後のページ）</VisuallyHidden>
@@ -95,7 +95,7 @@ export function Paginator(props: PaginatorProps) {
               </Flex>
             )}
 
-            {page < totalPages - 1 && (
+            {page < totalPages && (
               <li>
                 <IconButton asChild variant="outline" size="3">
                   <Link href={createHref(page + 1)} rel="next">

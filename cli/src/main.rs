@@ -9,12 +9,21 @@ use tokio;
 struct Cli {
     #[command(subcommand)]
     command: Option<Commands>,
+
+    #[arg(long)]
+    typesense_url: String,
+
+    #[arg(long)]
+    typesense_api_key: String,
 }
 
 #[derive(Subcommand)]
 enum Commands {
     Init {},
-    Sync {},
+    Sync {
+        #[arg(long)]
+        git_path: String,
+    },
 }
 
 #[tokio::main]
@@ -22,8 +31,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 
     match cli.command {
-        Some(Commands::Init {}) => commands::kampisos_init().await,
-        Some(Commands::Sync {}) => commands::kampisos_sync().await,
+        Some(Commands::Init {}) => {
+            commands::kampisos_init(&cli.typesense_url, &cli.typesense_api_key).await
+        }
+        Some(Commands::Sync { git_path }) => {
+            commands::kampisos_sync(&cli.typesense_url, &cli.typesense_api_key, &git_path).await
+        }
         None => Ok(()),
     }
 }
