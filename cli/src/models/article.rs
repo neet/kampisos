@@ -1,19 +1,5 @@
 use crate::models::{Dialect, Sentence};
 use serde::{Deserialize, Serialize};
-use serde_json::{Value, json};
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum WritingSystem {
-    Latin,
-    Kana,
-}
-
-impl Default for WritingSystem {
-    fn default() -> Self {
-        WritingSystem::Latin
-    }
-}
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -56,32 +42,15 @@ pub struct Article {
     pub sentences: Vec<Sentence>,
 }
 
-// TODO: 別の場所に逃がしたい
-impl Article {
-    pub fn entries(&self) -> Vec<Value> {
-        self.sentences
-          .iter()
-          .enumerate()
-          .map(|(index, sentence)| {
-            json!({
-              "id": format!("{}/{}#{}", &self.book, &self.title, index),
-              "book": &self.book,
-              "title": &self.title,
-              "url": &self.url,
-              "pronoun": sentence.pronoun.as_ref().or(self.pronoun.as_ref()),
-              "index": index,
-              "author": sentence.author.as_ref().or(self.author.as_ref()),
-              "dialect": sentence.dialect.as_ref().or(self.dialect.as_ref()).map(|d| d.name()),
-              "dialect_lv1": sentence.dialect.as_ref().or(self.dialect.as_ref()).map(|d| d.lv_1()),
-              "dialect_lv2": sentence.dialect.as_ref().or(self.dialect.as_ref()).map(|d| d.lv_2()),
-              "dialect_lv3": sentence.dialect.as_ref().or(self.dialect.as_ref()).map(|d| d.lv_3()),
-              "writing_system": &self.writing_system,
-              "text": &sentence.ain,
-              "translation": &sentence.jpn,
-              "recorded_at": &self.recorded_at,
-              "published_at": &self.published_at,
-            })
-          })
-          .collect()
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum WritingSystem {
+    Latin,
+    Kana,
+}
+
+impl Default for WritingSystem {
+    fn default() -> Self {
+        WritingSystem::Latin
     }
 }

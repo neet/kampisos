@@ -29,7 +29,7 @@ export type EntryRootProps = {
   title: string;
   url: string;
   author: string | null;
-  dialect: string;
+  dialect: string | null;
 };
 
 const EntryRoot: React.FC<EntryRootProps> = (props) => {

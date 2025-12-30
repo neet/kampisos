@@ -1,4 +1,4 @@
-name: e2e
+name: Playwright Tests
 
 on:
   push:
@@ -30,7 +30,7 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test
       env:
-        TYPESENSE_URL: ${{ secrets.TYPESENSE_URL }}
-        TYPESENSE_API_KEY: ${{ secrets.TYPESENSE_API_KEY }}
+        ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
+        ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
         MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
         MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}

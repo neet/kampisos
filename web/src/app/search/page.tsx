@@ -9,24 +9,21 @@ import {
 } from "@radix-ui/themes";
 import { to_kana } from "ainu-utils";
 import { Metadata } from "next";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 import { Filter } from "@/components/Filter";
 import { Search } from "@/components/Search";
+import { buildRequests, unwrapFacets, unwrapSearchResponse } from "@/lib/build";
+import { searchClient } from "@/lib/search";
 import { Entry as EntryType } from "@/models/entry";
 import { toArraySearchParam } from "@/utils/toArraySearchParams";
-import { client } from "@/lib/typesense";
 
 import { FooterContent } from "./_FooterContent";
 import { MobileFilterButton } from "./_MobileFilterButton";
 import { Result } from "./_Result";
 import { SearchStats } from "./_SearchStats";
-import {
-  createSearchParamsWithFacetCount,
-  unwrapFacets,
-  unwrapSearchResponse,
-} from "./create_search_param_with_facet_count";
 
 export const revalidate = 86_400;
 
@@ -60,8 +57,8 @@ export async function generateMetadata(
   } else {
     title += `「${query}」の検索結果`;
   }
-  if (page > 1) {
-    title += `（${page}ページ目）`;
+  if (page > 0) {
+    title += `（${page + 1}ページ目）`;
   }
 
   const description = `「${query}」に関連するアイヌ語の資料の検索結果です。意味や使い方などを、実際の例文から探してみましょう。`;
@@ -70,7 +67,7 @@ export async function generateMetadata(
     title,
     description,
     robots: {
-      index: page === 1,
+      index: page === 0,
       follow: true,
     },
     openGraph: {
@@ -89,9 +86,10 @@ export async function generateMetadata(
 
 export default async function SearchPage(props: SearchPageProps) {
   const searchParams = await props.searchParams;
+  const forwardedFor = (await headers()).get("X-Forwarded-For") ?? "0.0.0.0";
 
   const query = searchParams.q?.trim() as string;
-  const page = Number(searchParams.page ?? 1);
+  const page = Number(searchParams.page ?? 0);
   const dialectLv1 = toArraySearchParam(searchParams.dialect_lv1);
   const dialectLv2 = toArraySearchParam(searchParams.dialect_lv2);
   const dialectLv3 = toArraySearchParam(searchParams.dialect_lv3);
@@ -99,23 +97,30 @@ export default async function SearchPage(props: SearchPageProps) {
   const book = toArraySearchParam(searchParams.book);
   const pronoun = toArraySearchParam(searchParams.pronoun);
 
-  const multiSearchPromise = client.multiSearch.perform<EntryType[]>({
-    searches: createSearchParamsWithFacetCount({
-      query,
-      page,
-      facets: {
-        author,
-        book,
-        pronoun,
-        dialect_lv1: dialectLv1,
-        dialect_lv2: dialectLv2,
-        dialect_lv3: dialectLv3,
+  const searchPromise = searchClient.searchForHits<EntryType>(
+    {
+      requests: buildRequests({
+        query,
+        page,
+        facets: {
+          author,
+          book,
+          pronoun,
+          dialect_lv1: dialectLv1,
+          dialect_lv2: dialectLv2,
+          dialect_lv3: dialectLv3,
+        },
+      }),
+    },
+    {
+      headers: {
+        "X-Forwarded-For": forwardedFor,
       },
-    }),
-  });
+    },
+  );
 
-  const searchPromise = unwrapSearchResponse(multiSearchPromise);
-  const facetsPromise = unwrapFacets(multiSearchPromise);
+  const searchResponsePromise = unwrapSearchResponse(searchPromise);
+  const facetsPromise = unwrapFacets(searchPromise);
 
   return (
     <Container asChild m="3" size="4">
@@ -195,7 +200,7 @@ export default async function SearchPage(props: SearchPageProps) {
                   >
                     <SearchStats.Root
                       id="search-stats"
-                      searchResponsePromise={searchPromise}
+                      searchResponsePromise={searchResponsePromise}
                       suffix={
                         <Box asChild display={{ initial: "block", md: "none" }}>
                           <MobileFilterButton
@@ -216,7 +221,9 @@ export default async function SearchPage(props: SearchPageProps) {
                 </header>
                 <Box mt="3">
                   <Suspense fallback={<Result.Skeleton />} key={searchParams.q}>
-                    <Result.Root searchResponsePromise={searchPromise} />
+                    <Result.Root
+                      searchResponsePromise={searchResponsePromise}
+                    />
                   </Suspense>
                 </Box>
                 <Section size="1">
@@ -224,7 +231,7 @@ export default async function SearchPage(props: SearchPageProps) {
                     <Suspense fallback={null} key={searchParams.q}>
                       <FooterContent
                         page={page}
-                        resultPromise={searchPromise}
+                        resultPromise={searchResponsePromise}
                       />
                     </Suspense>
                   </footer>

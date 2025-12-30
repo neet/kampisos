@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Flex, Heading, Separator, Text } from "@radix-ui/themes";
+import { SearchResponse } from "algoliasearch";
 import { FC, Fragment, use } from "react";
-import { SearchResponse } from "typesense/lib/Typesense/Documents";
 
-import { Entry as EntryType } from "@/models/entry";
 import { Entry } from "@/components/Entry";
+import { Entry as EntryType } from "@/models/entry";
 
 type ResultRootProps = {
   searchResponsePromise: Promise<SearchResponse<EntryType>>;
@@ -13,9 +14,8 @@ const ResultRoot: FC<ResultRootProps> = (props) => {
   const { searchResponsePromise } = props;
 
   const searchResponse = use(searchResponsePromise);
-  const hits = searchResponse.hits;
 
-  if (hits == null || hits.length <= 0) {
+  if (searchResponse.hits.length <= 0) {
     return (
       <Flex py="8" direction="column" align="center">
         <Heading size="4">用例が見つかりませんでした</Heading>
@@ -31,24 +31,21 @@ const ResultRoot: FC<ResultRootProps> = (props) => {
 
   return (
     <Box>
-      {hits.map((hit, i) => {
-        const last = i === hits.length - 1;
-        const doc = hit.document;
+      {searchResponse.hits.map((hit, i) => {
+        const last = i === searchResponse.hits.length - 1;
 
         return (
-          <Fragment key={doc.id}>
+          <Fragment key={hit.objectID}>
             <Entry.Root
-              text={doc.text}
-              textHTML={hit.highlight.text?.value ?? doc.text}
-              translation={doc.translation}
-              translationHTML={
-                hit.highlight.translation?.value ?? doc.translation
-              }
-              book={doc.book}
-              title={doc.title}
-              url={doc.url}
-              author={doc.author}
-              dialect={doc.dialect}
+              text={hit.text}
+              textHTML={(hit._highlightResult?.text as any).value}
+              translation={hit.translation}
+              translationHTML={(hit._highlightResult?.translation as any).value}
+              book={hit.book}
+              title={hit.title}
+              url={hit.url}
+              author={hit.author}
+              dialect={hit.dialect}
             />
 
             {!last && (

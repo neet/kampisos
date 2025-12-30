@@ -11,7 +11,7 @@ export const createPages = (
   total: number,
   maxToShow: number,
 ): Pages => {
-  const pages = Array.from({ length: total }, (_, i) => i + 1);
+  const pages = Array.from({ length: total }, (_, i) => i);
 
   if (total <= maxToShow) {
     return {
@@ -29,7 +29,7 @@ export const createPages = (
   return {
     value: pages.slice(start, end),
     hasMore: {
-      leading: start > 1,
+      leading: start > 0,
       trailing: end < total,
     },
   };
