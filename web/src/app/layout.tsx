@@ -33,15 +33,15 @@ const cookie = Cookie({
 export const metadata: Metadata = {
   metadataBase: new URL("https://kampisos.aynu.io"),
   title: {
-    default: "kampisos - アイヌ語コーパス検索",
-    template: "%s | kampisos - アイヌ語コーパス検索",
+    default: "Kampisos - アイヌ語コーパス検索",
+    template: "%s | Kampisos - アイヌ語コーパス検索",
   },
   robots: {
     index: true,
     follow: false,
   },
   openGraph: {
-    title: "kampisos - アイヌ語コーパス検索",
+    title: "Kampisos - アイヌ語コーパス検索",
     description:
       "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます",
     images: "/ogp.png",

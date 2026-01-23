@@ -10,7 +10,7 @@ export const Banner: FC = () => {
       <Container size="4" p="3">
         <Flex justify="between" align="center">
           <Link href="/">
-            <h1>kampisos</h1>
+            <h1>Kampisos</h1>
           </Link>
 
           <RadixLink asChild>
