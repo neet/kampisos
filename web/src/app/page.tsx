@@ -9,7 +9,7 @@ import { Changelog } from "@/models/changelog";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "kampisos - アイヌ語コーパス検索",
+  title: "Kampisos - アイヌ語コーパス検索",
   description:
     "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます",
   alternates: {
