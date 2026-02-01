@@ -1,6 +1,7 @@
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import {
   Badge,
+  Code,
   DataList,
   Dialog,
   IconButton,
@@ -42,7 +43,9 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
         <DataList.Root mt="4">
           <DataList.Item>
             <DataList.Label>ID</DataList.Label>
-            <DataList.Value>{objectID}</DataList.Value>
+            <DataList.Value>
+              <Code>{objectID}</Code>
+            </DataList.Value>
           </DataList.Item>
 
           <DataList.Item>
