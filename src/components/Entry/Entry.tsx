@@ -21,6 +21,7 @@ import { Tag } from "../Tag";
 import { EntryDetailsDialog } from "./EntryDetailsDialog";
 
 export type EntryRootProps = {
+  objectID: string;
   text: string;
   textHTML: string;
   translation: string;
@@ -33,8 +34,16 @@ export type EntryRootProps = {
 };
 
 const EntryRoot: React.FC<EntryRootProps> = (props) => {
-  const { textHTML, translationHTML, book, title, url, author, dialect } =
-    props;
+  const {
+    objectID,
+    textHTML,
+    translationHTML,
+    book,
+    title,
+    url,
+    author,
+    dialect,
+  } = props;
 
   return (
     <div className="entry">
@@ -83,6 +92,7 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
           )}
 
           <EntryDetailsDialog
+            objectID={objectID}
             book={book}
             title={title}
             author={author}

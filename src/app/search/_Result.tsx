@@ -37,6 +37,7 @@ const ResultRoot: FC<ResultRootProps> = (props) => {
         return (
           <Fragment key={hit.objectID}>
             <Entry.Root
+              objectID={hit.objectID}
               text={hit.text}
               textHTML={(hit._highlightResult?.text as any).value}
               translation={hit.translation}

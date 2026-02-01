@@ -11,6 +11,7 @@ import {
 import { FC } from "react";
 
 export type EntryDetailsDialogProps = {
+  objectID: string;
   book: string;
   title: string;
   author: string | null;
@@ -19,7 +20,7 @@ export type EntryDetailsDialogProps = {
 };
 
 export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
-  const { book, title, author, dialect, url } = props;
+  const { objectID, book, title, author, dialect, url } = props;
 
   return (
     <Dialog.Root>
@@ -39,6 +40,11 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
         </Dialog.Description>
 
         <DataList.Root mt="4">
+          <DataList.Item>
+            <DataList.Label>ID</DataList.Label>
+            <DataList.Value>{objectID}</DataList.Value>
+          </DataList.Item>
+
           <DataList.Item>
             <DataList.Label>出典</DataList.Label>
             <DataList.Value>{book}</DataList.Value>
