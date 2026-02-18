@@ -35,7 +35,7 @@ type SearchPageProps = {
     dialect_lv2?: string | string[];
     dialect_lv3?: string | string[];
     author?: string | string[];
-    book?: string | string[];
+    group?: string | string[];
     pronoun?: string | string[];
   }>;
 };
@@ -94,7 +94,7 @@ export default async function SearchPage(props: SearchPageProps) {
   const dialectLv2 = toArraySearchParam(searchParams.dialect_lv2);
   const dialectLv3 = toArraySearchParam(searchParams.dialect_lv3);
   const author = toArraySearchParam(searchParams.author);
-  const book = toArraySearchParam(searchParams.book);
+  const group = toArraySearchParam(searchParams.group);
   const pronoun = toArraySearchParam(searchParams.pronoun);
 
   const searchPromise = searchClient.searchForHits<EntryType>(
@@ -104,7 +104,7 @@ export default async function SearchPage(props: SearchPageProps) {
         page,
         facets: {
           author,
-          book,
+          group,
           pronoun,
           dialect_lv1: dialectLv1,
           dialect_lv2: dialectLv2,
@@ -182,7 +182,7 @@ export default async function SearchPage(props: SearchPageProps) {
                       dialectLv2,
                       dialectLv3,
                       author,
-                      book,
+                      group,
                       pronoun,
                     }}
                   />
@@ -209,7 +209,7 @@ export default async function SearchPage(props: SearchPageProps) {
                               dialectLv2,
                               dialectLv3,
                               author,
-                              book,
+                              group,
                               pronoun,
                             }}
                             facetsPromise={facetsPromise}

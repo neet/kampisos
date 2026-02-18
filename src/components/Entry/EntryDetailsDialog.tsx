@@ -13,15 +13,15 @@ import { FC } from "react";
 
 export type EntryDetailsDialogProps = {
   objectID: string;
-  book: string;
-  title: string;
+  document: string;
+  group: string | null;
   author: string | null;
   dialect: string | null;
-  url: string;
+  url: string | null;
 };
 
 export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
-  const { objectID, book, title, author, dialect, url } = props;
+  const { objectID, group, document, author, dialect, url } = props;
 
   return (
     <Dialog.Root>
@@ -50,12 +50,12 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
 
           <DataList.Item>
             <DataList.Label>出典</DataList.Label>
-            <DataList.Value>{book}</DataList.Value>
+            <DataList.Value>{group}</DataList.Value>
           </DataList.Item>
 
           <DataList.Item>
             <DataList.Label>タイトル</DataList.Label>
-            <DataList.Value>{title}</DataList.Value>
+            <DataList.Value>{document}</DataList.Value>
           </DataList.Item>
 
           <DataList.Item>
@@ -70,14 +70,16 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
             </DataList.Value>
           </DataList.Item>
 
-          <DataList.Item>
-            <DataList.Label>URL</DataList.Label>
-            <DataList.Value>
-              <Link href={url} target="_blank" rel="noreferrer">
-                {url}
-              </Link>
-            </DataList.Value>
-          </DataList.Item>
+          {url && (
+            <DataList.Item>
+              <DataList.Label>URL</DataList.Label>
+              <DataList.Value>
+                <Link href={url} target="_blank" rel="noreferrer">
+                  {url}
+                </Link>
+              </DataList.Value>
+            </DataList.Item>
+          )}
         </DataList.Root>
       </Dialog.Content>
     </Dialog.Root>

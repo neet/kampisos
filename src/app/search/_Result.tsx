@@ -42,8 +42,8 @@ const ResultRoot: FC<ResultRootProps> = (props) => {
               textHTML={(hit._highlightResult?.text as any).value}
               translation={hit.translation}
               translationHTML={(hit._highlightResult?.translation as any).value}
-              book={hit.book}
-              title={hit.title}
+              group={hit.group}
+              document={hit.document}
               url={hit.url}
               author={hit.author}
               dialect={hit.dialect}
