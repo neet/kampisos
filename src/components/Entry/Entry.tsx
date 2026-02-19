@@ -22,13 +22,13 @@ import { EntryDetailsDialog } from "./EntryDetailsDialog";
 
 export type EntryRootProps = {
   objectID: string;
+  document: string;
   text: string;
   textHTML: string;
   translation: string;
   translationHTML: string;
-  book: string;
-  title: string;
-  url: string;
+  group: string | null;
+  url: string | null;
   author: string | null;
   dialect: string | null;
 };
@@ -38,8 +38,8 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
     objectID,
     textHTML,
     translationHTML,
-    book,
-    title,
+    group,
+    document,
     url,
     author,
     dialect,
@@ -61,22 +61,24 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
       </Flex>
 
       <Flex gap="2" justify="between" align="center" mt="1">
-        <Box flexGrow="0" flexShrink="1" minWidth="0px" asChild>
-          <Link
-            href={url}
-            target="_blank"
-            rel="nofollow"
-            truncate
-            size="2"
-            color="gray"
-          >
-            <VisuallyHidden>出典：</VisuallyHidden>
-            <cite>{book}</cite>
-            <Box display="inline-block" ml="1">
-              <ExternalLinkIcon aria-hidden />
-            </Box>
-          </Link>
-        </Box>
+        {url && (
+          <Box flexGrow="0" flexShrink="1" minWidth="0px" asChild>
+            <Link
+              href={url}
+              target="_blank"
+              rel="nofollow"
+              truncate
+              size="2"
+              color="gray"
+            >
+              <VisuallyHidden>出典：</VisuallyHidden>
+              <cite>{group}</cite>
+              <Box display="inline-block" ml="1">
+                <ExternalLinkIcon aria-hidden />
+              </Box>
+            </Link>
+          </Box>
+        )}
 
         <Flex gap="3" flexGrow="1" flexShrink="0" justify="end" align="center">
           {author && (
@@ -93,8 +95,8 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
 
           <EntryDetailsDialog
             objectID={objectID}
-            book={book}
-            title={title}
+            group={group}
+            document={document}
             author={author}
             dialect={dialect}
             url={url}

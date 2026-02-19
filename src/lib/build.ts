@@ -21,7 +21,7 @@ export type BuildRequestsParams = {
     dialect_lv2: string[];
     dialect_lv3: string[];
     /** 本 */
-    book: string[];
+    group: string[];
     /** 著者 */
     author: string[];
     /** 代名詞 */
@@ -59,7 +59,7 @@ export const buildRequests = (params: BuildRequestsParams): SearchQuery[] => {
         dialect_lv1: facets.dialect_lv1,
         dialect_lv2: facets.dialect_lv2,
         dialect_lv3: facets.dialect_lv3,
-        book: facets.book,
+        group: facets.group,
         author: facets.author,
         pronoun: facets.pronoun,
       }),

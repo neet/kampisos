@@ -1,11 +1,11 @@
 export type Entry = {
   objectID: string;
-  book: string;
-  title: string;
-  url: string;
-  pronoun: string;
-  author: string;
-  dialect: string;
+  document: string;
   text: string;
   translation: string;
+  group: string | null;
+  url: string | null;
+  pronoun: string | null;
+  author: string | null;
+  dialect: string | null;
 };

@@ -10,7 +10,7 @@ import { FilterItemRoot, FilterItemSkeleton } from "./FilterItem";
 export type FilterRootProps = {
   className?: string;
   defaultValues?: {
-    book?: string[];
+    group?: string[];
     author?: string[];
     pronoun?: string[];
     dialectLv1?: string[];
@@ -42,13 +42,13 @@ const FilterRoot: FC<FilterRootProps> = (props) => {
           }}
         />
 
-        {facets.book && (
+        {facets.group && (
           <FilterItemRoot
             form="search"
             label="出典"
-            name="book"
-            defaultValues={defaultValues?.book}
-            options={Object.entries(facets.book).map(([value, count]) => ({
+            name="group"
+            defaultValues={defaultValues?.group}
+            options={Object.entries(facets.group).map(([value, count]) => ({
               value,
               count,
             }))}
