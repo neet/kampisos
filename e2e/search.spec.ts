@@ -47,7 +47,7 @@ test("出典で絞り込み検索が行える", async ({ page }) => {
   const url = new URL(page.url());
 
   expect(url.searchParams.get("q")).toBe("pirka");
-  expect(url.searchParams.get("group")).toBe("アイヌ語アーカイブ");
+  expect(url.searchParams.get("collection_lv1")).toBe("アイヌ語アーカイブ");
 });
 
 test("方言（レベル１）で絞り込み検索が行える", async ({ page }) => {

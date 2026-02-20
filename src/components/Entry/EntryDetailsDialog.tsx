@@ -14,14 +14,14 @@ import { FC } from "react";
 export type EntryDetailsDialogProps = {
   objectID: string;
   document: string;
-  group: string | null;
+  collectionLv1: string | null;
   author: string | null;
   dialect: string | null;
   url: string | null;
 };
 
 export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
-  const { objectID, group, document, author, dialect, url } = props;
+  const { objectID, collectionLv1, document, author, dialect, url } = props;
 
   return (
     <Dialog.Root>
@@ -50,7 +50,7 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
 
           <DataList.Item>
             <DataList.Label>出典</DataList.Label>
-            <DataList.Value>{group}</DataList.Value>
+            <DataList.Value>{collectionLv1}</DataList.Value>
           </DataList.Item>
 
           <DataList.Item>

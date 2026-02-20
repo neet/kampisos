@@ -3,7 +3,7 @@ export type Entry = {
   document: string;
   text: string;
   translation: string;
-  group: string | null;
+  collection_lv1: string | null;
   url: string | null;
   pronoun: string | null;
   author: string | null;
