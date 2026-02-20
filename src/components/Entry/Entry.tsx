@@ -27,7 +27,7 @@ export type EntryRootProps = {
   textHTML: string;
   translation: string;
   translationHTML: string;
-  group: string | null;
+  collectionLv1: string | null;
   url: string | null;
   author: string | null;
   dialect: string | null;
@@ -38,7 +38,7 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
     objectID,
     textHTML,
     translationHTML,
-    group,
+    collectionLv1,
     document,
     url,
     author,
@@ -72,7 +72,7 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
               color="gray"
             >
               <VisuallyHidden>出典：</VisuallyHidden>
-              <cite>{group}</cite>
+              <cite>{collectionLv1 ?? document}</cite>
               <Box display="inline-block" ml="1">
                 <ExternalLinkIcon aria-hidden />
               </Box>
@@ -95,7 +95,7 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
 
           <EntryDetailsDialog
             objectID={objectID}
-            group={group}
+            collectionLv1={collectionLv1}
             document={document}
             author={author}
             dialect={dialect}

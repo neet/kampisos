@@ -42,7 +42,7 @@ const ResultRoot: FC<ResultRootProps> = (props) => {
               textHTML={(hit._highlightResult?.text as any).value}
               translation={hit.translation}
               translationHTML={(hit._highlightResult?.translation as any).value}
-              group={hit.group}
+              collectionLv1={hit.collection_lv1}
               document={hit.document}
               url={hit.url}
               author={hit.author}
