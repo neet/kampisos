@@ -6,7 +6,7 @@ export type Entry = {
   collection_lv1: string | null;
   collection_lv2: string | null;
   collection_lv3: string | null;
-  url: string | null;
+  uri: string | null;
   pronoun: string | null;
   author: string | null;
   dialect: string | null;

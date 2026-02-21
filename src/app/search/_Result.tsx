@@ -46,7 +46,7 @@ const ResultRoot: FC<ResultRootProps> = (props) => {
               collectionLv2={hit.collection_lv2}
               collectionLv3={hit.collection_lv3}
               document={hit.document}
-              url={hit.url}
+              uri={hit.uri}
               author={hit.author}
               dialect={hit.dialect}
               dialectLv1={hit.dialect_lv1}
