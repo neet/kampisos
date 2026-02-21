@@ -81,15 +81,15 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
       <Flex gap="2" justify="between" align="center" mt="1">
         {href && (
           <Box flexGrow="0" flexShrink="1" minWidth="0px" asChild>
-            <Link
-              href={href}
-              target="_blank"
-              rel="nofollow"
-              truncate
-              size="2"
-              color="gray"
-            >
-              <Flex align="center">
+            <Flex align="center">
+              <Link
+                href={href}
+                target="_blank"
+                rel="nofollow"
+                truncate
+                size="2"
+                color="gray"
+              >
                 <VisuallyHidden>出典：</VisuallyHidden>
                 <cite>
                   {collectionLv1 ?? document}
@@ -104,9 +104,12 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
                     </>
                   )}
                 </cite>
-                <ExternalLinkIcon aria-hidden />
-              </Flex>
-            </Link>
+              </Link>
+
+              <Box flexShrink="0" flexGrow="0" asChild>
+                <ExternalLinkIcon aria-hidden color="gray" />
+              </Box>
+            </Flex>
           </Box>
         )}
 

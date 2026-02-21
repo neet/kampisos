@@ -31,5 +31,9 @@ export const Hierarchy: FC<HierarchyProps> = (props) => {
     return null;
   }
 
-  return <Flex align="center">{nodes}</Flex>;
+  return (
+    <Flex align="center" wrap="wrap">
+      {nodes}
+    </Flex>
+  );
 };
