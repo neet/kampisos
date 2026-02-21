@@ -10,18 +10,40 @@ import {
   VisuallyHidden,
 } from "@radix-ui/themes";
 import { FC } from "react";
+import { Hierarchy } from "../Hierarchy/Hierarchy";
+import { Timestamp } from "../Timestamp";
+
+const NoData = () => <Text color="gray">データなし</Text>;
 
 export type EntryDetailsDialogProps = {
   objectID: string;
   document: string;
   collectionLv1: string | null;
+  collectionLv2: string | null;
+  collectionLv3: string | null;
   author: string | null;
   dialect: string | null;
+  dialectLv1: string[] | null;
+  dialectLv2: string[] | null;
+  dialectLv3: string[] | null;
   url: string | null;
+  recordedAt: string | null;
+  publishedAt: string | null;
 };
 
 export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
-  const { objectID, collectionLv1, document, author, dialect, url } = props;
+  const {
+    objectID,
+    collectionLv1,
+    collectionLv2,
+    collectionLv3,
+    document,
+    author,
+    dialect,
+    url,
+    recordedAt,
+    publishedAt,
+  } = props;
 
   return (
     <Dialog.Root>
@@ -50,7 +72,15 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
 
           <DataList.Item>
             <DataList.Label>出典</DataList.Label>
-            <DataList.Value>{collectionLv1}</DataList.Value>
+            <DataList.Value>
+              {collectionLv3 || collectionLv2 || collectionLv1 ? (
+                <Hierarchy>
+                  {collectionLv3 ?? collectionLv2 ?? collectionLv1}
+                </Hierarchy>
+              ) : (
+                <NoData />
+              )}
+            </DataList.Value>
           </DataList.Item>
 
           <DataList.Item>
@@ -60,26 +90,48 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
 
           <DataList.Item>
             <DataList.Label>著者</DataList.Label>
-            <DataList.Value>{author}</DataList.Value>
+            <DataList.Value>{author ?? <NoData />}</DataList.Value>
           </DataList.Item>
 
           <DataList.Item>
             <DataList.Label>方言</DataList.Label>
             <DataList.Value>
-              <Badge>{dialect}</Badge>
+              {dialect ? <Badge>{dialect}</Badge> : <NoData />}
             </DataList.Value>
           </DataList.Item>
 
-          {url && (
-            <DataList.Item>
-              <DataList.Label>URL</DataList.Label>
-              <DataList.Value>
+          <DataList.Item>
+            <DataList.Label>記録日</DataList.Label>
+            <DataList.Value>
+              {recordedAt ? (
+                <Timestamp value={recordedAt} mode="full" />
+              ) : (
+                <NoData />
+              )}
+            </DataList.Value>
+          </DataList.Item>
+
+          <DataList.Item>
+            <DataList.Label>公開日</DataList.Label>
+            <DataList.Value>
+              {publishedAt ? (
+                <Timestamp value={publishedAt} mode="full" />
+              ) : (
+                <NoData />
+              )}
+            </DataList.Value>
+          </DataList.Item>
+
+          <DataList.Item>
+            <DataList.Label>URL</DataList.Label>
+            <DataList.Value>
+              {url && (
                 <Link href={url} target="_blank" rel="noreferrer">
                   {url}
                 </Link>
-              </DataList.Value>
-            </DataList.Item>
-          )}
+              )}
+            </DataList.Value>
+          </DataList.Item>
         </DataList.Root>
       </Dialog.Content>
     </Dialog.Root>

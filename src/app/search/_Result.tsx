@@ -43,10 +43,17 @@ const ResultRoot: FC<ResultRootProps> = (props) => {
               translation={hit.translation}
               translationHTML={(hit._highlightResult?.translation as any).value}
               collectionLv1={hit.collection_lv1}
+              collectionLv2={hit.collection_lv2}
+              collectionLv3={hit.collection_lv3}
               document={hit.document}
               url={hit.url}
               author={hit.author}
               dialect={hit.dialect}
+              dialectLv1={hit.dialect_lv1}
+              dialectLv2={hit.dialect_lv2}
+              dialectLv3={hit.dialect_lv3}
+              publishedAt={hit.published_at}
+              recordedAt={hit.recorded_at}
             />
 
             {!last && (
