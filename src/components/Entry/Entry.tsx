@@ -76,44 +76,36 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
       </Flex>
 
       <Flex gap="2" justify="between" align="center" mt="1">
-        <Flex
-          gap="3"
-          flexGrow="1"
-          flexShrink="1"
-          justify="start"
-          align="center"
-        >
-          {url && (
-            <Box flexGrow="0" flexShrink="1" minWidth="0px" asChild>
-              <Link
-                href={url}
-                target="_blank"
-                rel="nofollow"
-                truncate
-                size="2"
-                color="gray"
-              >
-                <Flex align="center">
-                  <VisuallyHidden>出典：</VisuallyHidden>
-                  <cite>
-                    {collectionLv1 ?? document}
-                    {(recordedAt || publishedAt) && (
-                      <>
-                        {"（"}
-                        <Timestamp
-                          mode="year_only"
-                          value={recordedAt ?? publishedAt}
-                        />
-                        {"）"}
-                      </>
-                    )}
-                  </cite>
-                  <ExternalLinkIcon aria-hidden />
-                </Flex>
-              </Link>
-            </Box>
-          )}
-        </Flex>
+        {url && (
+          <Box flexGrow="0" flexShrink="1" minWidth="0px" asChild>
+            <Link
+              href={url}
+              target="_blank"
+              rel="nofollow"
+              truncate
+              size="2"
+              color="gray"
+            >
+              <Flex align="center">
+                <VisuallyHidden>出典：</VisuallyHidden>
+                <cite>
+                  {collectionLv1 ?? document}
+                  {(recordedAt || publishedAt) && (
+                    <>
+                      {"（"}
+                      <Timestamp
+                        mode="year_only"
+                        value={recordedAt ?? publishedAt}
+                      />
+                      {"）"}
+                    </>
+                  )}
+                </cite>
+                <ExternalLinkIcon aria-hidden />
+              </Flex>
+            </Link>
+          </Box>
+        )}
 
         <Flex gap="3" flexGrow="1" flexShrink="0" justify="end" align="center">
           {author && (
