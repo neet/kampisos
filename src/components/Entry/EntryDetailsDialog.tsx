@@ -12,6 +12,7 @@ import {
 import { FC } from "react";
 import { Hierarchy } from "../Hierarchy/Hierarchy";
 import { Timestamp } from "../Timestamp";
+import { toHref } from "@/utils/uri";
 
 const NoData = () => <Text color="gray">データなし</Text>;
 
@@ -26,7 +27,7 @@ export type EntryDetailsDialogProps = {
   dialectLv1: string[] | null;
   dialectLv2: string[] | null;
   dialectLv3: string[] | null;
-  url: string | null;
+  uri: string | null;
   recordedAt: string | null;
   publishedAt: string | null;
 };
@@ -40,10 +41,12 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
     document,
     author,
     dialect,
-    url,
+    uri,
     recordedAt,
     publishedAt,
   } = props;
+
+  const href = uri ? toHref(uri) : null;
 
   return (
     <Dialog.Root>
@@ -123,11 +126,11 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
           </DataList.Item>
 
           <DataList.Item>
-            <DataList.Label>URL</DataList.Label>
+            <DataList.Label>URI</DataList.Label>
             <DataList.Value>
-              {url && (
-                <Link href={url} target="_blank" rel="noreferrer">
-                  {url}
+              {href && (
+                <Link href={href} target="_blank" rel="noreferrer">
+                  {uri}
                 </Link>
               )}
             </DataList.Value>

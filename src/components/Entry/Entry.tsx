@@ -20,6 +20,7 @@ import { parse } from "@/utils/parse";
 import { Tag } from "../Tag";
 import { EntryDetailsDialog } from "./EntryDetailsDialog";
 import { Timestamp } from "../Timestamp";
+import { toHref } from "@/utils/uri";
 
 export type EntryRootProps = {
   objectID: string;
@@ -31,7 +32,7 @@ export type EntryRootProps = {
   collectionLv1: string | null;
   collectionLv2: string | null;
   collectionLv3: string | null;
-  url: string | null;
+  uri: string | null;
   author: string | null;
   dialect: string | null;
   dialectLv1: string[] | null;
@@ -50,7 +51,7 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
     collectionLv2,
     collectionLv3,
     document,
-    url,
+    uri,
     author,
     dialect,
     dialectLv1,
@@ -59,6 +60,8 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
     recordedAt,
     publishedAt,
   } = props;
+
+  const href = uri ? toHref(uri) : null;
 
   return (
     <div className="entry">
@@ -76,10 +79,10 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
       </Flex>
 
       <Flex gap="2" justify="between" align="center" mt="1">
-        {url && (
+        {href && (
           <Box flexGrow="0" flexShrink="1" minWidth="0px" asChild>
             <Link
-              href={url}
+              href={href}
               target="_blank"
               rel="nofollow"
               truncate
@@ -131,7 +134,7 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
             dialectLv1={dialectLv1}
             dialectLv2={dialectLv2}
             dialectLv3={dialectLv3}
-            url={url}
+            uri={uri}
             recordedAt={recordedAt}
             publishedAt={publishedAt}
           />
