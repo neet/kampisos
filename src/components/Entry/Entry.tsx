@@ -19,6 +19,7 @@ import { parse } from "@/utils/parse";
 
 import { Tag } from "../Tag";
 import { EntryDetailsDialog } from "./EntryDetailsDialog";
+import { Timestamp } from "../Timestamp";
 
 export type EntryRootProps = {
   objectID: string;
@@ -28,9 +29,16 @@ export type EntryRootProps = {
   translation: string;
   translationHTML: string;
   collectionLv1: string | null;
+  collectionLv2: string | null;
+  collectionLv3: string | null;
   url: string | null;
   author: string | null;
   dialect: string | null;
+  dialectLv1: string[] | null;
+  dialectLv2: string[] | null;
+  dialectLv3: string[] | null;
+  recordedAt: string | null;
+  publishedAt: string | null;
 };
 
 const EntryRoot: React.FC<EntryRootProps> = (props) => {
@@ -39,10 +47,17 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
     textHTML,
     translationHTML,
     collectionLv1,
+    collectionLv2,
+    collectionLv3,
     document,
     url,
     author,
     dialect,
+    dialectLv1,
+    dialectLv2,
+    dialectLv3,
+    recordedAt,
+    publishedAt,
   } = props;
 
   return (
@@ -61,24 +76,44 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
       </Flex>
 
       <Flex gap="2" justify="between" align="center" mt="1">
-        {url && (
-          <Box flexGrow="0" flexShrink="1" minWidth="0px" asChild>
-            <Link
-              href={url}
-              target="_blank"
-              rel="nofollow"
-              truncate
-              size="2"
-              color="gray"
-            >
-              <VisuallyHidden>出典：</VisuallyHidden>
-              <cite>{collectionLv1 ?? document}</cite>
-              <Box display="inline-block" ml="1">
-                <ExternalLinkIcon aria-hidden />
-              </Box>
-            </Link>
-          </Box>
-        )}
+        <Flex
+          gap="3"
+          flexGrow="1"
+          flexShrink="1"
+          justify="start"
+          align="center"
+        >
+          {url && (
+            <Box flexGrow="0" flexShrink="1" minWidth="0px" asChild>
+              <Link
+                href={url}
+                target="_blank"
+                rel="nofollow"
+                truncate
+                size="2"
+                color="gray"
+              >
+                <Flex align="center">
+                  <VisuallyHidden>出典：</VisuallyHidden>
+                  <cite>
+                    {collectionLv1 ?? document}
+                    {(recordedAt || publishedAt) && (
+                      <>
+                        {"（"}
+                        <Timestamp
+                          mode="year_only"
+                          value={recordedAt ?? publishedAt}
+                        />
+                        {"）"}
+                      </>
+                    )}
+                  </cite>
+                  <ExternalLinkIcon aria-hidden />
+                </Flex>
+              </Link>
+            </Box>
+          )}
+        </Flex>
 
         <Flex gap="3" flexGrow="1" flexShrink="0" justify="end" align="center">
           {author && (
@@ -96,10 +131,17 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
           <EntryDetailsDialog
             objectID={objectID}
             collectionLv1={collectionLv1}
+            collectionLv2={collectionLv2}
+            collectionLv3={collectionLv3}
             document={document}
             author={author}
             dialect={dialect}
+            dialectLv1={dialectLv1}
+            dialectLv2={dialectLv2}
+            dialectLv3={dialectLv3}
             url={url}
+            recordedAt={recordedAt}
+            publishedAt={publishedAt}
           />
         </Flex>
       </Flex>
