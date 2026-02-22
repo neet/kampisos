@@ -219,6 +219,7 @@ export default async function SearchPage(props: SearchPageProps) {
                     />
                   </Suspense>
                 </header>
+
                 <Box mt="3">
                   <Suspense fallback={<Result.Skeleton />} key={searchParams.q}>
                     <Result.Root
@@ -226,16 +227,13 @@ export default async function SearchPage(props: SearchPageProps) {
                     />
                   </Suspense>
                 </Box>
-                <Section size="1">
-                  <footer>
-                    <Suspense fallback={null} key={searchParams.q}>
-                      <FooterContent
-                        page={page}
-                        resultPromise={searchResponsePromise}
-                      />
-                    </Suspense>
-                  </footer>
-                </Section>
+
+                <Suspense fallback={null} key={searchParams.q}>
+                  <FooterContent
+                    page={page}
+                    resultPromise={searchResponsePromise}
+                  />
+                </Suspense>
               </article>
             </Card>
           </Box>
