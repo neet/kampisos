@@ -1,10 +1,6 @@
 import "./style.css";
 
-import {
-  ExternalLinkIcon,
-  PersonIcon,
-  SewingPinIcon,
-} from "@radix-ui/react-icons";
+import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import {
   Box,
   Flex,
@@ -17,10 +13,10 @@ import { FC } from "react";
 
 import { parse } from "@/utils/parse";
 
-import { Tag } from "../Tag";
 import { EntryDetailsDialog } from "./EntryDetailsDialog";
 import { Timestamp } from "../Timestamp";
 import { toHref } from "@/utils/uri";
+import { EntryAuthor } from "./EntryAuthor";
 
 export type EntryRootProps = {
   objectID: string;
@@ -113,16 +109,10 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
           </Box>
         )}
 
-        <Flex gap="3" flexGrow="1" flexShrink="0" justify="end" align="center">
-          {author && (
+        <Flex gap="1" flexGrow="1" flexShrink="0" justify="end" align="center">
+          {(author || dialect) && (
             <Box flexGrow="1" flexShrink="0" asChild>
-              <Tag icon={<PersonIcon aria-label="著者" />}>{author}</Tag>
-            </Box>
-          )}
-
-          {dialect && (
-            <Box flexGrow="1" flexShrink="0" asChild>
-              <Tag icon={<SewingPinIcon aria-label="方言" />}>{dialect}</Tag>
+              <EntryAuthor author={author} dialect={dialect} />
             </Box>
           )}
 
