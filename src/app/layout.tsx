@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     title: "Kampisos - アイヌ語コーパス検索",
     description:
       "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます",
-    images: "/ogp.png",
+    images: "/cover.png",
   },
   icons: [
     {

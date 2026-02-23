@@ -73,7 +73,7 @@ export async function generateMetadata(
     openGraph: {
       title,
       description,
-      images: "/ogp.png",
+      images: "/cover.png",
     },
     twitter: {
       card: "summary",
