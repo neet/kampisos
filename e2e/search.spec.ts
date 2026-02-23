@@ -119,7 +119,7 @@ test("著者で絞り込み検索が行える", async ({ page }) => {
   await page.goto("/search?q=pirka");
   await page
     .getByRole("group", { name: "著者" })
-    .getByRole("checkbox", { name: /川上まつ子 （ [\d,]+ 件）/ })
+    .getByRole("checkbox", { name: /川上 まつ子 （ [\d,]+ 件）/ })
     .check();
   await page.getByRole("button", { name: "適用" }).click();
   await page.waitForURL("search?*&*");
@@ -127,7 +127,7 @@ test("著者で絞り込み検索が行える", async ({ page }) => {
   const url = new URL(page.url());
 
   expect(url.searchParams.get("q")).toBe("pirka");
-  expect(url.searchParams.get("author")).toBe("川上まつ子");
+  expect(url.searchParams.get("author")).toBe("川上 まつ子");
 });
 
 test("人称で絞り込み検索が行える", async ({ page }) => {
