@@ -9,10 +9,9 @@ const parseDate = (date: string): ArbitaryPrecisionDate => {
   return { year, month: month ?? null, day: day ?? null };
 };
 
-export const formatDate = (
-  date: ArbitaryPrecisionDate,
-  mode: "year_only" | "full",
-): string => {
+type Mode = "year_only" | "full";
+
+const formatDate = (date: ArbitaryPrecisionDate, mode: Mode): string => {
   let value = "";
 
   const { year, month, day } = date;
@@ -37,11 +36,11 @@ export const formatDate = (
   return value;
 };
 
-export type Timestamp =
+type DateOrRange =
   | { type: "point"; value: ArbitaryPrecisionDate }
   | { type: "range"; start: ArbitaryPrecisionDate; end: ArbitaryPrecisionDate };
 
-export const parseTimestamp = (dateOrRange: string): Timestamp => {
+const parseDateOrRange = (dateOrRange: string): DateOrRange => {
   if (dateOrRange.includes("/")) {
     const [start, end] = dateOrRange.split("/");
 
@@ -55,5 +54,25 @@ export const parseTimestamp = (dateOrRange: string): Timestamp => {
       type: "point",
       value: parseDate(dateOrRange),
     };
+  }
+};
+
+export const formatDateOrRange = (
+  dateOrRange: string,
+  mode: Mode,
+): string | null => {
+  const timestamp = parseDateOrRange(dateOrRange);
+  if (!timestamp) {
+    return null;
+  }
+
+  if (timestamp.type === "range") {
+    if (timestamp.start.year !== timestamp.end.year) {
+      return `${formatDate(timestamp.start, mode)}—${formatDate(timestamp.end, mode)}`;
+    } else {
+      return formatDate(timestamp.start, mode);
+    }
+  } else {
+    return formatDate(timestamp.value, mode);
   }
 };

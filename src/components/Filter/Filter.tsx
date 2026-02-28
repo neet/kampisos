@@ -1,5 +1,6 @@
 import { Button, Flex } from "@radix-ui/themes";
 import { FC, use } from "react";
+import { useTranslations } from "next-intl";
 
 import {
   DialectSelectorRoot,
@@ -24,6 +25,7 @@ const FilterRoot: FC<FilterRootProps> = (props) => {
   const { defaultValues, facetsPromise } = props;
 
   const facets = use(facetsPromise);
+  const t = useTranslations("/components/Filter/Filter");
 
   return (
     <Flex direction="column" gap="5">
@@ -45,20 +47,22 @@ const FilterRoot: FC<FilterRootProps> = (props) => {
         {facets.collection_lv1 && (
           <FilterItemRoot
             form="search"
-            label="出典"
+            label={t("collection")}
             name="collection_lv1"
             defaultValues={defaultValues?.collectionLv1}
-            options={Object.entries(facets.collection_lv1).map(([value, count]) => ({
-              value,
-              count,
-            }))}
+            options={Object.entries(facets.collection_lv1).map(
+              ([value, count]) => ({
+                value,
+                count,
+              }),
+            )}
           />
         )}
 
         {facets.author && (
           <FilterItemRoot
             form="search"
-            label="著者"
+            label={t("author")}
             name="author"
             defaultValues={defaultValues?.author}
             options={Object.entries(facets.author).map(([value, count]) => ({
@@ -71,11 +75,11 @@ const FilterRoot: FC<FilterRootProps> = (props) => {
         {facets.pronoun && (
           <FilterItemRoot
             form="search"
-            label="主な一人称"
+            label={t("pronoun")}
             name="pronoun"
             defaultValues={defaultValues?.pronoun}
             options={Object.entries(facets.pronoun).map(([value, count]) => ({
-              label: value === "first" ? "一人称" : "四人称",
+              label: value === "first" ? t("first") : t("fourth"),
               value,
               count,
             }))}
@@ -84,7 +88,7 @@ const FilterRoot: FC<FilterRootProps> = (props) => {
       </Flex>
 
       <Button form="search" type="submit">
-        適用
+        {t("apply")}
       </Button>
     </Flex>
   );

@@ -1,6 +1,7 @@
 "use client";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { Spinner, TextField, VisuallyHidden } from "@radix-ui/themes";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { FC, useTransition } from "react";
 
@@ -13,6 +14,7 @@ export const Search: FC<SearchProps> = (props) => {
 
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const t = useTranslations("/components/Search/Search");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     startTransition(() => {
@@ -38,7 +40,7 @@ export const Search: FC<SearchProps> = (props) => {
   return (
     <form id="search" method="GET" action="/search" onSubmit={handleSubmit}>
       <VisuallyHidden asChild>
-        <label htmlFor="search-input">キーワード</label>
+        <label htmlFor="search-input">{t("label")}</label>
       </VisuallyHidden>
 
       <TextField.Root
@@ -54,12 +56,12 @@ export const Search: FC<SearchProps> = (props) => {
         size="3"
       >
         <TextField.Slot>
-          <MagnifyingGlassIcon />
+          <MagnifyingGlassIcon aria-hidden="true" />
         </TextField.Slot>
 
         {isPending && (
           <TextField.Slot>
-            <Spinner />
+            <Spinner aria-hidden="true" />
           </TextField.Slot>
         )}
       </TextField.Root>

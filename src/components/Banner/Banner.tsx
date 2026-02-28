@@ -1,10 +1,14 @@
 import "./style.css";
 
 import { Container, Flex, Link as RadixLink } from "@radix-ui/themes";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { FC } from "react";
 
+import { Link } from "@/i18n/navigation";
+
 export const Banner: FC = () => {
+  const t = useTranslations("/components/Banner/Banner");
+
   return (
     <header className="banner">
       <Container size="4" p="3">
@@ -14,7 +18,7 @@ export const Banner: FC = () => {
           </Link>
 
           <RadixLink asChild>
-            <Link href="/about">使い方</Link>
+            <Link href="/about">{t("about")}</Link>
           </RadixLink>
         </Flex>
       </Container>

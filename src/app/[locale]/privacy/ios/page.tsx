@@ -1,13 +1,15 @@
 import { Card, Container, Heading, Section } from "@radix-ui/themes";
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 export const revalidate = 86_400;
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("/app/[locale]/privacy/ios/page");
+
   return {
-    title: "このサイトについて",
-    description:
-      "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます",
+    title: t("title"),
+    description: t("description"),
     alternates: {
       canonical: "/about",
     },
@@ -15,6 +17,8 @@ export function generateMetadata(): Metadata {
 }
 
 export default async function AboutPage() {
+  const t = await getTranslations("/app/[locale]/privacy/ios/page");
+
   const Content = (await import(`./about.mdx`)).default;
 
   return (
@@ -22,7 +26,7 @@ export default async function AboutPage() {
       <main>
         <Section>
           <Heading as="h2" align="center">
-            このサイトについて
+            {t("title")}
           </Heading>
         </Section>
 

@@ -1,6 +1,7 @@
 import { Flex, Heading, Skeleton, Text } from "@radix-ui/themes";
 import { SearchResponse } from "algoliasearch";
 import { FC, ReactNode, use } from "react";
+import { useTranslations } from "next-intl";
 
 import { Entry } from "@/models/entry";
 
@@ -13,18 +14,26 @@ type SearchStatsRootProps = {
 const SearchStatsRoot: FC<SearchStatsRootProps> = (props) => {
   const { id, searchResponsePromise, suffix } = props;
 
+  const t = useTranslations("/app/[locale]/search/SearchStats");
+
   const searchResponse = use(searchResponsePromise);
   const nbHits =
     searchResponse.nbHits &&
     Intl.NumberFormat("ja-JP").format(searchResponse.nbHits);
+  const processingTimeMS = searchResponse.processingTimeMS;
 
   return (
     <Flex align="center" justify="between">
       <Heading id={id} as="h3" size="4">
-        {nbHits}件の検索結果
-        <Text size="1" color="gray" weight="medium">
-          （{searchResponse.processingTimeMS}ミリ秒）
-        </Text>
+        <Flex gap="1" align="center">
+          {nbHits != null && t("nb_hits", { n: nbHits })}
+
+          {processingTimeMS != null && (
+            <Text size="1" color="gray" weight="medium">
+              {t("processing_time_ms", { ms: processingTimeMS })}
+            </Text>
+          )}
+        </Flex>
       </Heading>
 
       {suffix}
@@ -33,14 +42,21 @@ const SearchStatsRoot: FC<SearchStatsRootProps> = (props) => {
 };
 
 const SearchStatsSkeleton: FC = () => {
+  const t = useTranslations("/app/[locale]/search/SearchStats");
+
   return (
     <Heading as="h3" size="4">
-      <Skeleton>
-        1,000件の検索結果
-        <Text size="1" color="gray" weight="medium">
-          （0ミリ秒）
-        </Text>
-      </Skeleton>
+      <Flex gap="1" align="center">
+        <Skeleton>
+          <Text>{t("nb_hits", { n: "1,000" })}</Text>
+        </Skeleton>
+
+        <Skeleton>
+          <Text size="1" color="gray" weight="medium">
+            {t("processing_time_ms", { ms: 100 })}
+          </Text>
+        </Skeleton>
+      </Flex>
     </Heading>
   );
 };

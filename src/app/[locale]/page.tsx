@@ -1,5 +1,6 @@
 import { Box, Container, Flex, Heading, Section, Text } from "@radix-ui/themes";
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 import { Changelogs } from "@/components/Changelogs";
 import { Search } from "@/components/Search";
@@ -8,16 +9,21 @@ import { Changelog } from "@/models/changelog";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
-  title: "Kampisos - アイヌ語コーパス検索",
-  description:
-    "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます",
-  alternates: {
-    canonical: "/",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("/app/[locale]/page");
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: {
+      canonical: "/",
+    },
+  };
+}
 
 export default async function Home() {
+  const t = await getTranslations("/app/[locale]/page");
+
   const changelogs = await client.getList<Changelog>({
     endpoint: "changelogs",
     queries: {
@@ -38,9 +44,7 @@ export default async function Home() {
               align="center"
               style={{ wordBreak: "keep-all", overflowWrap: "anywhere" }}
             >
-              アイヌ語の世界を
-              <wbr />
-              探訪しよう
+              {t.rich("heading", { wbr: () => <wbr /> })}
             </Heading>
             <Text
               asChild
@@ -48,11 +52,7 @@ export default async function Home() {
               color="gray"
               style={{ wordBreak: "keep-all", overflowWrap: "anywhere" }}
             >
-              <p>
-                約15万語を収録した
-                <wbr />
-                日本語・アイヌ語対訳コーパス
-              </p>
+              <p>{t.rich("subtitle", { wbr: () => <wbr /> })}</p>
             </Text>
           </Flex>
 

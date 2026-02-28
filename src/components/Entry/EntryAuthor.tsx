@@ -1,4 +1,5 @@
 import { Text, VisuallyHidden } from "@radix-ui/themes";
+import { useTranslations } from "next-intl";
 import { FC } from "react";
 
 type EntryAuthorProps = {
@@ -9,11 +10,25 @@ type EntryAuthorProps = {
 export const EntryAuthor: FC<EntryAuthorProps> = (props) => {
   const { author, dialect } = props;
 
+  const t = useTranslations("/components/Entry/EntryAuthor");
+
+  if (author && dialect) {
+    <Text color="gray" size="2">
+      {t.rich("author_with_dialect", {
+        author,
+        dialect,
+        vh: (chunks) => <VisuallyHidden>{chunks}</VisuallyHidden>,
+      })}
+    </Text>;
+  }
+
   if (author) {
     return (
       <Text color="gray" size="2">
-        <VisuallyHidden>話者：</VisuallyHidden>
-        {dialect ? `${author}（${dialect}）` : author}
+        {t.rich("author", {
+          author,
+          vh: (chunks) => <VisuallyHidden>{chunks}</VisuallyHidden>,
+        })}
       </Text>
     );
   }
@@ -21,8 +36,10 @@ export const EntryAuthor: FC<EntryAuthorProps> = (props) => {
   if (dialect) {
     return (
       <Text color="gray" size="2">
-        <VisuallyHidden>方言：</VisuallyHidden>
-        {dialect}
+        {t.rich("dialect", {
+          dialect,
+          vh: (chunks) => <VisuallyHidden>{chunks}</VisuallyHidden>,
+        })}
       </Text>
     );
   }

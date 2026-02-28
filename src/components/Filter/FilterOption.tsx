@@ -7,6 +7,7 @@ import {
   VisuallyHidden,
 } from "@radix-ui/themes";
 import { FC } from "react";
+import { useTranslations } from "next-intl";
 
 import { Option } from "./model";
 
@@ -20,6 +21,7 @@ type FilterOptionRootProps = {
 const FilterOptionRoot: FC<FilterOptionRootProps> = (props) => {
   const { name, form, option, defaultChecked } = props;
 
+  const t = useTranslations("/components/Filter/FilterOption");
   const label = option.label ?? option.value;
   const count = Intl.NumberFormat("ja-JP").format(option.count);
 
@@ -43,9 +45,10 @@ const FilterOptionRoot: FC<FilterOptionRootProps> = (props) => {
         >
           <Text truncate>{label}</Text>
           <Badge variant="soft" color="gray">
-            <VisuallyHidden>（</VisuallyHidden>
-            {count}
-            <VisuallyHidden>件）</VisuallyHidden>
+            {t.rich("count", {
+              count,
+              vh: (chunks) => <VisuallyHidden>{chunks}</VisuallyHidden>,
+            })}
           </Badge>
         </Flex>
       </Text>

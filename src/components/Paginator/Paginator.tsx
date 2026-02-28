@@ -16,6 +16,7 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
 import { createPages } from "@/utils/pages";
+import { useTranslations } from "next-intl";
 
 export type PaginatorProps = {
   page: number;
@@ -31,6 +32,7 @@ export function Paginator(props: PaginatorProps) {
 
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const t = useTranslations("/components/Paginator/Paginator");
 
   const createHref = (page: number): string => {
     if (page < 0) {
@@ -42,7 +44,7 @@ export function Paginator(props: PaginatorProps) {
   };
 
   return (
-    <nav aria-label="ページネーション">
+    <nav aria-label={t("title")}>
       <Reset>
         <Flex gap="1" asChild justify="center">
           <ul>
@@ -50,7 +52,7 @@ export function Paginator(props: PaginatorProps) {
               <li>
                 <IconButton asChild variant="outline" size="3">
                   <Link href={createHref(page - 1)} rel="prev">
-                    <ChevronLeftIcon aria-label="前のページ" />
+                    <ChevronLeftIcon aria-label={t("prev")} />
                   </Link>
                 </IconButton>
               </li>
@@ -67,6 +69,15 @@ export function Paginator(props: PaginatorProps) {
             {pages.value.map((value) => {
               const current = value === page;
               const lastPage = value === totalPages - 1;
+              const label = lastPage
+                ? t.rich("nth_last", {
+                    n: value + 1,
+                    vh: (chunks) => <VisuallyHidden>{chunks}</VisuallyHidden>,
+                  })
+                : t.rich("nth", {
+                    n: value + 1,
+                    vh: (chunks) => <VisuallyHidden>{chunks}</VisuallyHidden>,
+                  });
 
               return (
                 <li key={value}>
@@ -75,13 +86,7 @@ export function Paginator(props: PaginatorProps) {
                     variant={current ? "solid" : "outline"}
                     size="3"
                   >
-                    <Link href={createHref(value)}>
-                      {value + 1}
-                      <VisuallyHidden>ページ</VisuallyHidden>
-                      {lastPage && (
-                        <VisuallyHidden>（最後のページ）</VisuallyHidden>
-                      )}
-                    </Link>
+                    <Link href={createHref(value)}>{label}</Link>
                   </Button>
                 </li>
               );
@@ -90,7 +95,7 @@ export function Paginator(props: PaginatorProps) {
             {pages.hasMore.trailing && (
               <Flex justify="center" align="center" asChild p="1">
                 <li>
-                  <DotsHorizontalIcon color="gray" />
+                  <DotsHorizontalIcon aira-hidden="true" color="gray" />
                 </li>
               </Flex>
             )}
@@ -99,7 +104,7 @@ export function Paginator(props: PaginatorProps) {
               <li>
                 <IconButton asChild variant="outline" size="3">
                   <Link href={createHref(page + 1)} rel="next">
-                    <ChevronRightIcon aria-label="次のページ" />
+                    <ChevronRightIcon aria-label={t("next")} />
                   </Link>
                 </IconButton>
               </li>

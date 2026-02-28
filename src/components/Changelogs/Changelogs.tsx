@@ -1,5 +1,6 @@
 import { Box, Card, Heading } from "@radix-ui/themes";
 import { FC } from "react";
+import { useTranslations } from "next-intl";
 
 import * as t from "@/models/changelog";
 
@@ -13,10 +14,12 @@ type ChangelogsProps = {
 export const Changelogs: FC<ChangelogsProps> = (props) => {
   const { className, changelogs } = props;
 
+  const t = useTranslations("/components/Changelogs/Changelogs");
+
   return (
     <Card className={className} size="2">
       <Heading as="h2" size="3" weight="bold">
-        最近の更新
+        {t("title")}
       </Heading>
 
       <Box mt="2">
