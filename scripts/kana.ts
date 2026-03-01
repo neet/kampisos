@@ -5,14 +5,14 @@ import { default as ainu } from "ainu-utils";
 const MUSTACHE = /\{(.+?)\}/g;
 const HTML_TAG = /<[^>]+>/g;
 const NON_ASCII = /[^\x00-\x7F]+/g;
-const SYMBOL = /\$([0-9]+)/g;
+const SYMBOL = /\x00([0-9]+)\x00/g;
 
 function safeConvertToKana(text: string) {
   let counter = 0;
   const registry = new Map<string, string>();
 
   const escape = (match: string) => {
-    const key = `$${counter++}`;
+    const key = `\x00${counter++}\x00`;
     registry.set(key, match);
     return key;
   };
@@ -26,7 +26,7 @@ function safeConvertToKana(text: string) {
   const kana = ainu.to_kana(safeText);
 
   return kana.replace(SYMBOL, (match, p1) => {
-    return registry.get(`$${p1}`) || match;
+    return registry.get(`\x00${p1}\x00`) || match;
   });
 }
 
