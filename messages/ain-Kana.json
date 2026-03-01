@@ -90,7 +90,7 @@
   "/components/Entry/Entry": {
     "reference": "<vh>モトホ:　</vh>{reference}",
     "reference_with_year": "<vh>モトホ:　</vh>{reference}　（{year}）",
-    "open_in_new_tab": "別タブで開く"
+    "open_in_new_tab": "アシㇼ　タブ　オㇿ　タ　マカ"
   },
   "/components/Entry/EntryAuthor": {
     "author": "<vh>イヌイェクㇽ:　</vh>{author}",
@@ -98,8 +98,8 @@
     "dialect": "<vh>イポㇿセ:　</vh>{dialect}"
   },
   "/components/Entry/EntryDetailsDialog": {
-    "title": "詳細",
-    "description": "この資料の詳細情報です。一部不正確な情報が含まれる可能性があります。",
+    "title": "チョモンモモㇷ゚",
+    "description": "タン　オルㇱペ　コㇿ　チョモンモモㇷ゚　ネ　ルウェ　ネ。　シンナ　イタㇰ　カ　オカ　ナンコㇿ　ペ　ネ　クス、　ヤイトゥパレ　ヤン。",
     "collection": "モトホ",
     "document": "レヘ",
     "author": "イヌイェクㇽ",
@@ -117,18 +117,18 @@
     "apply": "適用"
   },
   "/components/Filter/FilterItem": {
-    "expand": "さらに表示",
-    "collapse": "閉じる"
+    "expand": "オピッタ　ヌカㇻ",
+    "collapse": "セㇱケ"
   },
   "/components/Filter/FilterOption": {
     "count": "<vh>（</vh>{count}<vh>件）</vh>"
   },
   "/components/Paginator/Paginator": {
     "title": "ページネーション",
-    "prev": "前のページ",
-    "next": "次のページ",
-    "nth": "{n}<vh>ページ</vh>",
-    "nth_last": "{n}<vh>ページ（最後のページ）</vh>"
+    "prev": "エトㇰ　ペジ",
+    "next": "ホㇱキ　ペジ",
+    "nth": "{n}　<vh>ペジ</vh>",
+    "nth_last": "{n}　<vh>ペジ　（イオッタ　イオㇱノ　アン　ペジ）</vh>"
   },
   "/components/Search/Search": {
     "label": "キーワード"
