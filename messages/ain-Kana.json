@@ -11,7 +11,7 @@
     "subtitle": "約15万語を収録した<wbr></wbr>日本語・アイヌ語対訳コーパス"
   },
   "/app/[locale]/about/page": {
-    "title": "このサイトについて",
+    "title": "タンペ　ヘマンタ　アン？",
     "description": "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます"
   },
   "/app/[locale]/privacy/ios/page": {
@@ -45,20 +45,20 @@
     "no_result_hint": "別のキーワードや、異なる検索条件で再度お試しください。"
   },
   "/components/Banner/Banner": {
-    "about": "このサイトについて"
+    "about": "タンペ　ヘマンタ　アン？"
   },
   "/components/ContentInfo/ContentInfo": {
-    "title": "運営者情報"
+    "title": "タン　サイト　カㇻ　クㇽ　オルㇱペ"
   },
   "/components/Changelogs/Changelogs": {
-    "title": "最近の更新"
+    "title": "タㇷ゚　ウフナㇰ　アン　ペ"
   },
   "/components/DialectSelector/DialectSelector": {
     "legend": "イポㇿセ"
   },
   "/components/DialectSelector/useDialects": {
-    "karahuto": "ヤンケモシㇼ　（カラㇷ゚ト）",
-    "east_coast": "西海岸",
+    "karahuto": "ヤンケモシㇼ",
+    "east_coast": "",
     "otasu": "オタスㇷ",
     "ushiro": "ウシロ",
     "raichishi": "ライチシカ",
@@ -84,18 +84,18 @@
     "count": "<vh>（</vh>{count}<vh>件）</vh>"
   },
   "/components/DialectSelector/DialectSelectorItem": {
-    "open": "「{label}」を開く",
-    "close": "「{label}」を閉じる"
+    "open": "“{label}”　マカ",
+    "close": "“{label}”　セㇱケ"
   },
   "/components/Entry/Entry": {
-    "reference": "<vh>出典：</vh>{reference}",
-    "reference_with_year": "<vh>出典：</vh>{reference}（{year}）",
+    "reference": "<vh>モトホ:　</vh>{reference}",
+    "reference_with_year": "<vh>モトホ:　</vh>{reference}　（{year}）",
     "open_in_new_tab": "別タブで開く"
   },
   "/components/Entry/EntryAuthor": {
-    "author": "<vh>話者：</vh>{author}",
-    "author_with_dialect": "<vh>話者：</vh>{author}（{dialect}）",
-    "dialect": "<vh>方言：</vh>{dialect}"
+    "author": "<vh>イヌイェクㇽ:　</vh>{author}",
+    "author_with_dialect": "<vh>イヌイェクㇽ:　</vh>{author}　（{dialect}）",
+    "dialect": "<vh>イポㇿセ:　</vh>{dialect}"
   },
   "/components/Entry/EntryDetailsDialog": {
     "title": "詳細",
@@ -110,8 +110,8 @@
   },
   "/components/Filter/Filter": {
     "collection": "モトホ",
-    "author": "著者",
-    "pronoun": "主な一人称",
+    "author": "イヌイェクㇽ",
+    "pronoun": "イタㇰ",
     "first": "ヤヤン　イタㇰ",
     "fourth": "アトㇺテ　イタㇰ",
     "apply": "適用"
