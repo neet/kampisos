@@ -4,8 +4,10 @@ import {
   Container,
   Flex,
   Heading,
+  Separator,
   Section,
   Text,
+  Inset,
 } from "@radix-ui/themes";
 import { to_kana } from "ainu-utils";
 import { Metadata } from "next";
@@ -25,6 +27,7 @@ import { FooterContent } from "./FooterContent";
 import { MobileFilterButton } from "./MobileFilterButton";
 import { Result } from "./Result";
 import { SearchStats } from "./SearchStats";
+import { DialectMaps } from "./DialectMaps";
 
 export const revalidate = 86_400;
 
@@ -133,116 +136,47 @@ export default async function SearchPage(props: PageProps<"/[locale]/search">) {
   const facetsPromise = unwrapFacets(searchPromise);
 
   return (
-    <Container asChild m="3" size="4">
+    <Container asChild mx="3" size="3">
       <main aria-labelledby="search-heading search-stats">
-        <header aria-labelledby="search-heading">
-          <Section size="2">
-            <Flex direction="column" gap="2" align="center">
-              <Heading
-                id="search-heading"
-                as="h2"
-                size={{ initial: "8", sm: "9" }}
-              >
-                {query}
-              </Heading>
-              <Text asChild align="center" color="gray">
-                <p>{t("subtitle")}</p>
-              </Text>
-              <Box
-                width={{
-                  initial: "100%",
-                  sm: "36rem",
-                }}
-              >
-                <Search defaultValue={query} />
+        {/* <Heading as="h2" size="8" align="center" my="6"> */}
+        {/*   {query} */}
+        {/* </Heading> */}
+
+        <Card my="6">
+          <Flex gap="3" align="center">
+            <Box flexGrow="1" flexShrink="1">
+              nep ka isam
+            </Box>
+
+            <Box>
+              <Separator orientation="vertical" size="3" />
+            </Box>
+
+            <Inset asChild>
+              <Box flexGrow="1" flexShrink="0">
+                <DialectMaps facetsPromise={facetsPromise} />
               </Box>
-            </Flex>
-          </Section>
-        </header>
-        <Flex gap="3">
-          <Box
-            asChild
-            width="18rem"
-            display={{ initial: "none", md: "block" }}
-            flexGrow="0"
-            flexShrink="0"
-            style={{
-              height: "min-content",
-              position: "sticky",
-              top: "var(--space-3)",
-            }}
-          >
-            <Card asChild size="2">
-              <aside aria-labelledby="search-complementary-heading">
-                <Heading
-                  id="search-complementary-heading"
-                  as="h3"
-                  size="4"
-                  mb="4"
-                >
-                  {t("filter")}
-                </Heading>
-                <Suspense fallback={<Filter.Skeleton />} key={query}>
-                  <Filter.Root
-                    facetsPromise={facetsPromise}
-                    defaultValues={{
-                      dialectLv1,
-                      dialectLv2,
-                      dialectLv3,
-                      author,
-                      collectionLv1,
-                      pronoun,
-                    }}
-                  />
-                </Suspense>
-              </aside>
-            </Card>
-          </Box>
-          <Box asChild flexGrow="1">
-            <Card asChild size="2">
-              <article aria-labelledby="search-stats">
-                <header>
-                  <Suspense fallback={<SearchStats.Skeleton />} key={query}>
-                    <SearchStats.Root
-                      id="search-stats"
-                      searchResponsePromise={searchResponsePromise}
-                      suffix={
-                        <Box asChild display={{ initial: "block", md: "none" }}>
-                          <MobileFilterButton
-                            defaultValues={{
-                              dialectLv1,
-                              dialectLv2,
-                              dialectLv3,
-                              author,
-                              collectionLv1,
-                              pronoun,
-                            }}
-                            facetsPromise={facetsPromise}
-                          />
-                        </Box>
-                      }
-                    />
-                  </Suspense>
-                </header>
+            </Inset>
+          </Flex>
+        </Card>
 
-                <Box mt="3">
-                  <Suspense fallback={<Result.Skeleton />} key={query}>
-                    <Result.Root
-                      searchResponsePromise={searchResponsePromise}
-                    />
-                  </Suspense>
-                </Box>
+        <Box asChild flexGrow="1">
+          <article aria-labelledby="search-stats">
+            <Suspense fallback={<Result.Skeleton />} key={`result-${query}`}>
+              {/* <Heading as="h2" size="5" mb="3"> */}
+              {/*   アイヌ語・日本語対訳 */}
+              {/* </Heading> */}
+              <Result.Root searchResponsePromise={searchResponsePromise} />
+            </Suspense>
 
-                <Suspense fallback={null} key={query}>
-                  <FooterContent
-                    page={page}
-                    resultPromise={searchResponsePromise}
-                  />
-                </Suspense>
-              </article>
-            </Card>
-          </Box>
-        </Flex>
+            <Suspense fallback={null} key={`footer-${query}`}>
+              <FooterContent
+                page={page}
+                resultPromise={searchResponsePromise}
+              />
+            </Suspense>
+          </article>
+        </Box>
       </main>
     </Container>
   );
