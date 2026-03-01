@@ -1,14 +1,14 @@
 {
   "/app/[locale]/layout": {
-    "title": "Kampisos - アイヌ語オンラインコーパス",
-    "opengraph_title": "Kampisos - アイヌ語オンラインコーパス",
+    "title": "Kampisos - Aynu itak uomare p",
+    "opengraph_title": "Kampisos - Aynu itak uomare p",
     "opengraph_description": "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます"
   },
   "/app/[locale]/page": {
-    "title": "Kampisos - アイヌ語オンラインコーパス",
-    "description": "Kampisos - アイヌ語オンラインコーパス",
+    "title": "Kampisos - Aynu itak uomare p",
+    "description": "Kampisos - Aynu itak uomare p",
     "heading": "アイヌ語の世界を<wbr></wbr>探訪しよう",
-    "subtitle": "約15万語を収録した<wbr></wbr>日本語・アイヌ語対訳コーパス"
+    "subtitle": "150,000 akkari itak kor Sisam itak Aynu itak uomare  p"
   },
   "/app/[locale]/about/page": {
     "title": "Tanpe hemanta an?",
@@ -21,28 +21,28 @@
   "/app/[locale]/error": {
     "title": "予期せぬエラーが発生しました",
     "description": "予期せぬエラーが発生しました。お手数ですが，時間をおいて再度お試しください。",
-    "reload": "再読み込み"
+    "reload": "Suy inukar"
   },
   "/app/[locale]/search/page": {
-    "title": "「{query}」の検索結果",
-    "title_with_page_num": "「{query}」の検索結果（{page}ページ目）",
-    "title_with_kana": "{query}（{kana}）の検索結果",
-    "title_with_kana_and_page_num": "{query}（{kana}）の検索結果（{page}ページ目）",
+    "title": "“{query}” a=hunara wa a=pa p",
+    "title_with_page_num": "“{query}” a=hunara wa a=pa p (Sos {page})",
+    "title_with_kana": "“{query}” ({kana}) a=hunara wa a=pa p",
+    "title_with_kana_and_page_num": "“{query}” ({kana}) a=hunara wa a=pa p (Sos {page})",
     "description": "「${query}」に関連するアイヌ語の資料の検索結果です。意味や使い方などを、実際の例文から探してみましょう。",
     "subtitle": "アイヌ語・日本語コーパスからクエリ文字列を含む資料を表示しています",
-    "filter": "絞り込み"
+    "filter": "Iesoye"
   },
   "/app/[locale]/search/SearchStats": {
-    "nb_hits": "{n}件の検索結果",
-    "processing_time_ms": "（{ms}ミリ秒）"
+    "nb_hits": "{n} cipap oka",
+    "processing_time_ms": "({ms} miri piyo)"
   },
   "/app/[locale]/search/MobileFilterButton": {
-    "title": "絞り込み",
-    "description": "検索結果を絞り込むための条件を設定してください。"
+    "title": "Iesoye",
+    "description": "Poronno an oruspe pirkano esoye kuni mak an oruspe a=nukar rusuy ya ka nume yan."
   },
   "/app/[locale]/search/Result": {
-    "no_result": "用例が見つかりませんでした",
-    "no_result_hint": "別のキーワードや、異なる検索条件で再度お試しください。"
+    "no_result": "Neno an oruspe sinep ka isam",
+    "no_result_hint": "Sinna ahunarap, sinna iesoyne irenka a=numke wa suy inukar yan."
   },
   "/components/Banner/Banner": {
     "about": "Tanpe hemanta an?"
@@ -81,7 +81,7 @@
     "samani": "Samani"
   },
   "/components/DialectSelector/DialectSelectorCheckbox": {
-    "count": "<vh>（</vh>{count}<vh>件）</vh>"
+    "count": "<vh>(</vh>{count}<vh> pe oka)</vh>"
   },
   "/components/DialectSelector/DialectSelectorItem": {
     "open": "“{label}” maka",
@@ -114,7 +114,7 @@
     "pronoun": "Itak",
     "first": "Yayan itak",
     "fourth": "A=tomte itak",
-    "apply": "適用"
+    "apply": "Kewtum'ositciwre"
   },
   "/components/Filter/FilterItem": {
     "expand": "Opitta nukar",
@@ -124,13 +124,13 @@
     "count": "<vh>（</vh>{count}<vh>件）</vh>"
   },
   "/components/Paginator/Paginator": {
-    "title": "ページネーション",
-    "prev": "Etok PEJI",
-    "next": "Hoski PEJI",
-    "nth": "{n} <vh>PEJI</vh>",
-    "nth_last": "{n} <vh>PEJI (iotta iosno an PEJI)</vh>"
+    "title": "Usa oka sos",
+    "prev": "Etok sos",
+    "next": "Hoski sos",
+    "nth": "{n} <vh>sos</vh>",
+    "nth_last": "{n} <vh>sos (Iotta iosno an sos)</vh>"
   },
   "/components/Search/Search": {
-    "label": "キーワード"
+    "label": "Ahunarap"
   }
 }
