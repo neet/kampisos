@@ -1,14 +1,14 @@
 {
   "/app/[locale]/layout": {
-    "title": "カンピソㇱ　　アイヌ語オンラインコーパス",
-    "opengraph_title": "カンピソㇱ　　アイヌ語オンラインコーパス",
+    "title": "カンピソㇱ　　アイヌ　イタㇰ　ウオマレ　ㇷ゚",
+    "opengraph_title": "カンピソㇱ　　アイヌ　イタㇰ　ウオマレ　ㇷ゚",
     "opengraph_description": "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます"
   },
   "/app/[locale]/page": {
-    "title": "カンピソㇱ　　アイヌ語オンラインコーパス",
-    "description": "カンピソㇱ　　アイヌ語オンラインコーパス",
+    "title": "カンピソㇱ　　アイヌ　イタㇰ　ウオマレ　ㇷ゚",
+    "description": "カンピソㇱ　　アイヌ　イタㇰ　ウオマレ　ㇷ゚",
     "heading": "アイヌ語の世界を<wbr></wbr>探訪しよう",
-    "subtitle": "約15万語を収録した<wbr></wbr>日本語・アイヌ語対訳コーパス"
+    "subtitle": "150、000　アッカリ　イタㇰ　コㇿ　シサㇺ　イタㇰ　アイヌ　イタㇰ　ウオマレ　　ㇷ゚"
   },
   "/app/[locale]/about/page": {
     "title": "タンペ　ヘマンタ　アン？",
@@ -21,28 +21,28 @@
   "/app/[locale]/error": {
     "title": "予期せぬエラーが発生しました",
     "description": "予期せぬエラーが発生しました。お手数ですが，時間をおいて再度お試しください。",
-    "reload": "再読み込み"
+    "reload": "スイ　イヌカㇻ"
   },
   "/app/[locale]/search/page": {
-    "title": "「{query}」の検索結果",
-    "title_with_page_num": "「{query}」の検索結果（{page}ページ目）",
-    "title_with_kana": "{query}（{kana}）の検索結果",
-    "title_with_kana_and_page_num": "{query}（{kana}）の検索結果（{page}ページ目）",
+    "title": "“{query}”　アフナラ　ワ　アパ　ㇷ゚",
+    "title_with_page_num": "“{query}”　アフナラ　ワ　アパ　ㇷ゚　（ソㇱ　{page}）",
+    "title_with_kana": "“{query}”　（{kana}）　アフナラ　ワ　アパ　ㇷ゚",
+    "title_with_kana_and_page_num": "“{query}”　（{kana}）　アフナラ　ワ　アパ　ㇷ゚　（ソㇱ　{page}）",
     "description": "「${query}」に関連するアイヌ語の資料の検索結果です。意味や使い方などを、実際の例文から探してみましょう。",
     "subtitle": "アイヌ語・日本語コーパスからクエリ文字列を含む資料を表示しています",
-    "filter": "絞り込み"
+    "filter": "イエソイェ"
   },
   "/app/[locale]/search/SearchStats": {
-    "nb_hits": "{n}件の検索結果",
-    "processing_time_ms": "（{ms}ミリ秒）"
+    "nb_hits": "{n}　チパㇷ゚　オカ",
+    "processing_time_ms": "（{ms}　ミリ　ピヨ）"
   },
   "/app/[locale]/search/MobileFilterButton": {
-    "title": "絞り込み",
-    "description": "検索結果を絞り込むための条件を設定してください。"
+    "title": "イエソイェ",
+    "description": "ポロンノ　アン　オルㇱペ　ピㇼカノ　エソイェ　クニ　マㇰ　アン　オルㇱペ　アヌカㇻ　ルスイ　ヤ　カ　ヌメ　ヤン。"
   },
   "/app/[locale]/search/Result": {
-    "no_result": "用例が見つかりませんでした",
-    "no_result_hint": "別のキーワードや、異なる検索条件で再度お試しください。"
+    "no_result": "ネノ　アン　オルㇱペ　シネㇷ゚　カ　イサㇺ",
+    "no_result_hint": "シンナ　アフナラㇷ゚、　シンナ　イエソイネ　イレンカ　アヌㇺケ　ワ　スイ　イヌカㇻ　ヤン。"
   },
   "/components/Banner/Banner": {
     "about": "タンペ　ヘマンタ　アン？"
@@ -81,7 +81,7 @@
     "samani": "サマニ"
   },
   "/components/DialectSelector/DialectSelectorCheckbox": {
-    "count": "<vh>（</vh>{count}<vh>件）</vh>"
+    "count": "<vh>（</vh>{count}<vh>　ペ　オカ）</vh>"
   },
   "/components/DialectSelector/DialectSelectorItem": {
     "open": "“{label}”　マカ",
@@ -114,7 +114,7 @@
     "pronoun": "イタㇰ",
     "first": "ヤヤン　イタㇰ",
     "fourth": "アトㇺテ　イタㇰ",
-    "apply": "適用"
+    "apply": "ケウトゥㇺオシッチウレ"
   },
   "/components/Filter/FilterItem": {
     "expand": "オピッタ　ヌカㇻ",
@@ -124,13 +124,13 @@
     "count": "<vh>（</vh>{count}<vh>件）</vh>"
   },
   "/components/Paginator/Paginator": {
-    "title": "ページネーション",
-    "prev": "エトㇰ　ペジ",
-    "next": "ホㇱキ　ペジ",
-    "nth": "{n}　<vh>ペジ</vh>",
-    "nth_last": "{n}　<vh>ペジ　（イオッタ　イオㇱノ　アン　ペジ）</vh>"
+    "title": "ウサ　オカ　ソㇱ",
+    "prev": "エトㇰ　ソㇱ",
+    "next": "ホㇱキ　ソㇱ",
+    "nth": "{n}　<vh>ソㇱ</vh>",
+    "nth_last": "{n}　<vh>ソㇱ　（イオッタ　イオㇱノ　アン　ソㇱ）</vh>"
   },
   "/components/Search/Search": {
-    "label": "キーワード"
+    "label": "アフナラㇷ゚"
   }
 }
