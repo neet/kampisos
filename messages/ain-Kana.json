@@ -1,1 +1,136 @@
-{}
+{
+  "/app/[locale]/layout": {
+    "title": "カンピソㇱ　　アイヌ語オンラインコーハス",
+    "opengraph_title": "カンピソㇱ　　アイヌ語オンラインコーハス",
+    "opengraph_description": "アイヌ語・日本語のキーワートを入力して複数のコーハスを検索てきます"
+  },
+  "/app/[locale]/page": {
+    "title": "カンピソㇱ　　アイヌ語オンラインコーハス",
+    "description": "カンピソㇱ　　アイヌ語オンラインコーハス",
+    "heading": "アイヌ語の世界を<ウbr></ウbr>探訪しよう",
+    "subtitle": "約15万語を収録した<ウbr></ウbr>日本語・アイヌ語対訳コーハス"
+  },
+  "/app/[locale]/about/page": {
+    "title": "このサイトについて",
+    "description": "アイヌ語・日本語のキーワートを入力して複数のコーハスを検索てきます"
+  },
+  "/app/[locale]/privacy/ios/page": {
+    "title": "フライハシーホリシー（イオㇱアフリ）",
+    "description": "カンピソㇱ（イオㇱアフリ）のフライハシーホリシー"
+  },
+  "/app/[locale]/error": {
+    "title": "予期せぬエラーか発生しました",
+    "description": "予期せぬエラーか発生しました。お手数てすか、時間をおいて再度お試しくたさい。",
+    "reload": "再読み込み"
+  },
+  "/app/[locale]/search/page": {
+    "title": "「{query}」の検索結果",
+    "title_with_page_num": "「{page}」の検索結果（{page}ヘーシ目）",
+    "title_with_kana": "{kana}（{kana}）の検索結果",
+    "title_with_kana_and_page_num": "{page}（{page}）の検索結果（{page}ヘーシ目）",
+    "description": "「${query}」に関連するアイヌ語の資料の検索結果てす。意味や使い方なとを、実際の例文から探してみましょう。",
+    "subtitle": "アイヌ語・日本語コーハスからクエリ文字列を含む資料を表示しています",
+    "filter": "絞り込み"
+  },
+  "/app/[locale]/search/SearchStats": {
+    "nb_hits": "{n}件の検索結果",
+    "processing_time_ms": "（{ms}ミリ秒）"
+  },
+  "/app/[locale]/search/MobileFilterButton": {
+    "title": "絞り込み",
+    "description": "検索結果を絞り込むための条件を設定してくたさい。"
+  },
+  "/app/[locale]/search/Result": {
+    "no_result": "用例か見つかりませんてした",
+    "no_result_hint": "別のキーワートや、異なる検索条件て再度お試しくたさい。"
+  },
+  "/components/Banner/Banner": {
+    "about": "このサイトについて"
+  },
+  "/components/ContentInfo/ContentInfo": {
+    "title": "運営者情報"
+  },
+  "/components/Changelogs/Changelogs": {
+    "title": "最近の更新"
+  },
+  "/components/DialectSelector/DialectSelector": {
+    "legend": "イポㇿセ"
+  },
+  "/components/DialectSelector/useDialects": {
+    "karahuto": "ヤンケモシㇼ　（カラㇷ゚ト）",
+    "east_coast": "西海岸",
+    "otasu": "オタスㇷ",
+    "ushiro": "ウシロ",
+    "raichishi": "ライチシカ",
+    "hokkaido": "ヤウンモシㇼ",
+    "southwest": "スㇺ",
+    "northeast": "メナㇱ",
+    "saru": "サㇻ",
+    "chitose": "シコッ",
+    "mukawa": "ムカ",
+    "horobetsu": "ポロペッ",
+    "abuta": "アプタ",
+    "shiraoi": "シラウォイ",
+    "shizunai": "シピチャリ",
+    "ishikari": "イㇱカㇻ",
+    "shiranuka": "シラリカ",
+    "tokachi": "トカㇷ゚チ",
+    "kushiro": "クスㇽ",
+    "urakawa": "ウラカ",
+    "bihoro": "ペポロ",
+    "samani": "サマニ"
+  },
+  "/components/DialectSelector/DialectSelectorCheckbox": {
+    "count": "<vh>（</vh>{count}<vh>件）</vh>"
+  },
+  "/components/DialectSelector/DialectSelectorItem": {
+    "open": "「{label}」を開く",
+    "close": "「{label}」を閉しる"
+  },
+  "/components/Entry/Entry": {
+    "reference": "<vh>出典:</vh>{reference}",
+    "reference_with_year": "<vh>出典:</vh>{year}（{year}）",
+    "open_in_new_tab": "別タフて開く"
+  },
+  "/components/Entry/EntryAuthor": {
+    "author": "<vh>話者:</vh>{author}",
+    "author_with_dialect": "<vh>話者:</vh>{dialect}（{dialect}）",
+    "dialect": "<vh>方言:</vh>{dialect}"
+  },
+  "/components/Entry/EntryDetailsDialog": {
+    "title": "詳細",
+    "description": "この資料の詳細情報てす。一部不正確な情報か含まれる可能性かあります。",
+    "collection": "モトホ",
+    "document": "レヘ",
+    "author": "イヌイェクㇽ",
+    "dialect": "イポㇿセ",
+    "recorded_at": "アイヌイェ　ト",
+    "published_at": "公開日",
+    "no_data": "デタ　イサㇺ"
+  },
+  "/components/Filter/Filter": {
+    "collection": "モトホ",
+    "author": "著者",
+    "pronoun": "主な一人称",
+    "first": "ヤヤン　イタㇰ",
+    "fourth": "アトㇺテ　イタㇰ",
+    "apply": "適用"
+  },
+  "/components/Filter/FilterItem": {
+    "expand": "さらに表示",
+    "collapse": "閉しる"
+  },
+  "/components/Filter/FilterOption": {
+    "count": "<vh>（</vh>{count}<vh>件）</vh>"
+  },
+  "/components/Paginator/Paginator": {
+    "title": "ヘーシネーション",
+    "prev": "前のヘーシ",
+    "next": "次のヘーシ",
+    "nth": "{n}<vh>ヘーシ</vh>",
+    "nth_last": "{n}<vh>ヘーシ（最後のヘーシ）</vh>"
+  },
+  "/components/Search/Search": {
+    "label": "キーワート"
+  }
+}
