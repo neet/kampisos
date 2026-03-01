@@ -109,7 +109,7 @@
     "no_data": "データがありません"
   },
   "/components/Filter/Filter": {
-    "collection": "出典",
+    "collection": "",
     "author": "著者",
     "pronoun": "主な一人称",
     "first": "一人称",
