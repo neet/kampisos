@@ -3,17 +3,24 @@ import path from "path";
 import { default as ainu } from "ainu-utils";
 
 const MUSTACHE = /\{(.+?)\}/g;
+const HTML_TAG = /<[^>]+>/g;
+const NON_ASCII = /[^\x00-\x7F]+/g;
 const SYMBOL = /\$([0-9]+)/g;
 
 function safeConvertToKana(text: string) {
-  const counter = 0;
+  let counter = 0;
   const registry = new Map<string, string>();
 
-  let safeText = text.replace(MUSTACHE, (match) => {
-    const key = `$${counter}`;
+  const escape = (match: string) => {
+    const key = `$${counter++}`;
     registry.set(key, match);
     return key;
-  });
+  };
+
+  let safeText = text.replace(MUSTACHE, escape);
+  safeText = safeText.replace(HTML_TAG, escape);
+  safeText = safeText.replace(NON_ASCII, escape);
+  safeText = safeText.replace(/'/g, "'");
   safeText = safeText.replace(/’/g, "'");
 
   const kana = ainu.to_kana(safeText);
