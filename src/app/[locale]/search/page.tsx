@@ -46,7 +46,7 @@ export async function generateMetadata(
 
   const createTitle = (query: string, page: number): string => {
     if (isLatin(query)) {
-      if (page > 0) {
+      if (page === 0) {
         return t("title_with_kana", { query, kana: to_kana(query) });
       } else {
         return t("title_with_kana_and_page_num", {
@@ -56,7 +56,7 @@ export async function generateMetadata(
         });
       }
     } else {
-      if (page > 0) {
+      if (page === 0) {
         return t("title", { query });
       } else {
         return t("title_with_page_num", { query, page: page + 1 });
