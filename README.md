@@ -2,6 +2,9 @@
 
 # Kampisos
 
+[![Crowdin](https://badges.crowdin.net/kampisos/localized.svg)](https://crowdin.com/project/kampisos)
+[![Playwright Tests](https://github.com/neet/kampisos/actions/workflows/playwright.yml/badge.svg)](https://github.com/neet/kampisos/actions/workflows/playwright.yml)
+
 Kampisos (カンピソㇱ) is a bilingual Ainu-Japanese corpus search application.
 It helps users explore Ainu language materials through full-text search and rich facet filters.
 
