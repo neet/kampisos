@@ -76,7 +76,7 @@
     "shiranuka": "白糠",
     "tokachi": "十勝",
     "kushiro": "釧路",
-    "urakawa": "浦河",
+    "urakawa": "",
     "bihoro": "美幌",
     "samani": "様似"
   },
@@ -100,13 +100,13 @@
   "/components/Entry/EntryDetailsDialog": {
     "title": "詳細",
     "description": "この資料の詳細情報です。一部不正確な情報が含まれる可能性があります。",
-    "collection": "出典",
-    "document": "タイトル",
-    "author": "著者",
-    "dialect": "方言",
-    "recorded_at": "記録日",
+    "collection": "motoho",
+    "document": "rehe",
+    "author": "inuyekur",
+    "dialect": "iporse",
+    "recorded_at": "a=inuye to",
     "published_at": "公開日",
-    "no_data": "データがありません"
+    "no_data": "DETA isam"
   },
   "/components/Filter/Filter": {
     "collection": "",
