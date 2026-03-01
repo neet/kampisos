@@ -7,8 +7,8 @@
   "/app/[locale]/page": {
     "title": "Kampisos - Aynu itak uomare p",
     "description": "Kampisos - Aynu itak uomare p",
-    "heading": "Aynu Itak ani Mosir or peka Huymampa=an Ro",
-    "subtitle": "150,000 akkari itak kor Sisam itak Aynu itak uomare  p"
+    "heading": "Aynu Itak ani Mosir or peka <wbr></wbr>Huymampa=an Ro",
+    "subtitle": "Oro ta 150,000 akkari itak oka <wbr></wbr>Sisam itak Aynu itak uomare  p"
   },
   "/app/[locale]/about/page": {
     "title": "Tanpe hemanta an?",
