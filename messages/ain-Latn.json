@@ -11,7 +11,7 @@
     "subtitle": "約15万語を収録した<wbr></wbr>日本語・アイヌ語対訳コーパス"
   },
   "/app/[locale]/about/page": {
-    "title": "tanpe hemanta an?",
+    "title": "Tanpe hemanta an?",
     "description": "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます"
   },
   "/app/[locale]/privacy/ios/page": {
@@ -45,13 +45,13 @@
     "no_result_hint": "別のキーワードや、異なる検索条件で再度お試しください。"
   },
   "/components/Banner/Banner": {
-    "about": "tanpe hemanta an?"
+    "about": "Tanpe hemanta an?"
   },
   "/components/ContentInfo/ContentInfo": {
-    "title": "tan SAYTO kar kur oruspe"
+    "title": "Tan SAYTO kar kur oruspe"
   },
   "/components/Changelogs/Changelogs": {
-    "title": "tap uhunak an pe"
+    "title": "Tap uhunak an pe"
   },
   "/components/DialectSelector/DialectSelector": {
     "legend": "Iporse"
@@ -88,47 +88,47 @@
     "close": "“{label}” seske"
   },
   "/components/Entry/Entry": {
-    "reference": "<vh>motoho: </vh>{reference}",
-    "reference_with_year": "<vh>motoho: </vh>{reference} ({year})",
-    "open_in_new_tab": "別タブで開く"
+    "reference": "<vh>Motoho: </vh>{reference}",
+    "reference_with_year": "<vh>Motoho: </vh>{reference} ({year})",
+    "open_in_new_tab": "Asir TABU or ta maka"
   },
   "/components/Entry/EntryAuthor": {
-    "author": "<vh>inuyekur: </vh>{author}",
-    "author_with_dialect": "<vh>inuyekur: </vh>{author} ({dialect})",
-    "dialect": "<vh>iporse: </vh>{dialect}"
+    "author": "<vh>Inuyekur: </vh>{author}",
+    "author_with_dialect": "<vh>Inuyekur: </vh>{author} ({dialect})",
+    "dialect": "<vh>Iporse: </vh>{dialect}"
   },
   "/components/Entry/EntryDetailsDialog": {
-    "title": "詳細",
-    "description": "この資料の詳細情報です。一部不正確な情報が含まれる可能性があります。",
-    "collection": "motoho",
-    "document": "rehe",
-    "author": "inuyekur",
-    "dialect": "iporse",
-    "recorded_at": "a=inuye to",
+    "title": "Comommomop",
+    "description": "Tan oruspe kor comommomop ne ruwe ne. sinna itak ka oka nankor pe ne kusu, yaytupare yan.",
+    "collection": "Motoho",
+    "document": "Rehe",
+    "author": "Inuyekur",
+    "dialect": "Iporse",
+    "recorded_at": "A=inuye to",
     "published_at": "公開日",
     "no_data": "DETA isam"
   },
   "/components/Filter/Filter": {
-    "collection": "motoho",
-    "author": "inuyekur",
-    "pronoun": "itak",
-    "first": "yayan itak",
-    "fourth": "a=tomte itak",
+    "collection": "Motoho",
+    "author": "Inuyekur",
+    "pronoun": "Itak",
+    "first": "Yayan itak",
+    "fourth": "A=tomte itak",
     "apply": "適用"
   },
   "/components/Filter/FilterItem": {
-    "expand": "さらに表示",
-    "collapse": "閉じる"
+    "expand": "Opitta nukar",
+    "collapse": "Seske"
   },
   "/components/Filter/FilterOption": {
     "count": "<vh>（</vh>{count}<vh>件）</vh>"
   },
   "/components/Paginator/Paginator": {
     "title": "ページネーション",
-    "prev": "前のページ",
-    "next": "次のページ",
-    "nth": "{n}<vh>ページ</vh>",
-    "nth_last": "{n}<vh>ページ（最後のページ）</vh>"
+    "prev": "Etok PEJI",
+    "next": "Hoski PEJI",
+    "nth": "{n} <vh>PEJI</vh>",
+    "nth_last": "{n} <vh>PEJI (iotta iosno an PEJI)</vh>"
   },
   "/components/Search/Search": {
     "label": "キーワード"
