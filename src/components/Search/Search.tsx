@@ -1,4 +1,5 @@
 "use client";
+
 import { getPathname } from "@/i18n/navigation";
 import { DotsHorizontalIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import {
@@ -78,6 +79,14 @@ export const Search: FC<SearchProps> = (props) => {
             <Spinner aria-hidden="true" />
           </TextField.Slot>
         )}
+
+        <TextField.Slot>
+          <Tooltip content={t("filter")}>
+            <IconButton variant="ghost" color="gray" type="button">
+              <DotsHorizontalIcon />
+            </IconButton>
+          </Tooltip>
+        </TextField.Slot>
       </TextField.Root>
     </form>
   );

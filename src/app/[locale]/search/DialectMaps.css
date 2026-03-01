@@ -1,0 +1,13 @@
+#DialectSelectorMap {
+  .geographies {
+    fill: var(--gray-surface);
+    stroke: var(--gray-track);
+    stroke-width: 1px;
+  }
+
+  .circle {
+    fill: var(--accent-11);
+    stroke-width: 1px;
+    opacity: 0.6;
+  }
+}
