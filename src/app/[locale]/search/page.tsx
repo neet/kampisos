@@ -10,8 +10,9 @@ import {
 import { to_kana } from "ainu-utils";
 import { Metadata } from "next";
 import { headers } from "next/headers";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
+import { getTranslations } from "next-intl/server";
 
 import { Filter } from "@/components/Filter";
 import { Search } from "@/components/Search";
@@ -20,48 +21,51 @@ import { searchClient } from "@/lib/search";
 import { Entry as EntryType } from "@/models/entry";
 import { toArraySearchParam } from "@/utils/toArraySearchParams";
 
-import { FooterContent } from "./_FooterContent";
-import { MobileFilterButton } from "./_MobileFilterButton";
-import { Result } from "./_Result";
-import { SearchStats } from "./_SearchStats";
+import { FooterContent } from "./FooterContent";
+import { MobileFilterButton } from "./MobileFilterButton";
+import { Result } from "./Result";
+import { SearchStats } from "./SearchStats";
 
 export const revalidate = 86_400;
 
-type SearchPageProps = {
-  searchParams: Promise<{
-    q?: string;
-    page?: number;
-    dialect_lv1?: string | string[];
-    dialect_lv2?: string | string[];
-    dialect_lv3?: string | string[];
-    author?: string | string[];
-    collection_lv1?: string | string[];
-    pronoun?: string | string[];
-  }>;
-};
+const isLatin = (str: string) => /^[a-zA-Z0-9\s]+$/.test(str);
 
 export async function generateMetadata(
-  props: SearchPageProps,
+  props: PageProps<"/[locale]/search">,
 ): Promise<Metadata> {
+  const t = await getTranslations("/app/[locale]/search/page");
   const searchParams = await props.searchParams;
-  const query = searchParams.q?.trim();
-  const page = Number(searchParams.page ?? 0);
 
+  const query =
+    typeof searchParams.q === "string" ? searchParams.q.trim() : undefined;
   if (!query) {
     redirect("/");
   }
 
-  let title = "";
-  if (/^[a-zA-Z0-9\s]+$/.test(query)) {
-    title += `${query}（${to_kana(query)}）の検索結果`;
-  } else {
-    title += `「${query}」の検索結果`;
-  }
-  if (page > 0) {
-    title += `（${page + 1}ページ目）`;
-  }
+  const page = Number(searchParams.page ?? 0);
 
-  const description = `「${query}」に関連するアイヌ語の資料の検索結果です。意味や使い方などを、実際の例文から探してみましょう。`;
+  const createTitle = (query: string, page: number): string => {
+    if (isLatin(query)) {
+      if (page > 0) {
+        return t("title_with_kana", { query, kana: to_kana(query) });
+      } else {
+        return t("title_with_kana_and_page_num", {
+          query,
+          kana: to_kana(query),
+          page: page + 1,
+        });
+      }
+    } else {
+      if (page > 0) {
+        return t("title", { query });
+      } else {
+        return t("title_with_page_num", { query, page: page + 1 });
+      }
+    }
+  };
+
+  const title = createTitle(query, page);
+  const description = t("description", { query });
 
   return {
     title,
@@ -84,11 +88,13 @@ export async function generateMetadata(
   };
 }
 
-export default async function SearchPage(props: SearchPageProps) {
+export default async function SearchPage(props: PageProps<"/[locale]/search">) {
   const searchParams = await props.searchParams;
   const forwardedFor = (await headers()).get("X-Forwarded-For") ?? "0.0.0.0";
+  const t = await getTranslations("/app/[locale]/search/page");
 
-  const query = searchParams.q?.trim() as string;
+  const query =
+    typeof searchParams.q === "string" ? searchParams.q.trim() : undefined;
   const page = Number(searchParams.page ?? 0);
   const dialectLv1 = toArraySearchParam(searchParams.dialect_lv1);
   const dialectLv2 = toArraySearchParam(searchParams.dialect_lv2);
@@ -96,6 +102,10 @@ export default async function SearchPage(props: SearchPageProps) {
   const author = toArraySearchParam(searchParams.author);
   const collectionLv1 = toArraySearchParam(searchParams.collection_lv1);
   const pronoun = toArraySearchParam(searchParams.pronoun);
+
+  if (!query) {
+    notFound();
+  }
 
   const searchPromise = searchClient.searchForHits<EntryType>(
     {
@@ -136,9 +146,7 @@ export default async function SearchPage(props: SearchPageProps) {
                 {query}
               </Heading>
               <Text asChild align="center" color="gray">
-                <p>
-                  アイヌ語・日本語コーパスからクエリ文字列を含む資料を表示しています
-                </p>
+                <p>{t("subtitle")}</p>
               </Text>
               <Box
                 width={{
@@ -172,9 +180,9 @@ export default async function SearchPage(props: SearchPageProps) {
                   size="4"
                   mb="4"
                 >
-                  絞り込み
+                  {t("filter")}
                 </Heading>
-                <Suspense fallback={<Filter.Skeleton />} key={searchParams.q}>
+                <Suspense fallback={<Filter.Skeleton />} key={query}>
                   <Filter.Root
                     facetsPromise={facetsPromise}
                     defaultValues={{
@@ -194,10 +202,7 @@ export default async function SearchPage(props: SearchPageProps) {
             <Card asChild size="2">
               <article aria-labelledby="search-stats">
                 <header>
-                  <Suspense
-                    fallback={<SearchStats.Skeleton />}
-                    key={searchParams.q}
-                  >
+                  <Suspense fallback={<SearchStats.Skeleton />} key={query}>
                     <SearchStats.Root
                       id="search-stats"
                       searchResponsePromise={searchResponsePromise}
@@ -221,14 +226,14 @@ export default async function SearchPage(props: SearchPageProps) {
                 </header>
 
                 <Box mt="3">
-                  <Suspense fallback={<Result.Skeleton />} key={searchParams.q}>
+                  <Suspense fallback={<Result.Skeleton />} key={query}>
                     <Result.Root
                       searchResponsePromise={searchResponsePromise}
                     />
                   </Suspense>
                 </Box>
 
-                <Suspense fallback={null} key={searchParams.q}>
+                <Suspense fallback={null} key={query}>
                   <FooterContent
                     page={page}
                     resultPromise={searchResponsePromise}

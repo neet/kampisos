@@ -13,6 +13,7 @@ import {
   Text,
 } from "@radix-ui/themes";
 import { FC, ReactNode, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { DialectSelectorCheckbox } from "./DialectSelectorCheckbox";
 import {
@@ -21,7 +22,7 @@ import {
 } from "./DialectSelectorContext";
 
 export type DialectSelectorItemProps = {
-  label: ReactNode;
+  label: string;
   name: string;
   value: string;
   count?: number;
@@ -33,6 +34,7 @@ export type DialectSelectorItemProps = {
 const DialectSelectorItemRoot: FC<DialectSelectorItemProps> = (props) => {
   const { label, name, value, form, count, defaultChecked, children } = props;
 
+  const t = useTranslations("/components/DialectSelector/DialectSelectorItem");
   const dialectSelector = useDialectSelector();
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(defaultChecked);
@@ -69,18 +71,15 @@ const DialectSelectorItemRoot: FC<DialectSelectorItemProps> = (props) => {
     );
   }
 
-  const iconLabelOpen = `「${label}」を開く`;
-  const iconLabelClose = `「${label}」を閉じる`;
-
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
       <Flex gap="2" align="center">
         <CollapsibleTrigger asChild>
           <IconButton size="1" variant="ghost" color="gray">
             {open ? (
-              <ChevronUpIcon aria-label={iconLabelClose} />
+              <ChevronUpIcon aria-label={t("close", { label })} />
             ) : (
-              <ChevronDownIcon aria-label={iconLabelOpen} />
+              <ChevronDownIcon aria-label={t("open", { label })} />
             )}
           </IconButton>
         </CollapsibleTrigger>

@@ -5,6 +5,7 @@ import * as Collapsible from "@radix-ui/react-collapsible";
 import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
 import { Box, Button, Flex, Heading, Skeleton, Text } from "@radix-ui/themes";
 import { FC, ReactNode, useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { FilterOption } from "./FilterOption";
 import { Option } from "./model";
@@ -22,6 +23,7 @@ export type FilterItemRootProps = {
 export const FilterItemRoot: FC<FilterItemRootProps> = (props) => {
   const { label, defaultValues = [], name, form } = props;
 
+  const t = useTranslations("/components/Filter/FilterItem");
   const [open, setOpen] = useState(false);
 
   const options = useMemo(() => {
@@ -85,13 +87,13 @@ export const FilterItemRoot: FC<FilterItemRootProps> = (props) => {
                 <Button variant="ghost" color="gray">
                   {open ? (
                     <>
-                      <Text>閉じる</Text>
-                      <ChevronUpIcon />
+                      <Text>{t("collapse")}</Text>
+                      <ChevronUpIcon aria-hidden="true" />
                     </>
                   ) : (
                     <>
-                      <Text>さらに表示</Text>
-                      <ChevronDownIcon />
+                      <Text>{t("expand")}</Text>
+                      <ChevronDownIcon aria-hidden="true" />
                     </>
                   )}
                 </Button>

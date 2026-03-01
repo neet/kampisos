@@ -11,10 +11,15 @@ import {
 } from "@radix-ui/themes";
 import { FC } from "react";
 import { Hierarchy } from "../Hierarchy/Hierarchy";
-import { Timestamp } from "../Timestamp";
-import { toHref } from "@/utils/uri";
 
-const NoData = () => <Text color="gray">データなし</Text>;
+import { formatDateOrRange } from "@/utils/timestamp";
+import { toHref } from "@/utils/uri";
+import { useTranslations } from "next-intl";
+
+const NoData = () => {
+  const t = useTranslations("/components/Entry/EntryDetailsDialog");
+  return <Text color="gray">{t("no_data")}</Text>;
+};
 
 export type EntryDetailsDialogProps = {
   objectID: string;
@@ -46,6 +51,7 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
     publishedAt,
   } = props;
 
+  const t = useTranslations("/components/Entry/EntryDetailsDialog");
   const href = uri ? toHref(uri) : null;
 
   return (
@@ -53,17 +59,13 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
       <Dialog.Trigger>
         <IconButton variant="ghost" color="gray">
           <DotsHorizontalIcon />
-          <VisuallyHidden>詳細</VisuallyHidden>
+          <VisuallyHidden>{t("title")}</VisuallyHidden>
         </IconButton>
       </Dialog.Trigger>
 
       <Dialog.Content>
-        <Dialog.Title>詳細</Dialog.Title>
-        <Dialog.Description>
-          <Text color="gray">
-            この資料の詳細情報です。一部不正確な情報が含まれる可能性があります。
-          </Text>
-        </Dialog.Description>
+        <Dialog.Title>{t("title")}</Dialog.Title>
+        <Dialog.Description>{t("description")}</Dialog.Description>
 
         <DataList.Root mt="4">
           <DataList.Item>
@@ -74,7 +76,7 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
           </DataList.Item>
 
           <DataList.Item>
-            <DataList.Label>出典</DataList.Label>
+            <DataList.Label>{t("collection")}</DataList.Label>
             <DataList.Value>
               {collectionLv3 || collectionLv2 || collectionLv1 ? (
                 <Hierarchy>
@@ -87,38 +89,34 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
           </DataList.Item>
 
           <DataList.Item>
-            <DataList.Label>タイトル</DataList.Label>
+            <DataList.Label>{t("document")}</DataList.Label>
             <DataList.Value>{document}</DataList.Value>
           </DataList.Item>
 
           <DataList.Item>
-            <DataList.Label>著者</DataList.Label>
+            <DataList.Label>{t("author")}</DataList.Label>
             <DataList.Value>{author ?? <NoData />}</DataList.Value>
           </DataList.Item>
 
           <DataList.Item>
-            <DataList.Label>方言</DataList.Label>
+            <DataList.Label>{t("dialect")}</DataList.Label>
             <DataList.Value>
               {dialect ? <Badge>{dialect}</Badge> : <NoData />}
             </DataList.Value>
           </DataList.Item>
 
           <DataList.Item>
-            <DataList.Label>記録日</DataList.Label>
+            <DataList.Label>{t("recorded_at")}</DataList.Label>
             <DataList.Value>
-              {recordedAt ? (
-                <Timestamp value={recordedAt} mode="full" />
-              ) : (
-                <NoData />
-              )}
+              {recordedAt ? formatDateOrRange(recordedAt, "full") : <NoData />}
             </DataList.Value>
           </DataList.Item>
 
           <DataList.Item>
-            <DataList.Label>公開日</DataList.Label>
+            <DataList.Label>{t("published_at")}</DataList.Label>
             <DataList.Value>
               {publishedAt ? (
-                <Timestamp value={publishedAt} mode="full" />
+                formatDateOrRange(publishedAt, "full")
               ) : (
                 <NoData />
               )}

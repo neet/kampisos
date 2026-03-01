@@ -1,4 +1,5 @@
 import { Badge, Checkbox, Flex, Text, VisuallyHidden } from "@radix-ui/themes";
+import { useTranslations } from "next-intl";
 import { FC, ReactNode } from "react";
 
 export type CheckedState = "indeterminate" | boolean;
@@ -19,6 +20,10 @@ export const DialectSelectorCheckbox: FC<DialectSelectorCheckboxProps> = (
 ) => {
   const { name, value, checked, disabled, form, label, count, onChange } =
     props;
+
+  const t = useTranslations(
+    "/components/DialectSelector/DialectSelectorCheckbox",
+  );
 
   return (
     <Flex gap="1" align="center" asChild>
@@ -43,9 +48,10 @@ export const DialectSelectorCheckbox: FC<DialectSelectorCheckboxProps> = (
 
           {count && (
             <Badge variant="soft" color="gray">
-              <VisuallyHidden>（</VisuallyHidden>
-              {count}
-              <VisuallyHidden>件）</VisuallyHidden>
+              {t.rich("count", {
+                count,
+                vh: (chunks) => <VisuallyHidden>{chunks}</VisuallyHidden>,
+              })}
             </Badge>
           )}
         </Flex>

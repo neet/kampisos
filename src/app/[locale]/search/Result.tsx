@@ -5,6 +5,7 @@ import { FC, Fragment, use } from "react";
 
 import { Entry } from "@/components/Entry";
 import { Entry as EntryType } from "@/models/entry";
+import { useTranslations } from "next-intl";
 
 type ResultRootProps = {
   searchResponsePromise: Promise<SearchResponse<EntryType>>;
@@ -14,15 +15,16 @@ const ResultRoot: FC<ResultRootProps> = (props) => {
   const { searchResponsePromise } = props;
 
   const searchResponse = use(searchResponsePromise);
+  const t = useTranslations("/app/[locale]/search/Result");
 
   if (searchResponse.hits.length <= 0) {
     return (
       <Flex py="8" direction="column" align="center">
-        <Heading size="4">用例が見つかりませんでした</Heading>
+        <Heading size="4">{t("no_result")}</Heading>
 
         <p>
           <Text color="gray" mt="2">
-            別のキーワードや、異なる検索条件で再度お試しください。
+            {t("no_result_hint")}
           </Text>
         </p>
       </Flex>

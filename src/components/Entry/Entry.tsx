@@ -10,10 +10,12 @@ import {
   VisuallyHidden,
 } from "@radix-ui/themes";
 import { FC } from "react";
+import { useTranslations } from "next-intl";
+
+import { toHref } from "@/utils/uri";
+import { formatDateOrRange } from "@/utils/timestamp";
 
 import { EntryDetailsDialog } from "./EntryDetailsDialog";
-import { Timestamp } from "../Timestamp";
-import { toHref } from "@/utils/uri";
 import { EntryAuthor } from "./EntryAuthor";
 
 export type EntryRootProps = {
@@ -55,7 +57,20 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
     publishedAt,
   } = props;
 
+  const t = useTranslations("/components/Entry/Entry");
   const href = uri ? toHref(uri) : null;
+
+  const date = recordedAt ?? publishedAt;
+  const reference = date
+    ? t.rich("reference_with_year", {
+        year: formatDateOrRange(date, "year_only")!,
+        reference: collectionLv1 ?? document,
+        vh: (chunks) => <VisuallyHidden>{chunks}</VisuallyHidden>,
+      })
+    : t.rich("reference", {
+        reference: collectionLv1 ?? document,
+        vh: (chunks) => <VisuallyHidden>{chunks}</VisuallyHidden>,
+      });
 
   return (
     <div className="entry">
@@ -90,24 +105,14 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
                 size="2"
                 color="gray"
               >
-                <VisuallyHidden>出典：</VisuallyHidden>
-                <cite>
-                  {collectionLv1 ?? document}
-                  {(recordedAt || publishedAt) && (
-                    <>
-                      {"（"}
-                      <Timestamp
-                        mode="year_only"
-                        value={recordedAt ?? publishedAt}
-                      />
-                      {"）"}
-                    </>
-                  )}
-                </cite>
+                <cite>{reference}</cite>
               </Link>
 
               <Box flexShrink="0" flexGrow="0" asChild>
-                <ExternalLinkIcon aria-hidden color="gray" />
+                <ExternalLinkIcon
+                  color="gray"
+                  aria-label={t("open_in_new_tab")}
+                />
               </Box>
             </Flex>
           </Box>

@@ -3,8 +3,9 @@
 import { Box, Flex, Heading, Skeleton } from "@radix-ui/themes";
 import { FC } from "react";
 
-import { dialects } from "./dialects";
+import { useDialects } from "./useDialects";
 import { DialectSelectorItem } from "./DialectSelectorItem";
+import { useTranslations } from "next-intl";
 
 export type DialectSelectorProps = {
   form?: string;
@@ -23,11 +24,14 @@ export type DialectSelectorProps = {
 export const DialectSelectorRoot: FC<DialectSelectorProps> = (props) => {
   const { form, counts, values } = props;
 
+  const t = useTranslations("/components/DialectSelector/DialectSelector");
+  const dialects = useDialects();
+
   return (
     <Box asChild>
       <fieldset>
         <Heading asChild size="2" weight="bold" color="gray" mb="3">
-          <legend>方言</legend>
+          <legend>{t("legend")}</legend>
         </Heading>
 
         <Flex direction="column">
@@ -75,11 +79,13 @@ export const DialectSelectorRoot: FC<DialectSelectorProps> = (props) => {
 };
 
 export const DialectSelectorSkeleton: FC = () => {
+  const t = useTranslations("/components/DialectSelector/DialectSelector");
+
   return (
     <Box>
       <Skeleton>
         <Heading asChild size="2" weight="bold" color="gray" mb="3">
-          <legend>方言</legend>
+          <legend>{t("legend")}</legend>
         </Heading>
       </Skeleton>
 
