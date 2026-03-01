@@ -1,1 +1,136 @@
-{}
+{
+  "/app/[locale]/layout": {
+    "title": "Kampisos - アイヌ語オンラインコーパス",
+    "opengraph_title": "Kampisos - アイヌ語オンラインコーパス",
+    "opengraph_description": "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます"
+  },
+  "/app/[locale]/page": {
+    "title": "Kampisos - アイヌ語オンラインコーパス",
+    "description": "Kampisos - アイヌ語オンラインコーパス",
+    "heading": "アイヌ語の世界を<wbr></wbr>探訪しよう",
+    "subtitle": "約15万語を収録した<wbr></wbr>日本語・アイヌ語対訳コーパス"
+  },
+  "/app/[locale]/about/page": {
+    "title": "このサイトについて",
+    "description": "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます"
+  },
+  "/app/[locale]/privacy/ios/page": {
+    "title": "プライバシーポリシー（iOSアプリ)",
+    "description": "Kampisos（iOSアプリ）のプライバシーポリシー"
+  },
+  "/app/[locale]/error": {
+    "title": "予期せぬエラーが発生しました",
+    "description": "予期せぬエラーが発生しました。お手数ですが，時間をおいて再度お試しください。",
+    "reload": "再読み込み"
+  },
+  "/app/[locale]/search/page": {
+    "title": "「{query}」の検索結果",
+    "title_with_page_num": "「{query}」の検索結果（{page}ページ目）",
+    "title_with_kana": "{query}（{kana}）の検索結果",
+    "title_with_kana_and_page_num": "{query}（{kana}）の検索結果（{page}ページ目）",
+    "description": "「${query}」に関連するアイヌ語の資料の検索結果です。意味や使い方などを、実際の例文から探してみましょう。",
+    "subtitle": "アイヌ語・日本語コーパスからクエリ文字列を含む資料を表示しています",
+    "filter": "絞り込み"
+  },
+  "/app/[locale]/search/SearchStats": {
+    "nb_hits": "{n}件の検索結果",
+    "processing_time_ms": "（{ms}ミリ秒）"
+  },
+  "/app/[locale]/search/MobileFilterButton": {
+    "title": "絞り込み",
+    "description": "検索結果を絞り込むための条件を設定してください。"
+  },
+  "/app/[locale]/search/Result": {
+    "no_result": "用例が見つかりませんでした",
+    "no_result_hint": "別のキーワードや、異なる検索条件で再度お試しください。"
+  },
+  "/components/Banner/Banner": {
+    "about": "このサイトについて"
+  },
+  "/components/ContentInfo/ContentInfo": {
+    "title": "運営者情報"
+  },
+  "/components/Changelogs/Changelogs": {
+    "title": "最近の更新"
+  },
+  "/components/DialectSelector/DialectSelector": {
+    "legend": "Iporse"
+  },
+  "/components/DialectSelector/useDialects": {
+    "karahuto": "Yankemosir (Karapto)",
+    "east_coast": "西海岸",
+    "otasu": "Otasuh",
+    "ushiro": "Usiro",
+    "raichishi": "Raycisika",
+    "hokkaido": "Yaunmosir",
+    "southwest": "Sum",
+    "northeast": "Menas",
+    "saru": "Sar",
+    "chitose": "Sikot",
+    "mukawa": "Muka",
+    "horobetsu": "Poropet",
+    "abuta": "Aputa",
+    "shiraoi": "Sirawoy",
+    "shizunai": "Sipicari",
+    "ishikari": "Iskar",
+    "shiranuka": "Sirarika",
+    "tokachi": "Tokapci",
+    "kushiro": "Kusur",
+    "urakawa": "Uraka",
+    "bihoro": "Peporo",
+    "samani": "Samani"
+  },
+  "/components/DialectSelector/DialectSelectorCheckbox": {
+    "count": "<vh>（</vh>{count}<vh>件）</vh>"
+  },
+  "/components/DialectSelector/DialectSelectorItem": {
+    "open": "「{label}」を開く",
+    "close": "「{label}」を閉じる"
+  },
+  "/components/Entry/Entry": {
+    "reference": "<vh>出典：</vh>{reference}",
+    "reference_with_year": "<vh>出典：</vh>{reference}（{year}）",
+    "open_in_new_tab": "別タブで開く"
+  },
+  "/components/Entry/EntryAuthor": {
+    "author": "<vh>話者：</vh>{author}",
+    "author_with_dialect": "<vh>話者：</vh>{author}（{dialect}）",
+    "dialect": "<vh>方言：</vh>{dialect}"
+  },
+  "/components/Entry/EntryDetailsDialog": {
+    "title": "詳細",
+    "description": "この資料の詳細情報です。一部不正確な情報が含まれる可能性があります。",
+    "collection": "motoho",
+    "document": "rehe",
+    "author": "inuyekur",
+    "dialect": "iporse",
+    "recorded_at": "a=inuye to",
+    "published_at": "公開日",
+    "no_data": "DETA isam"
+  },
+  "/components/Filter/Filter": {
+    "collection": "motoho",
+    "author": "著者",
+    "pronoun": "主な一人称",
+    "first": "yayan itak",
+    "fourth": "a=tomte itak",
+    "apply": "適用"
+  },
+  "/components/Filter/FilterItem": {
+    "expand": "さらに表示",
+    "collapse": "閉じる"
+  },
+  "/components/Filter/FilterOption": {
+    "count": "<vh>（</vh>{count}<vh>件）</vh>"
+  },
+  "/components/Paginator/Paginator": {
+    "title": "ページネーション",
+    "prev": "前のページ",
+    "next": "次のページ",
+    "nth": "{n}<vh>ページ</vh>",
+    "nth_last": "{n}<vh>ページ（最後のページ）</vh>"
+  },
+  "/components/Search/Search": {
+    "label": "キーワード"
+  }
+}
