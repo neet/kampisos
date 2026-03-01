@@ -13,13 +13,15 @@ export const EntryAuthor: FC<EntryAuthorProps> = (props) => {
   const t = useTranslations("/components/Entry/EntryAuthor");
 
   if (author && dialect) {
-    <Text color="gray" size="2">
-      {t.rich("author_with_dialect", {
-        author,
-        dialect,
-        vh: (chunks) => <VisuallyHidden>{chunks}</VisuallyHidden>,
-      })}
-    </Text>;
+    return (
+      <Text color="gray" size="2">
+        {t.rich("author_with_dialect", {
+          author,
+          dialect,
+          vh: (chunks) => <VisuallyHidden>{chunks}</VisuallyHidden>,
+        })}
+      </Text>
+    );
   }
 
   if (author) {
