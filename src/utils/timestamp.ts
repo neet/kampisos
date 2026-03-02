@@ -1,44 +1,8 @@
-export type ArbitaryPrecisionDate = {
-  year: number;
-  month: number | null;
-  day: number | null;
-};
-
-const parseDate = (date: string): ArbitaryPrecisionDate => {
-  const [year, month, day] = date.split("-").map((d) => Number(d));
-  return { year, month: month ?? null, day: day ?? null };
-};
-
-type Mode = "year_only" | "full";
-
-const formatDate = (date: ArbitaryPrecisionDate, mode: Mode): string => {
-  let value = "";
-
-  const { year, month, day } = date;
-
-  if (year) {
-    if (mode === "year_only") {
-      value += year;
-    } else {
-      value += `${year}年`;
-    }
-  }
-
-  if (mode === "full") {
-    if (month) {
-      value += `${month}月`;
-    }
-    if (day) {
-      value += `${day}日`;
-    }
-  }
-
-  return value;
-};
+import dayjs, { Dayjs } from "@/lib/dayjs";
 
 type DateOrRange =
-  | { type: "point"; value: ArbitaryPrecisionDate }
-  | { type: "range"; start: ArbitaryPrecisionDate; end: ArbitaryPrecisionDate };
+  | { type: "point"; value: Dayjs }
+  | { type: "range"; start: Dayjs; end: Dayjs };
 
 const parseDateOrRange = (dateOrRange: string): DateOrRange => {
   if (dateOrRange.includes("/")) {
@@ -46,33 +10,41 @@ const parseDateOrRange = (dateOrRange: string): DateOrRange => {
 
     return {
       type: "range",
-      start: parseDate(start),
-      end: parseDate(end),
+      start: dayjs(start),
+      end: dayjs(end),
     };
   } else {
     return {
       type: "point",
-      value: parseDate(dateOrRange),
+      value: dayjs(dateOrRange),
     };
   }
 };
 
+// --------------
+
 export const formatDateOrRange = (
-  dateOrRange: string,
-  mode: Mode,
+  value: string,
+  template: string,
 ): string | null => {
-  const timestamp = parseDateOrRange(dateOrRange);
-  if (!timestamp) {
+  const dateOrRange = parseDateOrRange(value);
+  if (!dateOrRange) {
     return null;
   }
 
-  if (timestamp.type === "range") {
-    if (timestamp.start.year !== timestamp.end.year) {
-      return `${formatDate(timestamp.start, mode)}—${formatDate(timestamp.end, mode)}`;
+  if (dateOrRange.type === "range") {
+    const range = dateOrRange;
+
+    const start = dayjs(range.start);
+    const end = dayjs(range.end);
+
+    if (start.year !== end.year) {
+      return `${start.format(template)}—${end.format(template)}`;
     } else {
-      return formatDate(timestamp.start, mode);
+      return start.format(template);
     }
   } else {
-    return formatDate(timestamp.value, mode);
+    const date = dayjs(dateOrRange.value);
+    return date.format(template);
   }
 };

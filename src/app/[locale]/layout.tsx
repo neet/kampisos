@@ -1,5 +1,5 @@
-import "./globals.css";
 import "@radix-ui/themes/styles.css";
+import "./globals.css";
 
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Grid, Theme } from "@radix-ui/themes";
@@ -89,7 +89,7 @@ export default async function RootLayout(props: LayoutProps<"/[locale]">) {
 
   return (
     <html
-      lang="ja"
+      lang={locale}
       className={clsx(roboto.variable, robotoMono.variable, cookie.variable)}
       // https://github.com/pacocoursey/next-themes?tab=readme-ov-file#with-app
       suppressHydrationWarning
