@@ -13,10 +13,11 @@ import {
   VisuallyHidden,
 } from "@radix-ui/themes";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { createPages } from "@/utils/pages";
-import { useTranslations } from "next-intl";
+import { usePathname } from "@/i18n/navigation";
 
 export type PaginatorProps = {
   page: number;
