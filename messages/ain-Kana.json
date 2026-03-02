@@ -21,7 +21,7 @@
   "/app/[locale]/error": {
     "title": "予期せぬエラーが発生しました",
     "description": "予期せぬエラーが発生しました。お手数ですが，時間をおいて再度お試しください。",
-    "reload": "スイ　イヌカㇻ"
+    "reload": "スイ　インカㇻ"
   },
   "/app/[locale]/search/page": {
     "title": "“{query}”　アフナラ　ワ　アパ　ㇷ゚",
@@ -33,7 +33,7 @@
     "filter": "イエソイェ"
   },
   "/app/[locale]/search/SearchStats": {
-    "nb_hits": "{n}　チパㇷ゚　オカ",
+    "nb_hits": "チパㇷ゚　{n}　オカ",
     "processing_time_ms": "（{ms}　ミリ　ピヨ）"
   },
   "/app/[locale]/search/MobileFilterButton": {
@@ -42,7 +42,7 @@
   },
   "/app/[locale]/search/Result": {
     "no_result": "ネノ　アン　オルㇱペ　シネㇷ゚　カ　イサㇺ",
-    "no_result_hint": "シンナ　アフナラㇷ゚、　シンナ　イエソイネ　イレンカ　アヌㇺケ　ワ　スイ　イヌカㇻ　ヤン。"
+    "no_result_hint": "シンナ　アフナラㇷ゚、　シンナ　イエソイネ　イレンカ　アヌㇺケ　ワ　スイ　インカㇻ　ヤン。"
   },
   "/components/Banner/Banner": {
     "about": "タンペ　ヘマンタ　アン？"
@@ -58,7 +58,7 @@
   },
   "/components/DialectSelector/useDialects": {
     "karahuto": "ヤンケモシㇼ",
-    "east_coast": "",
+    "east_coast": "コイポッケ",
     "otasu": "オタスㇷ",
     "ushiro": "ウシロ",
     "raichishi": "ライチシカ",
@@ -81,7 +81,7 @@
     "samani": "サマニ"
   },
   "/components/DialectSelector/DialectSelectorCheckbox": {
-    "count": "<vh>（</vh>{count}<vh>　ペ　オカ）</vh>"
+    "count": "<vh>（</vh>{count}<vh>　オカ）</vh>"
   },
   "/components/DialectSelector/DialectSelectorItem": {
     "open": "“{label}”　マカ",
@@ -105,7 +105,7 @@
     "author": "イヌイェクㇽ",
     "dialect": "イポㇿセ",
     "recorded_at": "アイヌイェ　ト",
-    "published_at": "公開日",
+    "published_at": "アイヌカラㇻ　ト",
     "no_data": "デタ　イサㇺ"
   },
   "/components/Filter/Filter": {
@@ -121,7 +121,7 @@
     "collapse": "セㇱケ"
   },
   "/components/Filter/FilterOption": {
-    "count": "<vh>（</vh>{count}<vh>件）</vh>"
+    "count": "<vh>　（</vh>{count}<vh>　オカ）　</vh>"
   },
   "/components/Paginator/Paginator": {
     "title": "ウサ　オカ　ソㇱ",
