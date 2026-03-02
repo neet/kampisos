@@ -21,7 +21,7 @@
   "/app/[locale]/error": {
     "title": "予期せぬエラーが発生しました",
     "description": "予期せぬエラーが発生しました。お手数ですが，時間をおいて再度お試しください。",
-    "reload": "Suy inukar"
+    "reload": "Suy inkar"
   },
   "/app/[locale]/search/page": {
     "title": "“{query}” a=hunara wa a=pa p",
@@ -33,7 +33,7 @@
     "filter": "Iesoye"
   },
   "/app/[locale]/search/SearchStats": {
-    "nb_hits": "{n} cipap oka",
+    "nb_hits": "Cipap {n} oka",
     "processing_time_ms": "({ms} miri piyo)"
   },
   "/app/[locale]/search/MobileFilterButton": {
@@ -42,7 +42,7 @@
   },
   "/app/[locale]/search/Result": {
     "no_result": "Neno an oruspe sinep ka isam",
-    "no_result_hint": "Sinna ahunarap, sinna iesoyne irenka a=numke wa suy inukar yan."
+    "no_result_hint": "Sinna ahunarap, sinna iesoyne irenka a=numke wa suy inkar yan."
   },
   "/components/Banner/Banner": {
     "about": "Tanpe hemanta an?"
@@ -58,7 +58,7 @@
   },
   "/components/DialectSelector/useDialects": {
     "karahuto": "Yankemosir",
-    "east_coast": "",
+    "east_coast": "Koypokke",
     "otasu": "Otasuh",
     "ushiro": "Usiro",
     "raichishi": "Raycisika",
@@ -81,7 +81,7 @@
     "samani": "Samani"
   },
   "/components/DialectSelector/DialectSelectorCheckbox": {
-    "count": "<vh>(</vh>{count}<vh> pe oka)</vh>"
+    "count": "<vh>(</vh>{count}<vh> oka)</vh>"
   },
   "/components/DialectSelector/DialectSelectorItem": {
     "open": "“{label}” maka",
@@ -105,7 +105,7 @@
     "author": "Inuyekur",
     "dialect": "Iporse",
     "recorded_at": "A=inuye to",
-    "published_at": "公開日",
+    "published_at": "A=i=nukarar to",
     "no_data": "DETA isam"
   },
   "/components/Filter/Filter": {
@@ -121,7 +121,7 @@
     "collapse": "Seske"
   },
   "/components/Filter/FilterOption": {
-    "count": "<vh>（</vh>{count}<vh>件）</vh>"
+    "count": "<vh> (</vh>{count}<vh> oka) </vh>"
   },
   "/components/Paginator/Paginator": {
     "title": "Usa oka sos",
