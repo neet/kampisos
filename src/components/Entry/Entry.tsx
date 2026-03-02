@@ -63,7 +63,7 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
   const date = recordedAt ?? publishedAt;
   const reference = date
     ? t.rich("reference_with_year", {
-        year: formatDateOrRange(date, "year_only")!,
+        year: formatDateOrRange(date, "YYYY")!,
         reference: collectionLv1 ?? document,
         vh: (chunks) => <VisuallyHidden>{chunks}</VisuallyHidden>,
       })

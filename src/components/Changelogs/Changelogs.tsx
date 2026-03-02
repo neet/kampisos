@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 
 import * as t from "@/models/changelog";
 
-import { Changelog } from "./Changelog";
+import { ChangelogsItem } from "./ChangelogsItem";
 
 type ChangelogsProps = {
   className?: string;
@@ -25,7 +25,7 @@ export const Changelogs: FC<ChangelogsProps> = (props) => {
       <Box mt="2">
         {changelogs.map((changelog) => (
           <Box my="1" asChild key={changelog.content}>
-            <Changelog changelog={changelog} />
+            <ChangelogsItem changelog={changelog} />
           </Box>
         ))}
       </Box>

@@ -1,22 +1,23 @@
 import { Badge, Box, Flex, Text } from "@radix-ui/themes";
 import { FC } from "react";
-
-import * as t from "../../models/changelog";
-import { useRelativeTimeFormat } from "./useRelativeTimeFormat";
 import { useLocale } from "next-intl";
 
-export type ChangelogProps = {
+import dayjs from "@/lib/dayjs";
+
+import * as t from "../../models/changelog";
+
+export type ChangelogsItemProps = {
   className?: string;
   changelog: t.Changelog;
 };
 
-export const Changelog: FC<ChangelogProps> = (props) => {
+export const ChangelogsItem: FC<ChangelogsItemProps> = (props) => {
   const { changelog, className } = props;
 
-  const relativeDate = useRelativeTimeFormat(new Date(changelog.publishedAt));
   const locale = useLocale();
+  dayjs.locale(locale);
 
-  const getContent = () => {
+  const getContent = (changelog: t.Changelog) => {
     if (locale === "ain-Latn") {
       return changelog.contentAinLatn;
     }
@@ -28,17 +29,20 @@ export const Changelog: FC<ChangelogProps> = (props) => {
     return changelog.content;
   };
 
+  const content = getContent(changelog);
+  const publishedAt = dayjs(changelog.publishedAt);
+
   return (
     <Flex asChild gap="4" align="center" className={className}>
       <div>
         <Box flexGrow="1" flexShrink="1" flexBasis="100%">
           <Text mt="1" asChild>
-            <p>{getContent()}</p>
+            <p>{content}</p>
           </Text>
         </Box>
 
         <Badge>
-          <time dateTime={changelog.publishedAt}>{relativeDate}</time>
+          <time dateTime={changelog.publishedAt}>{publishedAt.fromNow()}</time>
         </Badge>
       </div>
     </Flex>

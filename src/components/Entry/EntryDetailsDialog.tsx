@@ -10,11 +10,13 @@ import {
   VisuallyHidden,
 } from "@radix-ui/themes";
 import { FC } from "react";
-import { Hierarchy } from "../Hierarchy/Hierarchy";
+import dayjs from "dayjs";
 
 import { formatDateOrRange } from "@/utils/timestamp";
 import { toHref } from "@/utils/uri";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+
+import { Hierarchy } from "../Hierarchy/Hierarchy";
 
 const NoData = () => {
   const t = useTranslations("/components/Entry/EntryDetailsDialog");
@@ -51,8 +53,11 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
     publishedAt,
   } = props;
 
+  const locale = useLocale();
   const t = useTranslations("/components/Entry/EntryDetailsDialog");
   const href = uri ? toHref(uri) : null;
+
+  dayjs.locale(locale);
 
   return (
     <Dialog.Root>
@@ -108,18 +113,14 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
           <DataList.Item>
             <DataList.Label>{t("recorded_at")}</DataList.Label>
             <DataList.Value>
-              {recordedAt ? formatDateOrRange(recordedAt, "full") : <NoData />}
+              {recordedAt ? formatDateOrRange(recordedAt, "LL") : <NoData />}
             </DataList.Value>
           </DataList.Item>
 
           <DataList.Item>
             <DataList.Label>{t("published_at")}</DataList.Label>
             <DataList.Value>
-              {publishedAt ? (
-                formatDateOrRange(publishedAt, "full")
-              ) : (
-                <NoData />
-              )}
+              {publishedAt ? formatDateOrRange(publishedAt, "LL") : <NoData />}
             </DataList.Value>
           </DataList.Item>
 
