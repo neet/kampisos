@@ -1,7 +1,14 @@
 "use client";
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import { Spinner, TextField, VisuallyHidden } from "@radix-ui/themes";
-import { useTranslations } from "next-intl";
+import { getPathname } from "@/i18n/navigation";
+import { DotsHorizontalIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import {
+  IconButton,
+  Spinner,
+  TextField,
+  Tooltip,
+  VisuallyHidden,
+} from "@radix-ui/themes";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { FC, useTransition } from "react";
 
@@ -12,10 +19,12 @@ export type SearchProps = {
 export const Search: FC<SearchProps> = (props) => {
   const { defaultValue } = props;
 
+  const locale = useLocale();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const t = useTranslations("/components/Search/Search");
 
+  // TODO: Server Action -> redirect() にしたい
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     startTransition(() => {
       event.preventDefault();
@@ -38,7 +47,12 @@ export const Search: FC<SearchProps> = (props) => {
   };
 
   return (
-    <form id="search" method="GET" action="/search" onSubmit={handleSubmit}>
+    <form
+      id="search"
+      method="GET"
+      action={getPathname({ href: "/search", locale })}
+      onSubmit={handleSubmit}
+    >
       <VisuallyHidden asChild>
         <label htmlFor="search-input">{t("label")}</label>
       </VisuallyHidden>
@@ -64,6 +78,14 @@ export const Search: FC<SearchProps> = (props) => {
             <Spinner aria-hidden="true" />
           </TextField.Slot>
         )}
+
+        <TextField.Slot>
+          <Tooltip content={t("filter")}>
+            <IconButton variant="ghost" color="gray" type="button">
+              <DotsHorizontalIcon />
+            </IconButton>
+          </Tooltip>
+        </TextField.Slot>
       </TextField.Root>
     </form>
   );
