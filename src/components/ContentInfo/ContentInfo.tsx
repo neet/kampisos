@@ -37,7 +37,7 @@ export const ContentInfo: FC = async () => {
                 </Link>
               </li>
 
-              <Separator orientation="vertical" aria-hidden="true" />
+              <Separator orientation="vertical" decorative />
 
               <li>
                 <Link size="2" asChild>
@@ -51,7 +51,7 @@ export const ContentInfo: FC = async () => {
                 </Link>
               </li>
 
-              <Separator orientation="vertical" aria-hidden="true" />
+              <Separator orientation="vertical" decorative />
 
               <li>
                 <Link size="2" asChild>

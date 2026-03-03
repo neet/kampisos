@@ -74,7 +74,7 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
       <Tooltip content={t("title")}>
         <Dialog.Trigger>
           <IconButton variant="ghost" color="gray">
-            <DotsHorizontalIcon aria-hidden />
+            <DotsHorizontalIcon aria-label={t("title")} />
           </IconButton>
         </Dialog.Trigger>
       </Tooltip>
