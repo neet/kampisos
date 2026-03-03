@@ -1,5 +1,5 @@
-import { Box, Card, Heading } from "@radix-ui/themes";
-import { FC } from "react";
+import { Card, Flex, Heading, Separator } from "@radix-ui/themes";
+import { FC, Fragment } from "react";
 import { useTranslations } from "next-intl";
 
 import * as t from "@/models/changelog";
@@ -18,17 +18,22 @@ export const Changelogs: FC<ChangelogsProps> = (props) => {
 
   return (
     <Card className={className} size="2">
-      <Heading as="h2" size="3" weight="bold">
+      <Heading as="h2" size="4" weight="bold">
         {t("title")}
       </Heading>
 
-      <Box mt="2">
-        {changelogs.map((changelog) => (
-          <Box my="1" asChild key={changelog.content}>
-            <ChangelogsItem changelog={changelog} />
-          </Box>
+      <Flex direction="column" gap="3" mt="4">
+        {changelogs.map((changelog, i) => (
+          <Fragment key={changelog.content}>
+            <ChangelogsItem
+              changelog={changelog}
+              textProps={i === 0 ? { size: "5" } : undefined}
+            />
+
+            {i !== changelogs.length - 1 && <Separator size="4" decorative />}
+          </Fragment>
         ))}
-      </Box>
+      </Flex>
     </Card>
   );
 };

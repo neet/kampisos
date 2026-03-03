@@ -50,6 +50,11 @@
   "/components/Changelogs/Changelogs": {
     "title": "最近の更新"
   },
+  "/components/Changelogs/ChangelogsItem": {
+    "content": "資料の追加",
+    "feature": "機能の追加",
+    "chore": "その他"
+  },
   "/components/DialectSelector/DialectSelector": {
     "legend": "方言"
   },

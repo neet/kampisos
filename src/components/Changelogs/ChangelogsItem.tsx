@@ -1,50 +1,78 @@
-import { Badge, Box, Flex, Text } from "@radix-ui/themes";
+import { Badge, Flex, Text, TextProps } from "@radix-ui/themes";
 import { FC } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import dayjs from "@/lib/dayjs";
 
 import * as t from "../../models/changelog";
 
-export type ChangelogsItemProps = {
-  className?: string;
+type ChangelogsItemCategoryProps = {
+  category: t.Changelog.Category;
+};
+
+const ChangelogsItemCategory = (props: ChangelogsItemCategoryProps) => {
+  const t = useTranslations("/components/Changelogs/ChangelogsItem");
+
+  const { category } = props;
+  switch (category) {
+    case "content":
+      return <Badge color="teal">{t("content")}</Badge>;
+    case "feature":
+      return <Badge color="tomato">{t("feature")}</Badge>;
+    case "chore":
+    default:
+      return <Badge color="gray">{t("chore")}</Badge>;
+  }
+};
+
+type ChangelogsItemContentProps = {
   changelog: t.Changelog;
 };
 
+const ChangelogsItemContent = (props: ChangelogsItemContentProps) => {
+  const { changelog } = props;
+
+  const locale = useLocale();
+  if (locale === "ain-Latn") {
+    return changelog.contentAinLatn;
+  }
+
+  if (locale === "ain-Kana") {
+    return changelog.contentAinKana;
+  }
+
+  return changelog.content;
+};
+
+//------
+
+export type ChangelogsItemProps = {
+  className?: string;
+  changelog: t.Changelog;
+  textProps?: TextProps;
+};
+
 export const ChangelogsItem: FC<ChangelogsItemProps> = (props) => {
-  const { changelog, className } = props;
+  const { changelog, className, textProps = {} } = props;
 
   const locale = useLocale();
   dayjs.locale(locale);
 
-  const getContent = (changelog: t.Changelog) => {
-    if (locale === "ain-Latn") {
-      return changelog.contentAinLatn;
-    }
-
-    if (locale === "ain-Kana") {
-      return changelog.contentAinKana;
-    }
-
-    return changelog.content;
-  };
-
-  const content = getContent(changelog);
   const publishedAt = dayjs(changelog.publishedAt);
 
   return (
-    <Flex asChild gap="4" align="center" className={className}>
-      <div>
-        <Box flexGrow="1" flexShrink="1" flexBasis="100%">
-          <Text mt="1" asChild>
-            <p>{content}</p>
-          </Text>
-        </Box>
+    <Flex direction="column" gap="2" className={className}>
+      <Flex gap="3" align="center">
+        <ChangelogsItemCategory category={changelog.categories[0]} />
 
-        <Badge>
+        <Text color="gray" size="2">
           <time dateTime={changelog.publishedAt}>{publishedAt.fromNow()}</time>
-        </Badge>
-      </div>
+        </Text>
+      </Flex>
+
+      <Text as="p" {...textProps}>
+        <ChangelogsItemContent changelog={changelog} />
+      </Text>
     </Flex>
   );
 };
