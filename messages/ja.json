@@ -106,7 +106,10 @@
     "dialect": "方言",
     "recorded_at": "記録日",
     "published_at": "公開日",
-    "no_data": "データがありません"
+    "no_data": "データがありません",
+    "close": "閉じる",
+    "copy_id": "IDをコピーする",
+    "copied": "「{content}」をコピーしました。"
   },
   "/components/Filter/Filter": {
     "collection": "出典",

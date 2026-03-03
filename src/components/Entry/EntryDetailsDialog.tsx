@@ -1,15 +1,20 @@
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+"use client";
+
+import { CopyIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import {
   Badge,
+  Button,
   Code,
   DataList,
   Dialog,
+  Flex,
   IconButton,
   Link,
   Text,
+  Tooltip,
   VisuallyHidden,
 } from "@radix-ui/themes";
-import { FC } from "react";
+import { FC, useCallback } from "react";
 import dayjs from "dayjs";
 
 import { formatDateOrRange } from "@/utils/timestamp";
@@ -59,24 +64,42 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
 
   dayjs.locale(locale);
 
+  const handleCopy = useCallback(() => {
+    navigator.clipboard.writeText(objectID);
+    window.alert(t("copied", { content: objectID }));
+  }, [objectID, t]);
+
   return (
     <Dialog.Root>
-      <Dialog.Trigger>
-        <IconButton variant="ghost" color="gray">
-          <DotsHorizontalIcon />
-          <VisuallyHidden>{t("title")}</VisuallyHidden>
-        </IconButton>
-      </Dialog.Trigger>
+      <Tooltip content={t("title")}>
+        <Dialog.Trigger>
+          <IconButton variant="ghost" color="gray">
+            <DotsHorizontalIcon aria-hidden />
+          </IconButton>
+        </Dialog.Trigger>
+      </Tooltip>
 
-      <Dialog.Content>
+      <Dialog.Content className="entry-details-dialog">
+        <div tabIndex={0} />
+
         <Dialog.Title>{t("title")}</Dialog.Title>
-        <Dialog.Description>{t("description")}</Dialog.Description>
+        <Dialog.Description size="2" mb="4">
+          {t("description")}
+        </Dialog.Description>
 
-        <DataList.Root mt="4">
+        <DataList.Root mb="4">
           <DataList.Item>
             <DataList.Label>ID</DataList.Label>
             <DataList.Value>
-              <Code>{objectID}</Code>
+              <Flex gap="2">
+                <Code variant="ghost">{objectID}</Code>
+
+                <Tooltip content={t("copy_id")}>
+                  <IconButton variant="ghost" color="gray" onClick={handleCopy}>
+                    <CopyIcon />
+                  </IconButton>
+                </Tooltip>
+              </Flex>
             </DataList.Value>
           </DataList.Item>
 
@@ -135,6 +158,14 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
             </DataList.Value>
           </DataList.Item>
         </DataList.Root>
+
+        <Flex justify="end">
+          <Dialog.Close>
+            <Button color="gray" variant="soft">
+              {t("close")}
+            </Button>
+          </Dialog.Close>
+        </Flex>
       </Dialog.Content>
     </Dialog.Root>
   );
