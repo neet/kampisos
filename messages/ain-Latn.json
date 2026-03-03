@@ -1,22 +1,19 @@
 {
   "/app/[locale]/layout": {
     "title": "Kampisos - Aynu itak uomare p",
-    "opengraph_title": "Kampisos - Aynu itak uomare p",
-    "opengraph_description": "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます"
+    "description": "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます"
   },
   "/app/[locale]/page": {
-    "title": "Kampisos - Aynu itak uomare p",
-    "description": "Kampisos - Aynu itak uomare p",
     "heading": "Aynu Itak or peka Huymampa=an Ro",
     "subtitle": "Oro ta 150,000 akkari itak oka <wbr></wbr>Sisam itak Aynu itak uomare  p"
   },
   "/app/[locale]/about/page": {
     "title": "Tanpe hemanta an?",
-    "description": "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます"
+    "description": "Aynu itak Sisam itak a=nuye wa usa oka kampisos or wa ne itak a=hunara ruwe ne."
   },
   "/app/[locale]/privacy/ios/page": {
-    "title": "プライバシーポリシー（iOSアプリ)",
-    "description": "Kampisos（iOSアプリ）のプライバシーポリシー"
+    "title": "A=esinap irenka (iOS apuri)",
+    "description": "Kampisos (iOS apuri) un a=esinap irenka"
   },
   "/app/[locale]/error": {
     "title": "A=ekampakko pakoat an",
@@ -28,12 +25,12 @@
     "title_with_page_num": "“{query}” a=hunara wa a=pa p (Sos {page})",
     "title_with_kana": "“{query}” ({kana}) a=hunara wa a=pa p",
     "title_with_kana_and_page_num": "“{query}” ({kana}) a=hunara wa a=pa p (Sos {page})",
-    "description": "「${query}」に関連するアイヌ語の資料の検索結果です。意味や使い方などを、実際の例文から探してみましょう。",
-    "subtitle": "アイヌ語・日本語コーパスからクエリ文字列を含む資料を表示しています",
+    "description": "「{query}」に関連するアイヌ語の資料の検索結果です。意味や使い方などを、実際の例文から探してみましょう。",
+    "subtitle": "Aynu itak Sisam itak uomare p or wa hunaraytak kor oruspe patek a=i=nukarare wa an=an",
     "filter": "Iesoye"
   },
   "/app/[locale]/search/SearchStats": {
-    "nb_hits": "{n} cipap oka",
+    "nb_hits": "{n} oruspe oka",
     "processing_time_ms": "({ms} miri piyo)"
   },
   "/app/[locale]/search/MobileFilterButton": {
@@ -48,10 +45,15 @@
     "about": "Tanpe hemanta an?"
   },
   "/components/ContentInfo/ContentInfo": {
-    "title": "Tan SAYTO kar kur oruspe"
+    "title": "Tan sayto kar kur oruspe"
   },
   "/components/Changelogs/Changelogs": {
     "title": "Tap uhunak an pe"
+  },
+  "/components/Changelogs/ChangelogsItem": {
+    "content": "資料の追加",
+    "feature": "機能の追加",
+    "chore": "その他"
   },
   "/components/DialectSelector/DialectSelector": {
     "legend": "Iporse"
@@ -90,7 +92,7 @@
   "/components/Entry/Entry": {
     "reference": "<vh>Motoho: </vh>{reference}",
     "reference_with_year": "<vh>Motoho: </vh>{reference} ({year})",
-    "open_in_new_tab": "Asir TABU or ta maka"
+    "open_in_new_tab": "Asir tabu or ta maka"
   },
   "/components/Entry/EntryAuthor": {
     "author": "<vh>Inuyekur: </vh>{author}",
@@ -106,7 +108,7 @@
     "dialect": "Iporse",
     "recorded_at": "A=inuye to",
     "published_at": "A=i=nukarar to",
-    "no_data": "DETA isam",
+    "no_data": "deta isam",
     "close": "Seske",
     "copy_id": "ID koykar",
     "copied": "“{content}” a=koykar ruwe ne."
@@ -134,6 +136,6 @@
     "nth_last": "{n} <vh>sos (Iotta iosno an sos)</vh>"
   },
   "/components/Search/Search": {
-    "label": "hunaraytak"
+    "label": "Hunaraytak"
   }
 }
