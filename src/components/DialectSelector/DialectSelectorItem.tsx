@@ -104,13 +104,8 @@ const DialectSelectorItemRoot: FC<DialectSelectorItemProps> = (props) => {
         </Box>
       </Flex>
 
-      <CollapsibleContent forceMount>
-        <Box
-          pl="4"
-          style={{
-            display: open ? "block" : "none",
-          }}
-        >
+      <CollapsibleContent>
+        <Flex direction="column" gap="1" mt="1" pl="4">
           <DialectSelectorProvider
             value={{
               ancestorChecked: checked || dialectSelector.ancestorChecked,
@@ -119,7 +114,7 @@ const DialectSelectorItemRoot: FC<DialectSelectorItemProps> = (props) => {
           >
             {children}
           </DialectSelectorProvider>
-        </Box>
+        </Flex>
       </CollapsibleContent>
     </Collapsible>
   );

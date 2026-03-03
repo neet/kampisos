@@ -44,7 +44,9 @@ export const DialectSelectorCheckbox: FC<DialectSelectorCheckboxProps> = (
           align="center"
           minWidth="0"
         >
-          <Text truncate>{label}</Text>
+          <Text size="2" truncate>
+            {label}
+          </Text>
 
           {count && (
             <Badge variant="soft" color="gray">

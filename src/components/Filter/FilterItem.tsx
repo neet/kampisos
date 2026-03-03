@@ -1,16 +1,21 @@
 "use client";
 import "./style.css";
 
-import * as Collapsible from "@radix-ui/react-collapsible";
-import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
-import { Box, Button, Flex, Heading, Skeleton, Text } from "@radix-ui/themes";
-import { FC, ReactNode, useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
+import {
+  Badge,
+  Box,
+  CheckboxGroup,
+  Flex,
+  Heading,
+  ScrollArea,
+  Skeleton,
+  Text,
+} from "@radix-ui/themes";
+import { FC, ReactNode, useMemo } from "react";
 
 import { FilterOption } from "./FilterOption";
 import { Option } from "./model";
-
-const MAX_OPTIONS = 5;
+// import { useTranslations } from "next-intl";
 
 export type FilterItemRootProps = {
   label: ReactNode;
@@ -23,8 +28,7 @@ export type FilterItemRootProps = {
 export const FilterItemRoot: FC<FilterItemRootProps> = (props) => {
   const { label, defaultValues = [], name, form } = props;
 
-  const t = useTranslations("/components/Filter/FilterItem");
-  const [open, setOpen] = useState(false);
+  // const t = useTranslations("/components/Filter/FilterItem");
 
   const options = useMemo(() => {
     return props.options.sort((a, b) => {
@@ -41,10 +45,6 @@ export const FilterItemRoot: FC<FilterItemRootProps> = (props) => {
     });
   }, [props.options, defaultValues]);
 
-  const firstOptions = options.slice(0, MAX_OPTIONS);
-  const restOptions = options.slice(MAX_OPTIONS);
-  const hasMore = props.options.length > MAX_OPTIONS;
-
   return (
     <Box asChild>
       <fieldset>
@@ -52,55 +52,21 @@ export const FilterItemRoot: FC<FilterItemRootProps> = (props) => {
           <legend>{label}</legend>
         </Heading>
 
-        <Collapsible.Root open={open} onOpenChange={() => setOpen(!open)}>
-          <Flex direction="column" gap="1">
-            <Flex direction="column" gap="1">
-              {firstOptions.map((option) => (
-                <FilterOption.Root
-                  key={option.value}
-                  name={name}
-                  form={form}
-                  option={option}
-                  defaultChecked={defaultValues.includes(option.value)}
-                />
-              ))}
-            </Flex>
+        <ScrollArea scrollbars="vertical" style={{ height: "300px" }}>
+          <CheckboxGroup.Root name={name} defaultValue={defaultValues}>
+            {options.map((option) => (
+              <Flex key={option.value} justify="between" gap="1">
+                <Box flexGrow="1" flexShrink="1">
+                  <CheckboxGroup.Item value={option.value} form={form}>
+                    <Text>{option.label ?? option.value}</Text>
+                  </CheckboxGroup.Item>
+                </Box>
 
-            <Collapsible.Content>
-              <Flex direction="column" gap="1">
-                {restOptions.map((option) => (
-                  <FilterOption.Root
-                    key={option.value}
-                    name={name}
-                    form={form}
-                    option={option}
-                    defaultChecked={defaultValues.includes(option.value)}
-                  />
-                ))}
+                <Badge color="gray">{option.count}</Badge>
               </Flex>
-            </Collapsible.Content>
-          </Flex>
-
-          {hasMore && (
-            <Collapsible.Trigger asChild>
-              <Flex asChild justify="between" width="100%" mt="2">
-                <Button variant="ghost" color="gray">
-                  {open ? (
-                    <>
-                      <Text>{t("collapse")}</Text>
-                      <ChevronUpIcon aria-hidden="true" />
-                    </>
-                  ) : (
-                    <>
-                      <Text>{t("expand")}</Text>
-                      <ChevronDownIcon aria-hidden="true" />
-                    </>
-                  )}
-                </Button>
-              </Flex>
-            </Collapsible.Trigger>
-          )}
-        </Collapsible.Root>
+            ))}
+          </CheckboxGroup.Root>
+        </ScrollArea>
       </fieldset>
     </Box>
   );

@@ -10,3 +10,8 @@ fieldset {
   padding: 0;
   min-inline-size: 0;
 }
+
+/* https://github.com/radix-ui/primitives/issues/2722 */
+[data-radix-scroll-area-viewport] > div {
+  width: 100%;
+}

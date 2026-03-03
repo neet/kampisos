@@ -120,10 +120,6 @@
     "apply": "適用"
   },
   "/components/Filter/FilterItem": {
-    "expand": "さらに表示",
-    "collapse": "閉じる"
-  },
-  "/components/Filter/FilterOption": {
     "count": "<vh>（</vh>{count}<vh>件）</vh>"
   },
   "/components/Paginator/Paginator": {

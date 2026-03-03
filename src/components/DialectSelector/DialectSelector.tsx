@@ -34,7 +34,7 @@ export const DialectSelectorRoot: FC<DialectSelectorProps> = (props) => {
           <legend>{t("legend")}</legend>
         </Heading>
 
-        <Flex direction="column">
+        <Flex direction="column" gap="1">
           {dialects.map((dialect) => (
             <DialectSelectorItem.Root
               key={dialect.value}
