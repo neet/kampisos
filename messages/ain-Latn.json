@@ -19,8 +19,8 @@
     "description": "Kampisos（iOSアプリ）のプライバシーポリシー"
   },
   "/app/[locale]/error": {
-    "title": "予期せぬエラーが発生しました",
-    "description": "予期せぬエラーが発生しました。お手数ですが，時間をおいて再度お試しください。",
+    "title": "A=ekampakko pakoat an",
+    "description": "A=ekampakko pakoat an. Oattapne, iruka i=tere wa kanna suy kar wa inkar yan.",
     "reload": "Suy inkar"
   },
   "/app/[locale]/search/page": {
@@ -33,7 +33,7 @@
     "filter": "Iesoye"
   },
   "/app/[locale]/search/SearchStats": {
-    "nb_hits": "Cipap {n} oka",
+    "nb_hits": "{n} cipap oka",
     "processing_time_ms": "({ms} miri piyo)"
   },
   "/app/[locale]/search/MobileFilterButton": {
@@ -107,9 +107,9 @@
     "recorded_at": "A=inuye to",
     "published_at": "A=i=nukarar to",
     "no_data": "DETA isam",
-    "close": "閉じる",
-    "copy_id": "IDをコピーする",
-    "copied": "「{content}」をコピーしました。"
+    "close": "Seske",
+    "copy_id": "ID koykar",
+    "copied": "“{content}” a=koykar ruwe ne."
   },
   "/components/Filter/Filter": {
     "collection": "Motoho",
@@ -134,6 +134,6 @@
     "nth_last": "{n} <vh>sos (Iotta iosno an sos)</vh>"
   },
   "/components/Search/Search": {
-    "label": "Ahunarap"
+    "label": "hunaraytak"
   }
 }
