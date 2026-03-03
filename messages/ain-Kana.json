@@ -1,26 +1,23 @@
 {
   "/app/[locale]/layout": {
     "title": "カンピソㇱ　　アイヌ　イタㇰ　ウオマレ　ㇷ゚",
-    "opengraph_title": "カンピソㇱ　　アイヌ　イタㇰ　ウオマレ　ㇷ゚",
-    "opengraph_description": "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます"
+    "description": "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます"
   },
   "/app/[locale]/page": {
-    "title": "カンピソㇱ　　アイヌ　イタㇰ　ウオマレ　ㇷ゚",
-    "description": "カンピソㇱ　　アイヌ　イタㇰ　ウオマレ　ㇷ゚",
     "heading": "アイヌ　イタㇰ　オㇿ　ペカ　フイマンパアン　ロ",
     "subtitle": "オロ　タ　150、000　アッカリ　イタㇰ　オカ　<wbr></wbr>シサㇺ　イタㇰ　アイヌ　イタㇰ　ウオマレ　　ㇷ゚"
   },
   "/app/[locale]/about/page": {
     "title": "タンペ　ヘマンタ　アン？",
-    "description": "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます"
+    "description": "アイヌ　イタㇰ　シサㇺ　イタㇰ　アヌイェ　ワ　ウサ　オカ　カンピソㇱ　オㇿ　ワ　ネ　イタㇰ　アフナラ　ルウェ　ネ。"
   },
   "/app/[locale]/privacy/ios/page": {
-    "title": "プライバシーポリシー（イオㇱアプリ）",
-    "description": "カンピソㇱ（イオㇱアプリ）のプライバシーポリシー"
+    "title": "アエシナㇷ゚　イレンカ　（イオㇱ　アプリ）",
+    "description": "カンピソㇱ　（イオㇱ　アプリ）　ウン　アエシナㇷ゚　イレンカ"
   },
   "/app/[locale]/error": {
-    "title": "予期せぬエラーが発生しました",
-    "description": "予期せぬエラーが発生しました。お手数ですが，時間をおいて再度お試しください。",
+    "title": "アエカンパッコ　パコアッ　アン",
+    "description": "アエカンパッコ　パコアッ　アン。　オアッタㇷ゚ネ、　イルカ　イテレ　ワ　カンナ　スイ　カㇻ　ワ　インカㇻ　ヤン。",
     "reload": "スイ　インカㇻ"
   },
   "/app/[locale]/search/page": {
@@ -28,12 +25,12 @@
     "title_with_page_num": "“{query}”　アフナラ　ワ　アパ　ㇷ゚　（ソㇱ　{page}）",
     "title_with_kana": "“{query}”　（{kana}）　アフナラ　ワ　アパ　ㇷ゚",
     "title_with_kana_and_page_num": "“{query}”　（{kana}）　アフナラ　ワ　アパ　ㇷ゚　（ソㇱ　{page}）",
-    "description": "「${query}」に関連するアイヌ語の資料の検索結果です。意味や使い方などを、実際の例文から探してみましょう。",
-    "subtitle": "アイヌ語・日本語コーパスからクエリ文字列を含む資料を表示しています",
+    "description": "“{query}”　アニ　アパ　アイヌ　イタㇰ　オルㇱペ　エネ　アン　ヒ。　イペヘ　ネ　ヤ、　マㇰ　アエイワンケ　ㇷ゚　ネ　ヤ、　シノ　アン　オルㇱペ　アニ　アフナラ　ロ。",
+    "subtitle": "アイヌ　イタㇰ　シサㇺ　イタㇰ　ウオマレ　ㇷ゚　オㇿ　ワ　フナライタㇰ　コㇿ　オルㇱペ　パテㇰ　アイヌカラレ　ワ　アナン",
     "filter": "イエソイェ"
   },
   "/app/[locale]/search/SearchStats": {
-    "nb_hits": "チパㇷ゚　{n}　オカ",
+    "nb_hits": "{n}　オルㇱペ　オカ",
     "processing_time_ms": "（{ms}　ミリ　ピヨ）"
   },
   "/app/[locale]/search/MobileFilterButton": {
@@ -52,6 +49,11 @@
   },
   "/components/Changelogs/Changelogs": {
     "title": "タㇷ゚　ウフナㇰ　アン　ペ"
+  },
+  "/components/Changelogs/ChangelogsItem": {
+    "content": "アシㇼ　カンピ",
+    "feature": "アシㇼ　ヤク",
+    "chore": "モㇱマ　アン　ペ"
   },
   "/components/DialectSelector/DialectSelector": {
     "legend": "イポㇿセ"
@@ -106,7 +108,10 @@
     "dialect": "イポㇿセ",
     "recorded_at": "アイヌイェ　ト",
     "published_at": "アイヌカラㇻ　ト",
-    "no_data": "デタ　イサㇺ"
+    "no_data": "デタ　イサㇺ",
+    "close": "セㇱケ",
+    "copy_id": "イd　コイカㇻ",
+    "copied": "“{content}”　アコイカㇻ　ルウェ　ネ。"
   },
   "/components/Filter/Filter": {
     "collection": "モトホ",
@@ -131,6 +136,6 @@
     "nth_last": "{n}　<vh>ソㇱ　（イオッタ　イオㇱノ　アン　ソㇱ）</vh>"
   },
   "/components/Search/Search": {
-    "label": "アフナラㇷ゚"
+    "label": "フナライタㇰ"
   }
 }
