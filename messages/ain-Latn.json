@@ -106,7 +106,10 @@
     "dialect": "Iporse",
     "recorded_at": "A=inuye to",
     "published_at": "A=i=nukarar to",
-    "no_data": "DETA isam"
+    "no_data": "DETA isam",
+    "close": "閉じる",
+    "copy_id": "IDをコピーする",
+    "copied": "「{content}」をコピーしました。"
   },
   "/components/Filter/Filter": {
     "collection": "Motoho",
