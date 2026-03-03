@@ -53,13 +53,14 @@ export async function generateMetadata({
       default: t("title"),
       template: `%s | ${t("title")}`,
     },
+    description: t("description"),
     robots: {
       index: true,
       follow: false,
     },
     openGraph: {
-      title: t("opengraph_title"),
-      description: t("opengraph_description"),
+      title: t("title"),
+      description: t("description"),
       images: "/cover.png",
     },
     icons: [

@@ -10,11 +10,7 @@ import { Changelog } from "@/models/changelog";
 export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("/app/[locale]/page");
-
   return {
-    title: t("title"),
-    description: t("description"),
     alternates: {
       canonical: "/",
     },
