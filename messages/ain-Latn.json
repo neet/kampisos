@@ -51,8 +51,8 @@
     "title": "Tap uhunak an pe"
   },
   "/components/Changelogs/ChangelogsItem": {
-    "content": "Asir kampi",
-    "feature": "Asir yaku",
+    "content": "Asir kampisos",
+    "feature": "Asir a=easkay pe",
     "chore": "Mosma an pe"
   },
   "/components/DialectSelector/DialectSelector": {
