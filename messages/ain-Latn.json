@@ -25,7 +25,7 @@
     "title_with_page_num": "“{query}” a=hunara wa a=pa p (Sos {page})",
     "title_with_kana": "“{query}” ({kana}) a=hunara wa a=pa p",
     "title_with_kana_and_page_num": "“{query}” ({kana}) a=hunara wa a=pa p (Sos {page})",
-    "description": "「{query}」に関連するアイヌ語の資料の検索結果です。意味や使い方などを、実際の例文から探してみましょう。",
+    "description": "“{query}” ani a=pa Aynu itak oruspe ene an hi. Ipehe ne ya, mak a=eywanke p ne ya, sino an oruspe ani a=hunara ro.",
     "subtitle": "Aynu itak Sisam itak uomare p or wa hunaraytak kor oruspe patek a=i=nukarare wa an=an",
     "filter": "Iesoye"
   },
@@ -51,9 +51,9 @@
     "title": "Tap uhunak an pe"
   },
   "/components/Changelogs/ChangelogsItem": {
-    "content": "資料の追加",
-    "feature": "機能の追加",
-    "chore": "その他"
+    "content": "Asir kampi",
+    "feature": "Asir yaku",
+    "chore": "Mosma an pe"
   },
   "/components/DialectSelector/DialectSelector": {
     "legend": "Iporse"
