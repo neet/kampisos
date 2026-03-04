@@ -5,7 +5,7 @@
   },
   "/app/[locale]/page": {
     "heading": "アイヌ語の世界を<wbr></wbr>探訪しよう",
-    "subtitle": "約15万語を収録した<wbr></wbr>日本語・アイヌ語対訳コーパス"
+    "subtitle": "約170万語を収録した<wbr></wbr>日本語・アイヌ語対訳コーパス"
   },
   "/app/[locale]/about/page": {
     "title": "このサイトについて",
