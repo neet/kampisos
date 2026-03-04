@@ -30,7 +30,6 @@ export type EntryRootProps = {
   collectionLv3: string | null;
   uri: string | null;
   author: string | null;
-  dialect: string | null;
   dialectLv1: string[] | null;
   dialectLv2: string[] | null;
   dialectLv3: string[] | null;
@@ -49,7 +48,6 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
     document,
     uri,
     author,
-    dialect,
     dialectLv1,
     dialectLv2,
     dialectLv3,
@@ -119,9 +117,14 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
         )}
 
         <Flex gap="1" flexGrow="1" flexShrink="0" justify="end" align="center">
-          {(author || dialect) && (
+          {(author || dialectLv1 || dialectLv2 || dialectLv3) && (
             <Box flexGrow="1" flexShrink="0" asChild>
-              <EntryAuthor author={author} dialect={dialect} />
+              <EntryAuthor
+                author={author}
+                dialectLv1={dialectLv1}
+                dialectLv2={dialectLv2}
+                dialectLv3={dialectLv3}
+              />
             </Box>
           )}
 
@@ -132,7 +135,6 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
             collectionLv3={collectionLv3}
             document={document}
             author={author}
-            dialect={dialect}
             dialectLv1={dialectLv1}
             dialectLv2={dialectLv2}
             dialectLv3={dialectLv3}

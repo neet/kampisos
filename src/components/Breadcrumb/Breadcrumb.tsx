@@ -2,21 +2,21 @@ import { FC, ReactNode, useMemo } from "react";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
 import { Flex } from "@radix-ui/themes";
 
-export type HierarchyProps = {
-  children: string | null;
+export type BreadcrumbProps = {
+  values: ReactNode[];
 };
 
-export const Hierarchy: FC<HierarchyProps> = (props) => {
-  const { children } = props;
+export const Breadcrumb: FC<BreadcrumbProps> = (props) => {
+  const { values } = props;
 
   const nodes = useMemo(() => {
     const nodes: ReactNode[] = [];
 
-    if (!children) {
+    if (!values) {
       return null;
     }
 
-    for (const [key, fragment] of Object.entries(children.split("/"))) {
+    for (const [key, fragment] of Object.entries(values)) {
       if (nodes.length !== 0) {
         nodes.push(<ChevronRightIcon color="gray" key={key} aria-label="→" />);
       }
@@ -25,7 +25,7 @@ export const Hierarchy: FC<HierarchyProps> = (props) => {
     }
 
     return nodes;
-  }, [children]);
+  }, [values]);
 
   if (!nodes) {
     return null;

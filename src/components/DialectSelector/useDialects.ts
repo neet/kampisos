@@ -1,4 +1,4 @@
-import { useTranslations } from "next-intl";
+import { useDialectFormatter } from "@/hooks/useDialectFormatter";
 
 export type Dialect = {
   label: string;
@@ -7,52 +7,61 @@ export type Dialect = {
 };
 
 export const useDialects = (): Dialect[] => {
-  const t = useTranslations("/components/DialectSelector/useDialects");
+  const format = useDialectFormatter();
 
   const dialects: Dialect[] = [
     {
-      label: t("karahuto"),
+      label: format("樺太"),
       value: "樺太",
       children: [
         {
-          label: t("east_coast"),
+          label: format("樺太/西海岸"),
           value: "樺太/西海岸",
           children: [
-            { label: t("otasu"), value: "樺太/西海岸/小田洲" },
-            { label: t("ushiro"), value: "樺太/西海岸/鵜城" },
-            { label: t("raichishi"), value: "樺太/西海岸/来知志" },
+            {
+              label: format("樺太/西海岸/小田洲"),
+              value: "樺太/西海岸/小田洲",
+            },
+            {
+              label: format("樺太/西海岸/鵜城"),
+              value: "樺太/西海岸/鵜城",
+            },
+            {
+              label: format("樺太/西海岸/来知志"),
+              value: "樺太/西海岸/来知志",
+            },
           ],
         },
       ],
     },
     {
-      label: t("hokkaido"),
+      label: format("北海道"),
       value: "北海道",
       children: [
         {
-          label: t("southwest"),
+          label: format("北海道/南西"),
           value: "北海道/南西",
           children: [
-            { label: t("saru"), value: "北海道/南西/沙流" },
-            { label: t("chitose"), value: "北海道/南西/千歳" },
-            { label: t("mukawa"), value: "北海道/南西/鵡川" },
-            { label: t("horobetsu"), value: "北海道/南西/幌別" },
-            { label: t("abuta"), value: "北海道/南西/虻田" },
-            { label: t("shiraoi"), value: "北海道/南西/白老" },
+            { label: format("北海道/南西/沙流"), value: "北海道/南西/沙流" },
+            { label: format("北海道/南西/千歳"), value: "北海道/南西/千歳" },
+            { label: format("北海道/南西/鵡川"), value: "北海道/南西/鵡川" },
+            { label: format("北海道/南西/幌別"), value: "北海道/南西/幌別" },
+            { label: format("北海道/南西/虻田"), value: "北海道/南西/虻田" },
+            { label: format("北海道/南西/白老"), value: "北海道/南西/白老" },
           ],
         },
         {
-          label: t("northeast"),
+          label: format("北海道/北東"),
           value: "北海道/北東",
           children: [
-            { label: t("shizunai"), value: "北海道/北東/静内" },
-            { label: t("ishikari"), value: "北海道/北東/石狩" },
-            { label: t("shiranuka"), value: "北海道/北東/白糠" },
-            { label: t("tokachi"), value: "北海道/北東/十勝" },
-            { label: t("kushiro"), value: "北海道/北東/釧路" },
-            { label: t("urakawa"), value: "北海道/北東/浦河" },
-            { label: t("bihoro"), value: "北海道/北東/美幌" },
-            { label: t("samani"), value: "北海道/北東/様似" },
+            { label: format("北海道/北東/静内"), value: "北海道/北東/静内" },
+            { label: format("北海道/北東/石狩"), value: "北海道/北東/石狩" },
+            { label: format("北海道/北東/白糠"), value: "北海道/北東/白糠" },
+            { label: format("北海道/北東/十勝"), value: "北海道/北東/十勝" },
+            { label: format("北海道/北東/釧路"), value: "北海道/北東/釧路" },
+            { label: format("北海道/北東/浦河"), value: "北海道/北東/浦河" },
+            { label: format("北海道/北東/美幌"), value: "北海道/北東/美幌" },
+            { label: format("北海道/北東/様似"), value: "北海道/北東/様似" },
           ],
         },
       ],
