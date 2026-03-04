@@ -50,7 +50,6 @@ const ResultRoot: FC<ResultRootProps> = (props) => {
               document={hit.document}
               uri={hit.uri}
               author={hit.author}
-              dialect={hit.dialect}
               dialectLv1={hit.dialect_lv1}
               dialectLv2={hit.dialect_lv2}
               dialectLv3={hit.dialect_lv3}

@@ -58,30 +58,6 @@
   "/components/DialectSelector/DialectSelector": {
     "legend": "方言"
   },
-  "/components/DialectSelector/useDialects": {
-    "karahuto": "樺太",
-    "east_coast": "西海岸",
-    "otasu": "小田洲",
-    "ushiro": "鵜城",
-    "raichishi": "来知志",
-    "hokkaido": "北海道",
-    "southwest": "南西",
-    "northeast": "北東",
-    "saru": "沙流",
-    "chitose": "千歳",
-    "mukawa": "鵡川",
-    "horobetsu": "幌別",
-    "abuta": "虻田",
-    "shiraoi": "白老",
-    "shizunai": "静内",
-    "ishikari": "石狩",
-    "shiranuka": "白糠",
-    "tokachi": "十勝",
-    "kushiro": "釧路",
-    "urakawa": "浦河",
-    "bihoro": "美幌",
-    "samani": "様似"
-  },
   "/components/DialectSelector/DialectSelectorCheckbox": {
     "count": "<vh>（</vh>{count}<vh>件）</vh>"
   },
@@ -137,5 +113,29 @@
   },
   "/components/Search/Search": {
     "label": "キーワード"
+  },
+  "/hooks/useDialectFormatter": {
+    "karahuto": "樺太",
+    "east_coast": "西海岸",
+    "otasu": "小田洲",
+    "ushiro": "鵜城",
+    "raichishi": "来知志",
+    "hokkaido": "北海道",
+    "southwest": "南西",
+    "northeast": "北東",
+    "saru": "沙流",
+    "chitose": "千歳",
+    "mukawa": "鵡川",
+    "horobetsu": "幌別",
+    "abuta": "虻田",
+    "shiraoi": "白老",
+    "shizunai": "静内",
+    "ishikari": "石狩",
+    "shiranuka": "白糠",
+    "tokachi": "十勝",
+    "kushiro": "釧路",
+    "urakawa": "浦河",
+    "bihoro": "美幌",
+    "samani": "様似"
   }
 }

@@ -2,7 +2,6 @@
 
 import { CopyIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import {
-  Badge,
   Button,
   Code,
   DataList,
@@ -12,16 +11,16 @@ import {
   Link,
   Text,
   Tooltip,
-  VisuallyHidden,
 } from "@radix-ui/themes";
 import { FC, useCallback } from "react";
 import dayjs from "dayjs";
+import { useLocale, useTranslations } from "next-intl";
 
 import { formatDateOrRange } from "@/utils/timestamp";
 import { toHref } from "@/utils/uri";
-import { useLocale, useTranslations } from "next-intl";
+import { getMostDetailedDialects } from "@/utils/getMostDetailedDialects";
 
-import { Hierarchy } from "../Hierarchy/Hierarchy";
+import { Breadcrumb } from "../Breadcrumb";
 
 const NoData = () => {
   const t = useTranslations("/components/Entry/EntryDetailsDialog");
@@ -35,7 +34,6 @@ export type EntryDetailsDialogProps = {
   collectionLv2: string | null;
   collectionLv3: string | null;
   author: string | null;
-  dialect: string | null;
   dialectLv1: string[] | null;
   dialectLv2: string[] | null;
   dialectLv3: string[] | null;
@@ -52,8 +50,10 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
     collectionLv3,
     document,
     author,
-    dialect,
     uri,
+    dialectLv1,
+    dialectLv2,
+    dialectLv3,
     recordedAt,
     publishedAt,
   } = props;
@@ -61,6 +61,16 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
   const locale = useLocale();
   const t = useTranslations("/components/Entry/EntryDetailsDialog");
   const href = uri ? toHref(uri) : null;
+
+  const hasDialect = !!(dialectLv1 || dialectLv2 || dialectLv3);
+
+  const mostDetailedDialects = hasDialect
+    ? getMostDetailedDialects(
+        dialectLv1 ?? [],
+        dialectLv2 ?? [],
+        dialectLv3 ?? [],
+      )
+    : null;
 
   dayjs.locale(locale);
 
@@ -107,9 +117,14 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
             <DataList.Label>{t("collection")}</DataList.Label>
             <DataList.Value>
               {collectionLv3 || collectionLv2 || collectionLv1 ? (
-                <Hierarchy>
-                  {collectionLv3 ?? collectionLv2 ?? collectionLv1}
-                </Hierarchy>
+                <Breadcrumb
+                  values={
+                    collectionLv3?.split("/") ??
+                    collectionLv2?.split("/") ??
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+                    collectionLv1?.split("/")!
+                  }
+                />
               ) : (
                 <NoData />
               )}
@@ -129,7 +144,15 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
           <DataList.Item>
             <DataList.Label>{t("dialect")}</DataList.Label>
             <DataList.Value>
-              {dialect ? <Badge>{dialect}</Badge> : <NoData />}
+              <Flex direction="column" gap="1">
+                {mostDetailedDialects ? (
+                  mostDetailedDialects.map((dialect) => (
+                    <Breadcrumb key={dialect} values={dialect.split("/")} />
+                  ))
+                ) : (
+                  <NoData />
+                )}
+              </Flex>
             </DataList.Value>
           </DataList.Item>
 

@@ -1,23 +1,38 @@
+import { useDialectFormatter } from "@/hooks/useDialectFormatter";
+import { getMostDetailedDialects } from "@/utils/getMostDetailedDialects";
 import { Text, VisuallyHidden } from "@radix-ui/themes";
 import { useTranslations } from "next-intl";
 import { FC } from "react";
 
 type EntryAuthorProps = {
   author: string | null;
-  dialect: string | null;
+  dialectLv1: string[] | null;
+  dialectLv2: string[] | null;
+  dialectLv3: string[] | null;
 };
 
 export const EntryAuthor: FC<EntryAuthorProps> = (props) => {
-  const { author, dialect } = props;
+  const { author, dialectLv1, dialectLv2, dialectLv3 } = props;
 
   const t = useTranslations("/components/Entry/EntryAuthor");
+  const formatDialect = useDialectFormatter();
 
-  if (author && dialect) {
+  const dialects = getMostDetailedDialects(
+    dialectLv1 ?? [],
+    dialectLv2 ?? [],
+    dialectLv3 ?? [],
+  );
+  const formattedDialects =
+    dialects.length > 0
+      ? dialects.map((dialect) => formatDialect(dialect)).join(", ")
+      : null;
+
+  if (author && formattedDialects) {
     return (
       <Text color="gray" size="2">
         {t.rich("author_with_dialect", {
           author,
-          dialect,
+          dialect: formattedDialects,
           vh: (chunks) => <VisuallyHidden>{chunks}</VisuallyHidden>,
         })}
       </Text>
@@ -35,11 +50,11 @@ export const EntryAuthor: FC<EntryAuthorProps> = (props) => {
     );
   }
 
-  if (dialect) {
+  if (formattedDialects) {
     return (
       <Text color="gray" size="2">
         {t.rich("dialect", {
-          dialect,
+          dialect: formattedDialects,
           vh: (chunks) => <VisuallyHidden>{chunks}</VisuallyHidden>,
         })}
       </Text>
