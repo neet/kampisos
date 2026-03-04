@@ -21,8 +21,54 @@ import { toHref } from "@/utils/uri";
 import { getMostDetailedDialects } from "@/utils/getMostDetailedDialects";
 
 import { Breadcrumb } from "../Breadcrumb";
+import { useDialectFormatter } from "@/hooks/useDialectFormatter";
 
-const NoData = () => {
+type DialectListProps = {
+  dialectLv1: string[] | null;
+  dialectLv2: string[] | null;
+  dialectLv3: string[] | null;
+};
+const DialectList: FC<DialectListProps> = (props) => {
+  const { dialectLv1, dialectLv2, dialectLv3 } = props;
+
+  const formatDialect = useDialectFormatter();
+
+  const hasDialect = !!(dialectLv1 || dialectLv2 || dialectLv3);
+  if (!hasDialect) {
+    return <NoData />;
+  }
+
+  const mostDetailedDialects = getMostDetailedDialects(
+    dialectLv1 ?? [],
+    dialectLv2 ?? [],
+    dialectLv3 ?? [],
+  );
+
+  // TODO: refactor me
+  const valuesList = mostDetailedDialects.map(
+    (mostDetailedDialect): string[] => {
+      const count = mostDetailedDialect.split("/").length;
+
+      return Array.from({ length: count }, (_, k) => {
+        const kthDialectSegment = mostDetailedDialect
+          .split("/")
+          .slice(0, k + 1)
+          .join("/");
+        return formatDialect(kthDialectSegment);
+      });
+    },
+  );
+
+  return (
+    <Flex gap="1" direction="column">
+      {valuesList.map((values, i) => (
+        <Breadcrumb key={i} values={values} />
+      ))}
+    </Flex>
+  );
+};
+
+const NoData: FC = () => {
   const t = useTranslations("/components/Entry/EntryDetailsDialog");
   return <Text color="gray">{t("no_data")}</Text>;
 };
@@ -61,16 +107,6 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
   const locale = useLocale();
   const t = useTranslations("/components/Entry/EntryDetailsDialog");
   const href = uri ? toHref(uri) : null;
-
-  const hasDialect = !!(dialectLv1 || dialectLv2 || dialectLv3);
-
-  const mostDetailedDialects = hasDialect
-    ? getMostDetailedDialects(
-        dialectLv1 ?? [],
-        dialectLv2 ?? [],
-        dialectLv3 ?? [],
-      )
-    : null;
 
   dayjs.locale(locale);
 
@@ -144,15 +180,11 @@ export const EntryDetailsDialog: FC<EntryDetailsDialogProps> = (props) => {
           <DataList.Item>
             <DataList.Label>{t("dialect")}</DataList.Label>
             <DataList.Value>
-              <Flex direction="column" gap="1">
-                {mostDetailedDialects ? (
-                  mostDetailedDialects.map((dialect) => (
-                    <Breadcrumb key={dialect} values={dialect.split("/")} />
-                  ))
-                ) : (
-                  <NoData />
-                )}
-              </Flex>
+              <DialectList
+                dialectLv1={dialectLv1}
+                dialectLv2={dialectLv2}
+                dialectLv3={dialectLv3}
+              />
             </DataList.Value>
           </DataList.Item>
 
