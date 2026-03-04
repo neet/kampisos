@@ -2,8 +2,9 @@
 
 # Kampisos
 
-[![Crowdin](https://badges.crowdin.net/kampisos/localized.svg)](https://crowdin.com/project/kampisos)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/7d4506f2-c16e-480e-8f86-5783046448c0/deploy-status)](https://app.netlify.com/projects/aynumosir-kampisos/deploys)
 [![Playwright Tests](https://github.com/neet/kampisos/actions/workflows/playwright.yml/badge.svg)](https://github.com/neet/kampisos/actions/workflows/playwright.yml)
+[![Crowdin](https://badges.crowdin.net/kampisos/localized.svg)](https://crowdin.com/project/kampisos)
 
 Kampisos (カンピソㇱ) is a bilingual Ainu-Japanese corpus search application.
 It helps users explore Ainu language materials through full-text search and rich facet filters.
