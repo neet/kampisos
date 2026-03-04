@@ -58,30 +58,6 @@
   "/components/DialectSelector/DialectSelector": {
     "legend": "イポㇿセ"
   },
-  "/components/DialectSelector/useDialects": {
-    "karahuto": "ヤンケモシㇼ",
-    "east_coast": "コイポッケ",
-    "otasu": "オタスㇷ",
-    "ushiro": "ウシロ",
-    "raichishi": "ライチシカ",
-    "hokkaido": "ヤウンモシㇼ",
-    "southwest": "スㇺ",
-    "northeast": "メナㇱ",
-    "saru": "サㇻ",
-    "chitose": "シコッ",
-    "mukawa": "ムカ",
-    "horobetsu": "ポロペッ",
-    "abuta": "アプタ",
-    "shiraoi": "シラウォイ",
-    "shizunai": "シピチャリ",
-    "ishikari": "イㇱカㇻ",
-    "shiranuka": "シラリカ",
-    "tokachi": "トカㇷ゚チ",
-    "kushiro": "クスㇽ",
-    "urakawa": "ウラカ",
-    "bihoro": "ペポロ",
-    "samani": "サマニ"
-  },
   "/components/DialectSelector/DialectSelectorCheckbox": {
     "count": "<vh>（</vh>{count}<vh>　オカ）</vh>"
   },
@@ -137,5 +113,29 @@
   },
   "/components/Search/Search": {
     "label": "フナライタㇰ"
+  },
+  "/hooks/useDialectFormatter": {
+    "karahuto": "ヤンケモシㇼ",
+    "east_coast": "コイポッケ",
+    "otasu": "オタスㇷ",
+    "ushiro": "ウシロ",
+    "raichishi": "ライチシカ",
+    "hokkaido": "ヤウンモシㇼ",
+    "southwest": "スㇺ",
+    "northeast": "メナㇱ",
+    "saru": "サㇻ",
+    "chitose": "シコッ",
+    "mukawa": "ムカ",
+    "horobetsu": "ポロペッ",
+    "abuta": "アプタ",
+    "shiraoi": "シラウォイ",
+    "shizunai": "シピチャリ",
+    "ishikari": "イㇱカㇻ",
+    "shiranuka": "シラリカ",
+    "tokachi": "トカㇷ゚チ",
+    "kushiro": "クスㇽ",
+    "urakawa": "ウラカ",
+    "bihoro": "ピポロ",
+    "samani": "サマニ"
   }
 }
