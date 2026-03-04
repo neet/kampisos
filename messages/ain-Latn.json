@@ -58,30 +58,6 @@
   "/components/DialectSelector/DialectSelector": {
     "legend": "Iporse"
   },
-  "/components/DialectSelector/useDialects": {
-    "karahuto": "Yankemosir",
-    "east_coast": "Koypokke",
-    "otasu": "Otasuh",
-    "ushiro": "Usiro",
-    "raichishi": "Raycisika",
-    "hokkaido": "Yaunmosir",
-    "southwest": "Sum",
-    "northeast": "Menas",
-    "saru": "Sar",
-    "chitose": "Sikot",
-    "mukawa": "Muka",
-    "horobetsu": "Poropet",
-    "abuta": "Aputa",
-    "shiraoi": "Sirawoy",
-    "shizunai": "Sipicari",
-    "ishikari": "Iskar",
-    "shiranuka": "Sirarika",
-    "tokachi": "Tokapci",
-    "kushiro": "Kusur",
-    "urakawa": "Uraka",
-    "bihoro": "Peporo",
-    "samani": "Samani"
-  },
   "/components/DialectSelector/DialectSelectorCheckbox": {
     "count": "<vh>(</vh>{count}<vh> oka)</vh>"
   },
@@ -137,5 +113,29 @@
   },
   "/components/Search/Search": {
     "label": "Hunaraytak"
+  },
+  "/hooks/useDialectFormatter": {
+    "karahuto": "Yankemosir",
+    "east_coast": "Koypokke",
+    "otasu": "Otasuh",
+    "ushiro": "Usiro",
+    "raichishi": "Raycisika",
+    "hokkaido": "Yaunmosir",
+    "southwest": "Sum",
+    "northeast": "Menas",
+    "saru": "Sar",
+    "chitose": "Sikot",
+    "mukawa": "Muka",
+    "horobetsu": "Poropet",
+    "abuta": "Aputa",
+    "shiraoi": "Sirawoy",
+    "shizunai": "Sipicari",
+    "ishikari": "Iskar",
+    "shiranuka": "Sirarika",
+    "tokachi": "Tokapci",
+    "kushiro": "Kusur",
+    "urakawa": "Uraka",
+    "bihoro": "Piporo",
+    "samani": "Samani"
   }
 }
