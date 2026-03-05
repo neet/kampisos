@@ -2,7 +2,7 @@
 
 # Kampisos
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/7d4506f2-c16e-480e-8f86-5783046448c0/deploy-status)](https://app.netlify.com/projects/aynumosir-kampisos/deploys)
+![Vercel Deploy](https://deploy-badge.vercel.app/vercel/kampisos)
 [![Playwright Tests](https://github.com/neet/kampisos/actions/workflows/playwright.yml/badge.svg)](https://github.com/neet/kampisos/actions/workflows/playwright.yml)
 [![Crowdin](https://badges.crowdin.net/kampisos/localized.svg)](https://crowdin.com/project/kampisos)
 
