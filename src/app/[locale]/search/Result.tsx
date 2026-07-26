@@ -54,7 +54,8 @@ const ResultRoot: FC<ResultRootProps> = (props) => {
 								hit._source.text
 							}
 							translationHTML={
-								hit.highlight?.translation?.[0] ?? hit._source.translation
+								hit.highlight?.["translations.jpn"]?.[0] ??
+								hit._source.translations.jpn
 							}
 							collectionLv1={hit._source.collection_lv1}
 							collectionLv2={hit._source.collection_lv2}
