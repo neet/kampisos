@@ -136,7 +136,7 @@ export const buildSearchRequest = (
 
 					{
 						match: {
-							translation: {
+							"translations.jpn": {
 								query,
 								operator: "AND",
 								zero_terms_query: "all",
@@ -158,7 +158,7 @@ export const buildSearchRequest = (
 		highlight: {
 			number_of_fragments: 0,
 			fields: {
-				translation: {},
+				"translations.jpn": {},
 				text: {},
 				"text.ngram": {},
 			},
